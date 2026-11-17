@@ -508,9 +508,22 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-6 items-center mb-6">
-                <!-- Ilustrasi / Foto Dekorasi Pesta -->
-                <div class="rounded-2xl overflow-hidden border" style="border-color: var(--border-color);">
-                    <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80" onerror="this.src='https://placehold.co/600x400/1e293b/d4af37?text=Elegant+Party+Theme'" alt="Suasana Pesta Ulang Tahun" class="w-full h-52 object-cover">
+                <!-- Ilustrasi / Foto Dekorasi Pesta (Bisa Diunggah dari Galeri Masing-Masing) -->
+                <div class="space-y-2.5">
+                    <div class="rounded-2xl overflow-hidden border relative group" style="border-color: var(--border-color);">
+                        <img id="party-photo-img" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80" onerror="this.src='https://placehold.co/600x400/1e293b/d4af37?text=Elegant+Party+Theme'" alt="Suasana Pesta Ulang Tahun" class="w-full h-52 object-cover">
+                        <label for="party-photo-file-input" class="edit-only absolute inset-0 bg-black/55 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-semibold p-2">
+                            <i class="fa-solid fa-camera text-lg mb-1"></i>
+                            <span>Ganti Foto Tema dari Galeri</span>
+                        </label>
+                        <input type="file" id="party-photo-file-input" accept="image/*" class="hidden" onchange="handlePartyPhotoUpload(event)">
+                    </div>
+                    <div class="edit-only flex flex-col sm:flex-row gap-2">
+                        <label for="party-photo-file-input" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-accent-text cursor-pointer hover:opacity-90 text-center whitespace-nowrap">
+                            <i class="fa-solid fa-upload mr-1"></i> Ambil dari Galeri
+                        </label>
+                        <input type="url" id="input-party-photo-url" oninput="updatePartyPhotoFromUrl(this.value)" placeholder="Atau tempel URL foto tema pesta..." class="w-full theme-input rounded-xl px-3 py-1.5 text-xs">
+                    </div>
                 </div>
 
                 <!-- Detail Tema & Dress Code -->
@@ -540,23 +553,32 @@
                 </div>
             </div>
 
-            <!-- Rundown Singkat -->
+            <!-- Rundown Singkat (Bisa Diketik Manual Masing-Masing) -->
             <div class="theme-soft-bg rounded-2xl p-4 sm:p-5">
                 <h4 class="text-xs font-bold uppercase tracking-wider theme-accent-text mb-3">
                     <i class="fa-solid fa-list-check mr-1.5"></i> Susunan Acara Singkat
                 </h4>
                 <div class="grid sm:grid-cols-3 gap-3 text-xs">
+                    <!-- Sesi 1 -->
                     <div class="p-3 rounded-xl" style="background-color: var(--input-bg);">
-                        <span class="font-bold theme-accent-text block mb-0.5">16.00 - 17.00</span>
-                        <span class="theme-muted-text">Registrasi Tamu & Welcome Drink</span>
+                        <input type="text" id="input-rundown-1-time" value="16.00 - 17.00" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold theme-accent-text mb-1.5" placeholder="Jam Sesi 1">
+                        <input type="text" id="input-rundown-1-desc" value="Registrasi Tamu & Welcome Drink" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs" placeholder="Kegiatan Sesi 1">
+                        <span id="display-rundown-1-time" class="guest-only font-bold theme-accent-text block mb-0.5">16.00 - 17.00</span>
+                        <span id="display-rundown-1-desc" class="guest-only theme-muted-text">Registrasi Tamu & Welcome Drink</span>
                     </div>
+                    <!-- Sesi 2 -->
                     <div class="p-3 rounded-xl" style="background-color: var(--input-bg);">
-                        <span class="font-bold theme-accent-text block mb-0.5">17.00 - 18.30</span>
-                        <span class="theme-muted-text">Sambutan, Tiup Lilin & Potong Kue</span>
+                        <input type="text" id="input-rundown-2-time" value="17.00 - 18.30" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold theme-accent-text mb-1.5" placeholder="Jam Sesi 2">
+                        <input type="text" id="input-rundown-2-desc" value="Sambutan, Tiup Lilin & Potong Kue" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs" placeholder="Kegiatan Sesi 2">
+                        <span id="display-rundown-2-time" class="guest-only font-bold theme-accent-text block mb-0.5">17.00 - 18.30</span>
+                        <span id="display-rundown-2-desc" class="guest-only theme-muted-text">Sambutan, Tiup Lilin & Potong Kue</span>
                     </div>
+                    <!-- Sesi 3 -->
                     <div class="p-3 rounded-xl" style="background-color: var(--input-bg);">
-                        <span class="font-bold theme-accent-text block mb-0.5">18.30 - Selesai</span>
-                        <span class="theme-muted-text">Makan Malam, Ramah Tamah & Foto</span>
+                        <input type="text" id="input-rundown-3-time" value="18.30 - Selesai" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold theme-accent-text mb-1.5" placeholder="Jam Sesi 3">
+                        <input type="text" id="input-rundown-3-desc" value="Makan Malam, Ramah Tamah & Foto" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs" placeholder="Kegiatan Sesi 3">
+                        <span id="display-rundown-3-time" class="guest-only font-bold theme-accent-text block mb-0.5">18.30 - Selesai</span>
+                        <span id="display-rundown-3-desc" class="guest-only theme-muted-text">Makan Malam, Ramah Tamah & Foto</span>
                     </div>
                 </div>
             </div>
@@ -636,7 +658,7 @@
             </form>
         </section>
 
-        <!-- 8. UCAPAN & DOA (WISHES WALL) -->
+        <!-- 8. UCAPAN & DOA (WISHES WALL - KOSONG DI AWAL) -->
         <section class="theme-card rounded-3xl p-6 sm:p-8">
             <div class="text-center mb-6">
                 <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full theme-soft-bg theme-accent-text mb-2">
@@ -646,7 +668,7 @@
                 <p class="text-xs theme-muted-text mt-1">Tuliskan doa terbaik dan ucapan selamat ulang tahun</p>
             </div>
 
-            <form onsubmit="addWish(event)" class="max-w-lg mx-auto space-y-3 mb-7">
+            <form onsubmit="addWish(event)" class="max-w-lg mx-auto space-y-3 mb-6">
                 <input type="text" id="wish-sender" required placeholder="Nama Anda" class="w-full theme-input rounded-xl px-4 py-2.5 text-sm">
                 <textarea id="wish-message" rows="3" required placeholder="Tulis ucapan dan doa terbaik..." class="w-full theme-input rounded-xl px-4 py-2.5 text-sm resize-none"></textarea>
                 <button type="submit" class="w-full py-3 theme-btn-primary rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow">
@@ -655,9 +677,9 @@
                 </button>
             </form>
 
-            <!-- Daftar Ucapan -->
+            <!-- Daftar Ucapan (Polos / Kosong sebelum diisi) -->
             <div id="wishes-list" class="max-w-lg mx-auto space-y-3 max-h-80 overflow-y-auto pr-1">
-                <!-- Diisi otomatis oleh JavaScript -->
+                <!-- Diisi otomatis saat ada ucapan yang dikirim -->
             </div>
         </section>
 
@@ -692,46 +714,40 @@
             let isPlaying = false;
             let noteTimer = null;
             let noteIndex = 0;
-            let volume = 0.85; // Default 85% agar terdengar jelas & kuat
+            let volume = 0.85;
 
-            // Melodi & Bassline "Happy Birthday to You" (Frekuensi Hz, Durasi ketukan)
-            // Tempo: 112 BPM (1 ketukan = ~0.535 detik)
             const tempo = 112;
             const beat = 60 / tempo;
 
             const song = [
-                // "Hap-py Birth-day to you"
-                { f: 261.63, b: 130.81, d: 0.75 }, // C4
-                { f: 261.63, b: 130.81, d: 0.25 }, // C4
-                { f: 293.66, b: 130.81, d: 1.00 }, // D4
-                { f: 261.63, b: 130.81, d: 1.00 }, // C4
-                { f: 349.23, b: 174.61, d: 1.00 }, // F4
-                { f: 329.63, b: 130.81, d: 2.00 }, // E4
+                { f: 261.63, b: 130.81, d: 0.75 },
+                { f: 261.63, b: 130.81, d: 0.25 },
+                { f: 293.66, b: 130.81, d: 1.00 },
+                { f: 261.63, b: 130.81, d: 1.00 },
+                { f: 349.23, b: 174.61, d: 1.00 },
+                { f: 329.63, b: 130.81, d: 2.00 },
 
-                // "Hap-py Birth-day to you"
-                { f: 261.63, b: 130.81, d: 0.75 }, // C4
-                { f: 261.63, b: 130.81, d: 0.25 }, // C4
-                { f: 293.66, b: 130.81, d: 1.00 }, // D4
-                { f: 261.63, b: 130.81, d: 1.00 }, // C4
-                { f: 392.00, b: 196.00, d: 1.00 }, // G4
-                { f: 349.23, b: 174.61, d: 2.00 }, // F4
+                { f: 261.63, b: 130.81, d: 0.75 },
+                { f: 261.63, b: 130.81, d: 0.25 },
+                { f: 293.66, b: 130.81, d: 1.00 },
+                { f: 261.63, b: 130.81, d: 1.00 },
+                { f: 392.00, b: 196.00, d: 1.00 },
+                { f: 349.23, b: 174.61, d: 2.00 },
 
-                // "Hap-py Birth-day dear [Name]"
-                { f: 261.63, b: 130.81, d: 0.75 }, // C4
-                { f: 261.63, b: 130.81, d: 0.25 }, // C4
-                { f: 523.25, b: 130.81, d: 1.00 }, // C5
-                { f: 440.00, b: 174.61, d: 1.00 }, // A4
-                { f: 349.23, b: 174.61, d: 1.00 }, // F4
-                { f: 329.63, b: 130.81, d: 1.00 }, // E4
-                { f: 293.66, b: 146.83, d: 2.00 }, // D4
+                { f: 261.63, b: 130.81, d: 0.75 },
+                { f: 261.63, b: 130.81, d: 0.25 },
+                { f: 523.25, b: 130.81, d: 1.00 },
+                { f: 440.00, b: 174.61, d: 1.00 },
+                { f: 349.23, b: 174.61, d: 1.00 },
+                { f: 329.63, b: 130.81, d: 1.00 },
+                { f: 293.66, b: 146.83, d: 2.00 },
 
-                // "Hap-py Birth-day to you"
-                { f: 466.16, b: 233.08, d: 0.75 }, // Bb4
-                { f: 466.16, b: 233.08, d: 0.25 }, // Bb4
-                { f: 440.00, b: 174.61, d: 1.00 }, // A4
-                { f: 349.23, b: 174.61, d: 1.00 }, // F4
-                { f: 392.00, b: 196.00, d: 1.00 }, // G4
-                { f: 349.23, b: 174.61, d: 2.50 }  // F4
+                { f: 466.16, b: 233.08, d: 0.75 },
+                { f: 466.16, b: 233.08, d: 0.25 },
+                { f: 440.00, b: 174.61, d: 1.00 },
+                { f: 349.23, b: 174.61, d: 1.00 },
+                { f: 392.00, b: 196.00, d: 1.00 },
+                { f: 349.23, b: 174.61, d: 2.50 }
             ];
 
             function initContext() {
@@ -739,7 +755,6 @@
                     const AudioCtx = window.AudioContext || window.webkitAudioContext;
                     ctx = new AudioCtx();
 
-                    // Compressor agar suara padat, keras, dan tidak pecah di speaker laptop/HP
                     compressor = ctx.createDynamicsCompressor();
                     compressor.threshold.setValueAtTime(-18, ctx.currentTime);
                     compressor.knee.setValueAtTime(12, ctx.currentTime);
@@ -762,7 +777,6 @@
                 if (!ctx || !isPlaying) return;
                 const now = ctx.currentTime;
 
-                // 1. Melodi Utama (Kombinasi Triangle + Sine agar hangat dan lantang)
                 const osc1 = ctx.createOscillator();
                 const osc2 = ctx.createOscillator();
                 const noteGain = ctx.createGain();
@@ -770,7 +784,7 @@
                 osc1.type = 'triangle';
                 osc2.type = 'sine';
                 osc1.frequency.setValueAtTime(freq, now);
-                osc2.frequency.setValueAtTime(freq * 2, now); // Harmonik oktaf atas untuk kejernihan
+                osc2.frequency.setValueAtTime(freq * 2, now);
 
                 const harmonicGain = ctx.createGain();
                 harmonicGain.gain.setValueAtTime(0.22, now);
@@ -789,7 +803,6 @@
                 osc1.stop(now + durationSec);
                 osc2.stop(now + durationSec);
 
-                // 2. Bass / Akor Pengiring (Menambah kekayaan suara di speaker laptop)
                 const bassOsc = ctx.createOscillator();
                 const bassGain = ctx.createGain();
                 bassOsc.type = 'sine';
@@ -816,7 +829,6 @@
 
                 noteIndex = (noteIndex + 1) % song.length;
 
-                // Pastikan hanya ada 1 timer aktif
                 clearTimeout(noteTimer);
                 noteTimer = setTimeout(scheduleNextNote, durationSec * 1000);
             }
@@ -831,7 +843,7 @@
             return {
                 start() {
                     initContext();
-                    if (isPlaying) return; // Mencegah double play!
+                    if (isPlaying) return;
                     isPlaying = true;
                     updateUI();
                     clearTimeout(noteTimer);
@@ -863,7 +875,7 @@
         /* -----------------------------------------------------------
            2. STATE UNDANGAN, LOCALSTORAGE & URL SHARE PERSISTENCE
         ----------------------------------------------------------- */
-        const STORAGE_KEY = 'birthday_invitation_v2';
+        const STORAGE_KEY = 'birthday_invitation_v3';
 
         const DEFAULT_GALLERY = [
             'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=80',
@@ -871,10 +883,7 @@
             'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?auto=format&fit=crop&w=600&q=80'
         ];
 
-        const DEFAULT_WISHES = [
-            { name: 'Dimas & Keluarga', msg: 'Selamat ulang tahun! Semoga panjang umur, sehat selalu, dan semua impian di tahun ini tercapai.', time: 'Baru saja' },
-            { name: 'Nadia Putri', msg: 'Happy Birthday! Sukses terus kariernya dan bahagia selalu ya!', time: '1 jam lalu' }
-        ];
+        const DEFAULT_PARTY_PHOTO = 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80';
 
         let state = {
             theme: 'navy',
@@ -884,18 +893,24 @@
             datetime: '2027-07-25T16:00',
             timeLabel: '16.00 WIB - Selesai',
             location: 'The Glass House Resto & Lounge, Jl. Senopati No. 45, Jakarta Selatan',
+            partyPhoto: DEFAULT_PARTY_PHOTO,
             partyTheme: 'Elegant Evening & Garden Celebration',
             themeDesc: 'Suasana makan malam hangat dengan alunan musik akustik, sesi foto bersama, dan potong kue ulang tahun di bawah cahaya lampu taman.',
             dresscode: 'Smart Casual (Nuansa Hitam, Putih, Krem, atau Earth Tone)',
+            rundown1Time: '16.00 - 17.00',
+            rundown1Desc: 'Registrasi Tamu & Welcome Drink',
+            rundown2Time: '17.00 - 18.30',
+            rundown2Desc: 'Sambutan, Tiup Lilin & Potong Kue',
+            rundown3Time: '18.30 - Selesai',
+            rundown3Desc: 'Makan Malam, Ramah Tamah & Foto',
             waTarget: '081234567890',
             photo: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80',
             gallery: [...DEFAULT_GALLERY],
-            wishes: [...DEFAULT_WISHES]
+            wishes: [] // Polos / kosong di awal agar siap diisi siapa saja
         };
 
         let isGuestMode = false;
 
-        // Decode data dari URL jika dibuka dari link yang dibagikan
         function loadState() {
             const params = new URLSearchParams(window.location.search);
             const sharedData = params.get('invite');
@@ -905,7 +920,6 @@
                     const decodedJson = decodeURIComponent(escape(atob(sharedData)));
                     const parsed = JSON.parse(decodedJson);
                     state = { ...state, ...parsed };
-                    // Jika dibuka via link bagikan, otomatis masuk ke Mode Tamu agar rapi
                     isGuestMode = true;
                 } catch (e) {
                     console.warn('Gagal membaca parameter undangan dari URL:', e);
@@ -926,21 +940,21 @@
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
             } catch (e) {
-                // Jika foto base64 terlalu besar untuk localStorage, simpan tanpa foto base64
                 const lightState = { ...state };
                 if (lightState.photo && lightState.photo.startsWith('data:')) {
                     lightState.photo = DEFAULT_GALLERY[0];
+                }
+                if (lightState.partyPhoto && lightState.partyPhoto.startsWith('data:')) {
+                    lightState.partyPhoto = DEFAULT_PARTY_PHOTO;
                 }
                 lightState.gallery = lightState.gallery.filter(img => !img.startsWith('data:'));
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(lightState));
             }
         }
 
-        // Terapkan seluruh state ke elemen input dan tampilan
         function applyStateToUI() {
             document.documentElement.setAttribute('data-theme', state.theme);
 
-            // Isi form input
             document.getElementById('input-name').value = state.name;
             document.getElementById('input-age').value = state.age;
             document.getElementById('input-greeting').value = state.greeting;
@@ -950,10 +964,19 @@
             document.getElementById('input-party-theme').value = state.partyTheme;
             document.getElementById('input-theme-desc').value = state.themeDesc;
             document.getElementById('input-dresscode').value = state.dresscode;
+            document.getElementById('input-rundown-1-time').value = state.rundown1Time;
+            document.getElementById('input-rundown-1-desc').value = state.rundown1Desc;
+            document.getElementById('input-rundown-2-time').value = state.rundown2Time;
+            document.getElementById('input-rundown-2-desc').value = state.rundown2Desc;
+            document.getElementById('input-rundown-3-time').value = state.rundown3Time;
+            document.getElementById('input-rundown-3-desc').value = state.rundown3Desc;
             document.getElementById('input-wa-target').value = state.waTarget;
 
             if (state.photo && !state.photo.startsWith('data:')) {
                 document.getElementById('input-photo-url').value = state.photo;
+            }
+            if (state.partyPhoto && !state.partyPhoto.startsWith('data:')) {
+                document.getElementById('input-party-photo-url').value = state.partyPhoto;
             }
 
             updateDerivedDisplays();
@@ -962,7 +985,6 @@
             updateViewModeUI();
         }
 
-        // Sinkronisasi saat pengguna mengetik di form
         function syncState() {
             state.name = document.getElementById('input-name').value || 'Nama Anda';
             state.age = document.getElementById('input-age').value || '21';
@@ -973,6 +995,12 @@
             state.partyTheme = document.getElementById('input-party-theme').value;
             state.themeDesc = document.getElementById('input-theme-desc').value;
             state.dresscode = document.getElementById('input-dresscode').value;
+            state.rundown1Time = document.getElementById('input-rundown-1-time').value;
+            state.rundown1Desc = document.getElementById('input-rundown-1-desc').value;
+            state.rundown2Time = document.getElementById('input-rundown-2-time').value;
+            state.rundown2Desc = document.getElementById('input-rundown-2-desc').value;
+            state.rundown3Time = document.getElementById('input-rundown-3-time').value;
+            state.rundown3Desc = document.getElementById('input-rundown-3-desc').value;
             state.waTarget = document.getElementById('input-wa-target').value;
 
             updateDerivedDisplays();
@@ -980,7 +1008,6 @@
         }
 
         function updateDerivedDisplays() {
-            // Cover & Profil
             document.getElementById('cover-display-name').textContent = state.name;
             document.getElementById('cover-display-age').textContent = state.age;
             document.getElementById('display-name').textContent = state.name;
@@ -990,8 +1017,8 @@
 
             document.getElementById('cover-photo-img').src = state.photo;
             document.getElementById('profile-photo-img').src = state.photo;
+            document.getElementById('party-photo-img').src = state.partyPhoto || DEFAULT_PARTY_PHOTO;
 
-            // Format Tanggal Bahasa Indonesia
             const dt = new Date(state.datetime);
             if (!isNaN(dt.getTime())) {
                 const hariList = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -1009,18 +1036,22 @@
                 document.getElementById('footer-year').textContent = tahun;
             }
 
-            // Lokasi & Link Google Maps Otomatis
             document.getElementById('display-time-label').textContent = state.timeLabel;
             document.getElementById('display-location').textContent = state.location;
             const encodedLocation = encodeURIComponent(state.location.trim() || 'Jakarta');
             document.getElementById('google-maps-link').href = `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`;
 
-            // Tema Pesta & Dress Code
             document.getElementById('display-party-theme').textContent = state.partyTheme;
             document.getElementById('display-theme-desc').textContent = state.themeDesc;
             document.getElementById('display-dresscode').textContent = state.dresscode;
 
-            // Segarkan countdown segera
+            document.getElementById('display-rundown-1-time').textContent = state.rundown1Time;
+            document.getElementById('display-rundown-1-desc').textContent = state.rundown1Desc;
+            document.getElementById('display-rundown-2-time').textContent = state.rundown2Time;
+            document.getElementById('display-rundown-2-desc').textContent = state.rundown2Desc;
+            document.getElementById('display-rundown-3-time').textContent = state.rundown3Time;
+            document.getElementById('display-rundown-3-desc').textContent = state.rundown3Desc;
+
             updateCountdown();
         }
 
@@ -1055,7 +1086,6 @@
         }
 
         function shareInvitation() {
-            // Kemas data undangan ke dalam parameter URL agar saat dibagikan tidak kembali ke default
             const sharePayload = {
                 theme: state.theme,
                 name: state.name,
@@ -1064,11 +1094,17 @@
                 datetime: state.datetime,
                 timeLabel: state.timeLabel,
                 location: state.location,
+                partyPhoto: state.partyPhoto.startsWith('http') ? state.partyPhoto : DEFAULT_PARTY_PHOTO,
                 partyTheme: state.partyTheme,
                 themeDesc: state.themeDesc,
                 dresscode: state.dresscode,
+                rundown1Time: state.rundown1Time,
+                rundown1Desc: state.rundown1Desc,
+                rundown2Time: state.rundown2Time,
+                rundown2Desc: state.rundown2Desc,
+                rundown3Time: state.rundown3Time,
+                rundown3Desc: state.rundown3Desc,
                 waTarget: state.waTarget,
-                // Sertakan foto jika berupa URL publik (bukan file lokal base64 yang terlalu panjang untuk URL)
                 photo: state.photo.startsWith('http') ? state.photo : DEFAULT_GALLERY[0]
             };
 
@@ -1076,7 +1112,6 @@
             const baseUrl = window.location.origin + window.location.pathname;
             const shareUrl = `${baseUrl}?invite=${encoded}`;
 
-            // Salin menggunakan fallback textarea + execCommand agar kompatibel di iframe/mobile
             const tempInput = document.createElement('textarea');
             tempInput.value = shareUrl;
             document.body.appendChild(tempInput);
@@ -1084,8 +1119,8 @@
             document.execCommand('copy');
             document.body.removeChild(tempInput);
 
-            if (state.photo.startsWith('data:')) {
-                showToast('Link undangan disalin! Catatan: Untuk foto galeri HP, tempel URL foto publik agar ikut tampil di perangkat lain.');
+            if (state.photo.startsWith('data:') || state.partyPhoto.startsWith('data:')) {
+                showToast('Link undangan disalin! Catatan: Untuk foto dari galeri HP, tempel URL foto publik agar ikut tampil di perangkat lain.');
             } else {
                 showToast('Link undangan beserta semua perubahan berhasil disalin!');
             }
@@ -1137,7 +1172,7 @@
         }
 
         /* -----------------------------------------------------------
-           5. FOTO PROFIL, GALERI & LIGHTBOX
+           5. FOTO PROFIL, FOTO TEMA PESTA, GALERI & LIGHTBOX
         ----------------------------------------------------------- */
         function handlePhotoUpload(event) {
             const file = event.target.files[0];
@@ -1155,6 +1190,27 @@
         function updatePhotoFromUrl(url) {
             if (url && url.trim().startsWith('http')) {
                 state.photo = url.trim();
+                updateDerivedDisplays();
+                saveState();
+            }
+        }
+
+        function handlePartyPhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                state.partyPhoto = e.target.result;
+                updateDerivedDisplays();
+                saveState();
+                showToast('Foto tema pesta berhasil diambil dari galeri!');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updatePartyPhotoFromUrl(url) {
+            if (url && url.trim().startsWith('http')) {
+                state.partyPhoto = url.trim();
                 updateDerivedDisplays();
                 saveState();
             }
@@ -1241,7 +1297,6 @@
                 });
             }, 600);
 
-            // Mulai musik & ledakan confetti perayaan
             AudioEngine.start();
             triggerConfetti();
         }
@@ -1406,4 +1461,3 @@
     </script>
 </body>
 </html>
-```[cite: 1]
