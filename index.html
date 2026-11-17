@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Ulang Tahun Mewah 3D Interaktif</title>
+    <title>Undangan Ulang Tahun 3D Holographic & Luxury VIP</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
@@ -28,178 +28,173 @@
 
     <style>
         :root {
-            --bg-primary: #05070c;
-            --bg-secondary: #0d1322;
-            --bg-card: rgba(13, 19, 34, 0.85);
+            --bg-deep: #03050a;
+            --bg-card: rgba(10, 15, 30, 0.78);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent: #d4af37;
-            --accent-hover: #f3e5ab;
-            --accent-soft: rgba(212, 175, 55, 0.15);
-            --border-color: rgba(212, 175, 55, 0.4);
-            --input-bg: rgba(5, 7, 12, 0.9);
-            --particle-color: rgba(212, 175, 55, 0.6);
+            --accent: #f59e0b;
+            --accent-glow: #fbbf24;
+            --accent-soft: rgba(245, 158, 11, 0.15);
+            --border-3d: rgba(245, 158, 11, 0.45);
+            --input-bg: rgba(3, 5, 10, 0.85);
         }
 
         [data-theme="emerald"] {
-            --bg-primary: #02120b;
-            --bg-secondary: #072216;
-            --bg-card: rgba(7, 34, 22, 0.85);
-            --text-main: #ecfdf5;
-            --text-muted: #6ee7b7;
             --accent: #10b981;
-            --accent-hover: #34d399;
+            --accent-glow: #34d399;
             --accent-soft: rgba(16, 185, 129, 0.15);
-            --border-color: rgba(16, 185, 129, 0.4);
-            --input-bg: rgba(2, 18, 11, 0.9);
-            --particle-color: rgba(16, 185, 129, 0.6);
+            --border-3d: rgba(16, 185, 129, 0.45);
         }
 
         [data-theme="ruby"] {
-            --bg-primary: #140509;
-            --bg-secondary: #260a12;
-            --bg-card: rgba(38, 10, 18, 0.85);
-            --text-main: #fff1f2;
-            --text-muted: #fda4af;
             --accent: #f43f5e;
-            --accent-hover: #fb7185;
+            --accent-glow: #fb7185;
             --accent-soft: rgba(244, 63, 94, 0.15);
-            --border-color: rgba(244, 63, 94, 0.4);
-            --input-bg: rgba(20, 5, 9, 0.9);
-            --particle-color: rgba(244, 63, 94, 0.6);
+            --border-3d: rgba(244, 63, 94, 0.45);
+        }
+
+        [data-theme="cyber"] {
+            --accent: #06b6d4;
+            --accent-glow: #22d3ee;
+            --accent-soft: rgba(6, 182, 212, 0.15);
+            --border-3d: rgba(6, 182, 212, 0.45);
         }
 
         body {
-            background-color: var(--bg-primary);
+            background-color: var(--bg-deep);
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            perspective: 1600px;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            perspective: 1800px;
+            transition: background-color 0.5s ease;
         }
 
-        .bg-texture {
-            background-image: radial-gradient(var(--border-color) 1.5px, transparent 1.5px);
-            background-size: 44px 44px;
+        /* 3D Holographic Background Grid */
+        .bg-grid-3d {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
-        /* 3D Glassmorphism & Depth Layers */
-        .card-3d-luxury {
+        /* Advanced True 3D Tilt Card */
+        .card-3d-true {
             background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7),
-                        inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-3d);
+            box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.8),
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+                        0 0 30px var(--accent-soft);
             transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.2, 1), box-shadow 0.5s ease;
+            transition: transform 0.4s cubic-bezier(0.15, 0.85, 0.25, 1), box-shadow 0.4s ease;
         }
-        .card-3d-luxury:hover {
-            transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
-            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.85);
+        .card-3d-true:hover {
+            transform: translateY(-8px) rotateX(3deg) rotateY(-3deg) translateZ(20px);
+            box-shadow: 0 45px 90px -20px rgba(0, 0, 0, 0.95),
+                        0 0 40px var(--accent-soft);
         }
 
-        /* Buku / Surat 3D Flip Effect */
-        .envelope-container {
+        /* 3D Envelope Open Animation */
+        #envelope-wrapper {
             transform-style: preserve-3d;
-            transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+            transition: transform 1.3s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
         }
-        .envelope-container.opened {
-            transform: scale(1.4) rotateX(45deg) translateZ(200px);
+        #envelope-wrapper.opened {
+            transform: scale(1.5) rotateX(55deg) translateZ(300px);
             opacity: 0;
             pointer-events: none;
         }
 
-        @keyframes sealGlow {
-            0%, 100% { transform: scale(1) translateZ(20px); box-shadow: 0 0 25px var(--accent); }
-            50% { transform: scale(1.1) translateZ(30px); box-shadow: 0 0 45px var(--accent); }
+        @keyframes sealPulse {
+            0%, 100% { transform: scale(1) translateZ(30px); box-shadow: 0 0 30px var(--accent); }
+            50% { transform: scale(1.12) translateZ(50px); box-shadow: 0 0 60px var(--accent-glow); }
         }
-        .luxury-seal {
-            animation: sealGlow 2.5s infinite ease-in-out;
+        .seal-3d {
+            animation: sealPulse 2.2s infinite ease-in-out;
             transform-style: preserve-3d;
         }
 
-        @keyframes floatingObj {
-            0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(10px); }
-            50% { transform: translateY(-15px) rotate(3deg) translateZ(25px); }
+        @keyframes floating3DElement {
+            0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(20px); }
+            50% { transform: translateY(-18px) rotate(4deg) translateZ(40px); }
         }
-        .float-3d { animation: floatingObj 4.5s ease-in-out infinite; }
+        .float-true-3d { animation: floating3DElement 4s ease-in-out infinite; }
 
-        @keyframes flameDance {
-            0%, 100% { transform: scale(1) rotate(-3deg); opacity: 0.95; }
-            50% { transform: scale(1.15, 0.88) rotate(3deg); opacity: 1; filter: drop-shadow(0 0 15px var(--accent)); }
+        @keyframes flameWiggle {
+            0%, 100% { transform: scale(1) rotate(-4deg); filter: drop-shadow(0 0 12px var(--accent)); }
+            50% { transform: scale(1.18, 0.85) rotate(4deg); filter: drop-shadow(0 0 22px var(--accent-glow)); }
         }
-        .candle-flame-3d {
+        .flame-3d {
             transform-origin: bottom center;
-            animation: flameFlame 0.7s infinite alternate ease-in-out;
+            animation: flameWiggle 0.65s infinite alternate ease-in-out;
         }
-        .candle-flame-3d.extinguished { opacity: 0; transform: scale(0); transition: all 0.4s ease; }
+        .flame-3d.extinguished { opacity: 0; transform: scale(0); transition: all 0.4s ease; }
 
-        .theme-btn-luxury {
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-            color: #05070c;
-            font-weight: 700;
-            box-shadow: 0 10px 30px -5px var(--accent-soft);
-            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform: translateZ(15px);
+        .btn-luxury-3d {
+            background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+            color: #03050a;
+            font-weight: 800;
+            box-shadow: 0 12px 35px -5px var(--accent-soft), inset 0 2px 0 0 rgba(255,255,255,0.4);
+            transform: translateZ(20px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .theme-btn-luxury:hover {
-            transform: translateY(-4px) scale(1.03) translateZ(25px);
-            box-shadow: 0 20px 40px -5px var(--accent-soft);
+        .btn-luxury-3d:hover {
+            transform: translateY(-5px) scale(1.04) translateZ(35px);
+            box-shadow: 0 20px 45px -5px var(--accent-soft);
         }
 
-        .theme-input {
+        .input-luxury-3d {
             background-color: var(--input-bg);
             color: var(--text-main);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-3d);
             transition: all 0.3s ease;
         }
-        .theme-input:focus {
+        .input-luxury-3d:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 4px var(--accent-soft);
+            box-shadow: 0 0 0 4px var(--accent-soft), 0 0 20px var(--accent-soft);
         }
 
         body.guest-mode .edit-only { display: none !important; }
         body:not(.guest-mode) .guest-only { display: none !important; }
 
-        /* Balon Terbang 3D Interaktif */
-        .balloon-3d {
+        /* 3D Floating Interactive Balloons */
+        .balloon-floating-3d {
             position: fixed;
-            bottom: -140px;
+            bottom: -150px;
             z-index: 55;
             cursor: pointer;
-            animation: floatUpBalloon 11s linear infinite;
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5));
+            animation: flyBalloon3D 10s linear infinite;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.6));
             transition: transform 0.2s ease;
         }
-        .balloon-3d:hover { transform: scale(1.3) rotate(10deg); }
-        @keyframes floatUpBalloon {
+        .balloon-floating-3d:hover { transform: scale(1.35) rotate(12deg) translateZ(50px); }
+        @keyframes flyBalloon3D {
             0% { transform: translateY(0) rotate(0deg) scale(0.9); opacity: 0.95; }
-            100% { transform: translateY(-120vh) rotate(25deg) scale(1.1); opacity: 0; }
+            100% { transform: translateY(-120vh) rotate(30deg) scale(1.15); opacity: 0; }
         }
 
         input[type=range].volume-slider { -webkit-appearance: none; background: transparent; }
-        input[type=range].volume-slider::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: var(--border-color); }
+        input[type=range].volume-slider::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: var(--border-3d); }
         input[type=range].volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--accent); margin-top: -5px; cursor: pointer; box-shadow: 0 0 12px var(--accent);
+            -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: var(--accent); margin-top: -6px; cursor: pointer; box-shadow: 0 0 15px var(--accent-glow);
         }
     </style>
 </head>
-<body class="bg-texture min-h-screen relative selection:bg-amber-500/30">
+<body class="bg-grid-3d min-h-screen relative selection:bg-amber-500/30">
 
     <canvas id="bg-particles" class="fixed inset-0 pointer-events-none z-0"></canvas>
-    <div id="toast-container" class="fixed top-20 left-1/2 -translate-x-1/2 z-[90] flex flex-col gap-2 pointer-events-none w-[90%] max-w-sm"></div>
+    <div id="toast-container" class="fixed top-20 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none w-[90%] max-w-sm"></div>
 
     <!-- Music Player Widget -->
-    <div id="music-widget" class="fixed bottom-4 right-4 z-50 card-3d-luxury rounded-2xl px-3.5 py-2.5 flex items-center gap-3 shadow-2xl">
-        <button id="music-toggle-btn" onclick="AudioEngine.toggle()" aria-label="Putar Musik" class="w-10 h-10 rounded-xl theme-btn-luxury flex items-center justify-center shadow-md flex-shrink-0 cursor-pointer">
+    <div id="music-widget" class="fixed bottom-4 right-4 z-50 card-3d-true rounded-2xl px-4 py-3 flex items-center gap-3.5 shadow-2xl">
+        <button id="music-toggle-btn" onclick="AudioEngine.toggle()" aria-label="Putar Musik" class="w-11 h-11 rounded-xl btn-luxury-3d flex items-center justify-center shadow-md flex-shrink-0 cursor-pointer">
             <i id="music-icon" class="fa-solid fa-play text-sm"></i>
         </button>
-        <div class="flex flex-col min-w-[115px]">
-            <div class="flex items-center justify-between text-[11px] font-semibold mb-1">
-                <span class="text-amber-400 flex items-center gap-1">
-                    <i class="fa-solid fa-music text-[10px]"></i> Luxury Anthem
+        <div class="flex flex-col min-w-[120px]">
+            <div class="flex items-center justify-between text-[11px] font-bold mb-1">
+                <span style="color: var(--accent);" class="flex items-center gap-1">
+                    <i class="fa-solid fa-music text-[10px]"></i> 3D Holographic Beat
                 </span>
                 <span id="volume-label" class="text-gray-300">90%</span>
             </div>
@@ -208,56 +203,57 @@
     </div>
 
     <!-- =========================================================
-         1. HALAMAN PEMBUKA 3D: SURAT KARTU UNDANGAN & WAX SEAL
+         1. HALAMAN PEMBUKA 3D: SURAT KARTU UNDANGAN HOLOGRAFIK & WAX SEAL
     ========================================================== -->
-    <section id="cover-section" class="fixed inset-0 z-[80] flex items-center justify-center p-4 overflow-hidden" style="background: radial-gradient(circle at center, var(--bg-secondary), var(--bg-primary));">
-        <div id="envelope-wrapper" class="envelope-container relative max-w-lg w-full card-3d-luxury p-8 sm:p-10 rounded-3xl text-center shadow-2xl">
+    <section id="cover-section" class="fixed inset-0 z-[90] flex items-center justify-center p-4 overflow-hidden" style="background: radial-gradient(circle at center, #0a1128, #03050a);">
+        <div id="envelope-wrapper" class="relative max-w-lg w-full card-3d-true p-8 sm:p-11 rounded-3xl text-center shadow-2xl">
             <!-- 3D Wax Seal Stamp -->
-            <div class="absolute -top-8 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full theme-btn-luxury flex items-center justify-center shadow-2xl luxury-seal cursor-pointer" onclick="openInvitation()" title="Buka Undangan">
-                <i class="fa-solid fa-crown text-3xl"></i>
+            <div class="absolute -top-9 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full btn-luxury-3d flex items-center justify-center shadow-2xl seal-3d cursor-pointer" onclick="openInvitation()" title="Buka Undangan 3D">
+                <i class="fa-solid fa-gem text-3xl"></i>
             </div>
 
-            <span class="inline-block text-[11px] font-bold uppercase tracking-[0.3em] px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 mt-5 mb-4">
-                VIP 3D Invitation Experience
+            <span class="inline-block text-[11px] font-extrabold uppercase tracking-[0.3em] px-4 py-1.5 rounded-full border text-amber-400 mt-6 mb-4" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                Holographic 3D VIP Experience
             </span>
-            <h1 class="font-serif text-4xl sm:text-6xl font-bold text-amber-300 mb-2 drop-shadow-md">You're Invited</h1>
-            <p class="text-gray-300 text-xs sm:text-sm mb-6">Sebuah Perayaan Istimewa Penuh Kemegahan</p>
+            <h1 class="font-serif text-4xl sm:text-6xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500">You're Invited</h1>
+            <p class="text-gray-300 text-xs sm:text-sm mb-6">Sebuah Perayaan Ulang Tahun Paling Megah & Spektakuler</p>
 
-            <div class="relative w-36 h-36 sm:w-40 sm:h-40 mx-auto mb-6 rounded-full p-2 shadow-2xl float-3d" style="background: linear-gradient(135deg, var(--accent), transparent, var(--accent));">
+            <div class="relative w-40 h-40 sm:w-44 sm:h-44 mx-auto mb-6 rounded-full p-2.5 shadow-2xl float-true-3d" style="background: linear-gradient(135deg, var(--accent), transparent, var(--accent));">
                 <div class="w-full h-full rounded-full overflow-hidden bg-slate-950 flex items-center justify-center">
-                    <img id="cover-photo-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80" onerror="this.src='https://placehold.co/400x400/0d1322/d4af37?text=Birthday'" alt="Cover" class="w-full h-full object-cover">
+                    <img id="cover-photo-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80" onerror="this.src='https://placehold.co/400x400/03050a/f59e0b?text=Birthday'" alt="Cover" class="w-full h-full object-cover">
                 </div>
             </div>
 
             <h2 id="cover-display-name" class="font-serif text-3xl sm:text-4xl font-bold text-white mb-1">Rafka Pratama</h2>
-            <p class="text-xs text-amber-400 font-semibold tracking-widest uppercase mb-7">Ulang Tahun ke-<span id="cover-display-age">21</span></p>
+            <p class="text-xs font-bold tracking-widest uppercase mb-7" style="color: var(--accent);">Ulang Tahun ke-<span id="cover-display-age">21</span></p>
 
-            <button onclick="openInvitation()" class="w-full py-4 px-6 theme-btn-luxury rounded-2xl shadow-2xl flex items-center justify-center gap-3 text-base cursor-pointer">
-                <i class="fa-solid fa-envelope-open-text text-xl animate-bounce"></i>
-                <span>Buka Undangan 3D</span>
+            <button onclick="openInvitation()" class="w-full py-4 px-6 btn-luxury-3d rounded-2xl shadow-2xl flex items-center justify-center gap-3 text-base cursor-pointer">
+                <i class="fa-solid fa-cube text-xl animate-bounce"></i>
+                <span>Buka Undangan 3D Hologram</span>
             </button>
         </div>
     </section>
 
     <!-- TOP NAVBAR KONTROL -->
-    <header id="top-navbar" class="sticky top-0 z-50 hidden border-b backdrop-blur-xl" style="background-color: var(--bg-card); border-color: var(--border-color);">
+    <header id="top-navbar" class="sticky top-0 z-50 hidden border-b backdrop-blur-2xl" style="background-color: var(--bg-card); border-color: var(--border-3d);">
         <div class="max-w-4xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2">
-                <span class="text-[11px] font-semibold text-gray-400 mr-1">Tema Mewah 3D:</span>
-                <button onclick="setTheme('navy')" title="Midnight Gold" class="w-7 h-7 rounded-full border-2 border-amber-400 bg-[#05070c] cursor-pointer hover:scale-110 transition-transform shadow"></button>
-                <button onclick="setTheme('emerald')" title="Emerald Prestige" class="w-7 h-7 rounded-full border-2 border-emerald-500 bg-[#02120b] cursor-pointer hover:scale-110 transition-transform shadow"></button>
-                <button onclick="setTheme('ruby')" title="Ruby Majesty" class="w-7 h-7 rounded-full border-2 border-rose-500 bg-[#140509] cursor-pointer hover:scale-110 transition-transform shadow"></button>
+                <span class="text-[11px] font-semibold text-gray-400 mr-1">Tema 3D:</span>
+                <button onclick="setTheme('gold')" title="Golden VIP" class="w-7 h-7 rounded-full border-2 border-amber-400 bg-[#03050a] cursor-pointer hover:scale-110 transition-transform shadow"></button>
+                <button onclick="setTheme('emerald')" title="Emerald Hologram" class="w-7 h-7 rounded-full border-2 border-emerald-500 bg-[#03050a] cursor-pointer hover:scale-110 transition-transform shadow"></button>
+                <button onclick="setTheme('ruby')" title="Ruby Luxury" class="w-7 h-7 rounded-full border-2 border-rose-500 bg-[#03050a] cursor-pointer hover:scale-110 transition-transform shadow"></button>
+                <button onclick="setTheme('cyber')" title="Cyber Matrix" class="w-7 h-7 rounded-full border-2 border-cyan-400 bg-[#03050a] cursor-pointer hover:scale-110 transition-transform shadow"></button>
             </div>
 
             <div class="flex items-center gap-2">
-                <button onclick="spawnBalloons()" class="px-3.5 py-1.5 rounded-xl text-xs bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-transform" title="Lepas Balon 3D">
-                    <i class="fa-solid fa-gift"></i> <span>Balon 3D</span>
+                <button onclick="spawnBalloons()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold border flex items-center gap-1.5 cursor-pointer hover:scale-105 transition-transform" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);" title="Lepas Balon 3D">
+                    <i class="fa-solid fa-rocket"></i> <span>Balon 3D</span>
                 </button>
-                <button id="mode-toggle-btn" onclick="toggleViewMode()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center gap-1.5 cursor-pointer">
+                <button id="mode-toggle-btn" onclick="toggleViewMode()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold border flex items-center gap-1.5 cursor-pointer" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
                     <i id="mode-toggle-icon" class="fa-solid fa-eye"></i>
                     <span id="mode-toggle-text">Mode Tamu</span>
                 </button>
-                <button onclick="shareInvitation()" class="px-4 py-1.5 rounded-xl text-xs theme-btn-luxury flex items-center gap-1.5 shadow cursor-pointer">
+                <button onclick="shareInvitation()" class="px-4 py-1.5 rounded-xl text-xs btn-luxury-3d flex items-center gap-1.5 shadow cursor-pointer">
                     <i class="fa-solid fa-share-nodes"></i>
                     <span>Bagikan</span>
                 </button>
@@ -266,32 +262,32 @@
     </header>
 
     <!-- =========================================================
-         KONTEN UTAMA UNDANGAN 3D MEWAH
+         KONTEN UTAMA UNDANGAN 3D HOLOGRAPHIC
     ========================================================== -->
     <main id="main-content" class="hidden opacity-0 transition-opacity duration-700 relative z-10 max-w-4xl mx-auto px-4 py-10 pb-32 space-y-10">
 
         <!-- Banner Mode Edit -->
-        <div class="edit-only bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 flex items-center justify-between gap-3 text-xs shadow-2xl">
+        <div class="edit-only border rounded-2xl p-4 flex items-center justify-between gap-3 text-xs shadow-2xl" style="border-color: var(--border-3d); background: var(--accent-soft);">
             <div class="flex items-center gap-3">
-                <i class="fa-solid fa-pen-nib text-amber-400 text-lg animate-pulse"></i>
-                <span><strong>Mode Edit VIP Aktif:</strong> Sesuaikan seluruh detail acara di bawah. Kustomisasi tersimpan otomatis dan siap dibagikan!</span>
+                <i class="fa-solid fa-wand-magic-sparkles text-lg animate-pulse" style="color: var(--accent);"></i>
+                <span><strong>Mode Edit VIP 3D Aktif:</strong> Ubah data di bawah, kustomisasi tersimpan otomatis & siap dibagikan ke teman!</span>
             </div>
             <button onclick="resetAllData()" class="text-[11px] underline text-gray-400 hover:text-red-400 whitespace-nowrap cursor-pointer">Reset</button>
         </div>
 
         <!-- 2. PROFIL 3D & KUE ULANG TAHUN INTERAKTIF -->
-        <section class="card-3d-luxury rounded-3xl p-7 sm:p-10 text-center relative overflow-hidden">
-            <div class="absolute -right-20 -top-20 w-60 h-60 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <section class="card-3d-true rounded-3xl p-8 sm:p-11 text-center relative overflow-hidden">
+            <div class="absolute -right-24 -top-24 w-72 h-72 rounded-full blur-3xl pointer-events-none" style="background: var(--accent-soft);"></div>
             
-            <span class="inline-block text-[11px] font-bold uppercase tracking-[0.25em] px-4 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 mb-5">
-                The Birthday Star
+            <span class="inline-block text-[11px] font-extrabold uppercase tracking-[0.3em] px-4.5 py-1.5 rounded-full border mb-5" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
+                The Birthday Mastermind
             </span>
 
-            <div class="relative w-40 h-40 sm:w-44 sm:h-44 mx-auto mb-5 rounded-full p-2 shadow-2xl float-3d" style="background: linear-gradient(135deg, var(--accent), transparent, var(--accent));">
+            <div class="relative w-44 h-44 sm:w-48 sm:h-48 mx-auto mb-6 rounded-full p-3 shadow-2xl float-true-3d" style="background: linear-gradient(135deg, var(--accent), transparent, var(--accent));">
                 <div class="w-full h-full rounded-full overflow-hidden bg-slate-950 relative group">
-                    <img id="profile-photo-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80" onerror="this.src='https://placehold.co/400x400/0d1322/d4af37?text=Birthday'" alt="Profil" class="w-full h-full object-cover">
-                    <label for="photo-file-input" class="edit-only absolute inset-0 bg-black/70 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-semibold p-2">
-                        <i class="fa-solid fa-camera text-xl mb-1"></i>
+                    <img id="profile-photo-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80" onerror="this.src='https://placehold.co/400x400/03050a/f59e0b?text=Birthday'" alt="Profil" class="w-full h-full object-cover">
+                    <label for="photo-file-input" class="edit-only absolute inset-0 bg-black/75 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-semibold p-2">
+                        <i class="fa-solid fa-camera text-2xl mb-1"></i>
                         <span>Ganti Foto VIP</span>
                     </label>
                     <input type="file" id="photo-file-input" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
@@ -300,28 +296,28 @@
 
             <div class="edit-only max-w-md mx-auto mb-6 space-y-2">
                 <div class="flex flex-wrap justify-center gap-2">
-                    <label for="photo-file-input" class="px-3.5 py-1.5 rounded-xl text-xs font-medium bg-amber-500/10 border border-amber-500/30 text-amber-400 cursor-pointer hover:bg-amber-500/20">
-                        <i class="fa-solid fa-upload mr-1"></i> Pilih Galeri HP
+                    <label for="photo-file-input" class="px-4 py-2 rounded-xl text-xs font-bold border cursor-pointer hover:opacity-90" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
+                        <i class="fa-solid fa-upload mr-1"></i> Pilih dari Galeri HP
                     </label>
-                    <button type="button" onclick="useThemePhoto('male')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 text-gray-300 cursor-pointer">Pria</button>
-                    <button type="button" onclick="useThemePhoto('female')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 text-gray-300 cursor-pointer">Wanita</button>
-                    <button type="button" onclick="useThemePhoto('cake')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 text-gray-300 cursor-pointer">Kue</button>
+                    <button type="button" onclick="useThemePhoto('male')" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-gray-300 cursor-pointer">Pria</button>
+                    <button type="button" onclick="useThemePhoto('female')" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-gray-300 cursor-pointer">Wanita</button>
+                    <button type="button" onclick="useThemePhoto('cake')" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 text-gray-300 cursor-pointer">Kue</button>
                 </div>
-                <input type="url" id="input-photo-url" oninput="updatePhotoFromUrl(this.value)" placeholder="Atau tempel URL foto publik..." class="w-full theme-input rounded-xl px-3 py-2 text-xs text-center">
+                <input type="url" id="input-photo-url" oninput="updatePhotoFromUrl(this.value)" placeholder="Atau tempel URL foto publik..." class="w-full input-luxury-3d rounded-xl px-3 py-2 text-xs text-center">
             </div>
 
             <div class="mb-2 flex items-center justify-center gap-2">
-                <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">Merayakan Usia Ke-</span>
-                <input type="number" id="input-age" value="21" min="1" max="150" oninput="syncState()" class="edit-only w-20 theme-input rounded-lg px-2 py-1 text-center font-bold text-base">
-                <span id="display-age" class="guest-only font-bold text-lg text-amber-400">21</span>
+                <span class="text-xs uppercase tracking-widest font-extrabold" style="color: var(--accent);">Merayakan Usia Ke-</span>
+                <input type="number" id="input-age" value="21" min="1" max="150" oninput="syncState()" class="edit-only w-20 input-luxury-3d rounded-lg px-2 py-1 text-center font-bold text-base">
+                <span id="display-age" class="guest-only font-bold text-lg" style="color: var(--accent);">21</span>
             </div>
 
-            <div class="mb-5">
-                <input type="text" id="input-name" value="Rafka Pratama" oninput="syncState()" class="edit-only w-full max-w-lg mx-auto text-center font-serif text-3xl sm:text-5xl font-bold theme-input rounded-2xl px-4 py-2.5" placeholder="Nama Lengkap">
-                <h2 id="display-name" class="guest-only font-serif text-3xl sm:text-5xl font-bold text-white">Rafka Pratama</h2>
+            <div class="mb-6">
+                <input type="text" id="input-name" value="Rafka Pratama" oninput="syncState()" class="edit-only w-full max-w-lg mx-auto text-center font-serif text-3xl sm:text-5xl font-extrabold input-luxury-3d rounded-2xl px-4 py-3" placeholder="Nama Lengkap">
+                <h2 id="display-name" class="guest-only font-serif text-3xl sm:text-5xl font-extrabold text-white">Rafka Pratama</h2>
             </div>
 
-            <div class="max-w-2xl mx-auto bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5 mb-8 shadow-inner">
+            <div class="max-w-2xl mx-auto border rounded-2xl p-6 mb-8 shadow-inner" style="border-color: var(--border-3d); background: var(--accent-soft);">
                 <textarea id="input-greeting" rows="2" oninput="syncState()" class="edit-only w-full bg-transparent text-center text-sm sm:text-base italic leading-relaxed focus:outline-none resize-none text-gray-200" placeholder="Tulis sambutan...">Dengan penuh rasa syukur dan kebahagiaan, saya mengundang Bapak/Ibu/Saudara/i serta sahabat sekalian untuk hadir merayakan hari ulang tahun saya.</textarea>
                 <p id="display-greeting" class="guest-only text-sm sm:text-base italic leading-relaxed text-gray-300">
                     "Dengan penuh rasa syukur dan kebahagiaan, saya mengundang Bapak/Ibu/Saudara/i serta sahabat sekalian untuk hadir merayakan hari ulang tahun saya."
@@ -329,113 +325,113 @@
             </div>
 
             <!-- Kue 3D Interaktif -->
-            <div class="pt-4 border-t border-amber-500/20">
-                <p id="candle-instruction" class="text-xs text-amber-400 font-semibold mb-3 animate-pulse">
-                    🎂 Ketuk lilin di atas kue untuk meniup & membuat harapan!
+            <div class="pt-5 border-t" style="border-color: var(--border-3d);">
+                <p id="candle-instruction" class="text-xs font-bold mb-3 animate-pulse" style="color: var(--accent);">
+                    🎂 Ketuk lilin di atas kue untuk meniup & membuat harapan 3D!
                 </p>
                 <div onclick="blowCandle()" class="inline-block cursor-pointer select-none group p-3 rounded-2xl hover:scale-110 transition-transform duration-300" title="Tiup Lilin">
-                    <svg class="w-36 h-36 mx-auto filter drop-shadow-[0_15px_15px_rgba(212,175,55,0.4)]" viewBox="0 0 120 120" fill="none">
-                        <g id="candle-flame-group" class="candle-flame-3d">
-                            <path d="M60 8 C51 18, 50 27, 60 33 C70 27, 69 18, 60 8 Z" fill="#fbbf24"/>
-                            <path d="M60 14 C57 20, 57 26, 60 29 C63 26, 63 20, 60 14 Z" fill="#fef08a"/>
+                    <svg class="w-40 h-40 mx-auto filter drop-shadow-[0_20px_20px_rgba(245,158,11,0.5)]" viewBox="0 0 120 120" fill="none">
+                        <g id="candle-flame-group" class="flame-3d">
+                            <path d="M60 6 C50 17, 48 26, 60 33 C72 26, 70 17, 60 6 Z" fill="#fbbf24"/>
+                            <path d="M60 12 C57 19, 57 25, 60 28 C63 25, 63 19, 60 12 Z" fill="#fef08a"/>
                         </g>
                         <rect x="59" y="32" width="2" height="6" fill="#94a3b8"/>
-                        <rect x="53" y="38" width="14" height="22" rx="3" fill="#f8fafc" stroke="var(--accent)" stroke-width="1.5"/>
-                        <rect x="28" y="60" width="64" height="20" rx="6" fill="var(--accent)"/>
-                        <path d="M28 67 Q44 76 60 67 T92 67" stroke="#fffbeb" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                        <rect x="16" y="80" width="88" height="24" rx="7" fill="#b5952f"/>
-                        <path d="M16 88 Q36 98 60 88 T104 88" stroke="#fffbeb" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-                        <rect x="8" y="104" width="104" height="6" rx="3" fill="#94a3b8"/>
+                        <rect x="52" y="38" width="16" height="22" rx="3" fill="#f8fafc" stroke="var(--accent)" stroke-width="1.5"/>
+                        <rect x="26" y="60" width="68" height="20" rx="6" fill="var(--accent)"/>
+                        <path d="M26 67 Q43 76 60 67 T94 67" stroke="#fffbeb" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                        <rect x="14" y="80" width="92" height="24" rx="7" fill="#b45309"/>
+                        <path d="M14 88 Q37 98 60 88 T106 88" stroke="#fffbeb" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+                        <rect x="6" y="104" width="108" height="6" rx="3" fill="#94a3b8"/>
                     </svg>
                 </div>
             </div>
         </section>
 
-        <!-- 3. COUNTDOWN 3D LENGKAP (HARI, JAM, MENIT, DETIK) -->
-        <section class="card-3d-luxury rounded-3xl p-7 sm:p-9 text-center">
-            <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 mb-2">
-                Save The Date
+        <!-- 3. COUNTDOWN 3D LENGKAP -->
+        <section class="card-3d-true rounded-3xl p-8 sm:p-10 text-center">
+            <span class="inline-block text-[11px] font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border mb-2" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
+                Countdown to Glory
             </span>
-            <h3 class="font-serif text-2xl sm:text-4xl font-bold text-white mb-1">Menuju Hari Perayaan</h3>
-            <p id="display-formatted-date" class="text-xs sm:text-sm text-amber-400 font-semibold mb-6">
+            <h3 class="font-serif text-2xl sm:text-4xl font-extrabold text-white mb-1">Menuju Hari Perayaan</h3>
+            <p id="display-formatted-date" class="text-xs sm:text-sm font-bold mb-6" style="color: var(--accent);">
                 Minggu, 25 Juli 2027 • Pukul 16.00 WIB
             </p>
 
-            <div class="edit-only max-w-sm mx-auto mb-6 bg-amber-500/5 border border-amber-500/20 p-4 rounded-2xl">
-                <label for="input-datetime" class="block text-xs font-bold text-amber-400 mb-1.5">
+            <div class="edit-only max-w-sm mx-auto mb-6 border p-4 rounded-2xl" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                <label for="input-datetime" class="block text-xs font-bold mb-1.5" style="color: var(--accent);">
                     <i class="fa-regular fa-calendar-check mr-1"></i> Atur Tanggal & Jam Acara:
                 </label>
-                <input type="datetime-local" id="input-datetime" value="2027-07-25T16:00" onchange="syncState()" class="w-full theme-input rounded-xl px-4 py-2.5 text-sm font-semibold text-center">
+                <input type="datetime-local" id="input-datetime" value="2027-07-25T16:00" onchange="syncState()" class="w-full input-luxury-3d rounded-xl px-4 py-3 text-sm font-bold text-center">
             </div>
 
-            <div class="grid grid-cols-4 gap-3 sm:gap-5 max-w-xl mx-auto">
-                <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 sm:p-5 shadow-inner">
-                    <span id="cd-days" class="font-serif text-3xl sm:text-5xl font-bold text-amber-400 block">00</span>
-                    <span class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-300 font-semibold mt-1 block">Hari</span>
+            <div class="grid grid-cols-4 gap-3 sm:gap-6 max-w-xl mx-auto">
+                <div class="border rounded-2xl p-4 sm:p-5 shadow-inner" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                    <span id="cd-days" class="font-serif text-3xl sm:text-5xl font-extrabold block" style="color: var(--accent);">00</span>
+                    <span class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-300 font-bold mt-1 block">Hari</span>
                 </div>
-                <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 sm:p-5 shadow-inner">
-                    <span id="cd-hours" class="font-serif text-3xl sm:text-5xl font-bold text-amber-400 block">00</span>
-                    <span class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-300 font-semibold mt-1 block">Jam</span>
+                <div class="border rounded-2xl p-4 sm:p-5 shadow-inner" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                    <span id="cd-hours" class="font-serif text-3xl sm:text-5xl font-extrabold block" style="color: var(--accent);">00</span>
+                    <span class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-300 font-bold mt-1 block">Jam</span>
                 </div>
-                <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 sm:p-5 shadow-inner">
-                    <span id="cd-minutes" class="font-serif text-3xl sm:text-5xl font-bold text-amber-400 block">00</span>
-                    <span class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-300 font-semibold mt-1 block">Menit</span>
+                <div class="border rounded-2xl p-4 sm:p-5 shadow-inner" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                    <span id="cd-minutes" class="font-serif text-3xl sm:text-5xl font-extrabold block" style="color: var(--accent);">00</span>
+                    <span class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-300 font-bold mt-1 block">Menit</span>
                 </div>
-                <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 sm:p-5 shadow-inner">
-                    <span id="cd-seconds" class="font-serif text-3xl sm:text-5xl font-bold text-amber-400 block">00</span>
-                    <span class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-300 font-semibold mt-1 block">Detik</span>
+                <div class="border rounded-2xl p-4 sm:p-5 shadow-inner" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                    <span id="cd-seconds" class="font-serif text-3xl sm:text-5xl font-extrabold block" style="color: var(--accent);">00</span>
+                    <span class="text-[10px] sm:text-xs uppercase tracking-wider text-gray-300 font-bold mt-1 block">Detik</span>
                 </div>
             </div>
             <p id="cd-status-note" class="text-xs text-gray-400 mt-5"></p>
         </section>
 
         <!-- 4. LOKASI & GOOGLE MAPS DIRECT QUERY -->
-        <section class="card-3d-luxury rounded-3xl p-7 sm:p-9">
-            <div class="text-center mb-7">
-                <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 mb-2">
+        <section class="card-3d-true rounded-3xl p-8 sm:p-10">
+            <div class="text-center mb-8">
+                <span class="inline-block text-[11px] font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border mb-2" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
                     Venue & Time
                 </span>
-                <h3 class="font-serif text-2xl sm:text-4xl font-bold text-white">Waktu & Lokasi Acara</h3>
+                <h3 class="font-serif text-2xl sm:text-4xl font-extrabold text-white">Waktu & Lokasi Acara</h3>
             </div>
 
             <div class="grid sm:grid-cols-2 gap-5 mb-6">
-                <div class="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5 flex items-start gap-4 shadow-sm">
-                    <div class="w-12 h-12 rounded-2xl theme-btn-luxury flex items-center justify-center flex-shrink-0 text-lg">
+                <div class="border rounded-2xl p-5 flex items-start gap-4 shadow-sm" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                    <div class="w-12 h-12 rounded-2xl btn-luxury-3d flex items-center justify-center flex-shrink-0 text-lg">
                         <i class="fa-regular fa-calendar"></i>
                     </div>
                     <div>
-                        <span class="text-[11px] uppercase tracking-wider text-gray-400 font-semibold block mb-0.5">Hari & Tanggal</span>
+                        <span class="text-[11px] uppercase tracking-wider text-gray-400 font-bold block mb-0.5">Hari & Tanggal</span>
                         <span id="venue-date-text" class="font-bold text-sm sm:text-base text-white">Minggu, 25 Juli 2027</span>
                     </div>
                 </div>
 
-                <div class="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5 flex items-start gap-4 shadow-sm">
-                    <div class="w-12 h-12 rounded-2xl theme-btn-luxury flex items-center justify-center flex-shrink-0 text-lg">
+                <div class="border rounded-2xl p-5 flex items-start gap-4 shadow-sm" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                    <div class="w-12 h-12 rounded-2xl btn-luxury-3d flex items-center justify-center flex-shrink-0 text-lg">
                         <i class="fa-regular fa-clock"></i>
                     </div>
                     <div class="w-full">
-                        <span class="text-[11px] uppercase tracking-wider text-gray-400 font-semibold block mb-0.5">Waktu Acara</span>
-                        <input type="text" id="input-time-label" value="16.00 WIB - Selesai" oninput="syncState()" class="edit-only w-full theme-input rounded-xl px-3 py-1.5 text-sm font-bold mt-0.5">
+                        <span class="text-[11px] uppercase tracking-wider text-gray-400 font-bold block mb-0.5">Waktu Acara</span>
+                        <input type="text" id="input-time-label" value="16.00 WIB - Selesai" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-xl px-3 py-1.5 text-sm font-bold mt-0.5">
                         <span id="display-time-label" class="guest-only font-bold text-sm sm:text-base text-white">16.00 WIB - Selesai</span>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6 text-center">
-                <div class="w-14 h-14 rounded-2xl theme-btn-luxury flex items-center justify-center mx-auto mb-4 text-xl shadow-lg">
+            <div class="border rounded-2xl p-7 text-center" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                <div class="w-14 h-14 rounded-2xl btn-luxury-3d flex items-center justify-center mx-auto mb-4 text-xl shadow-lg">
                     <i class="fa-solid fa-location-dot"></i>
                 </div>
-                <span class="text-[11px] uppercase tracking-wider text-gray-400 font-semibold block mb-1">Tempat / Alamat Lengkap</span>
+                <span class="text-[11px] uppercase tracking-wider text-gray-400 font-bold block mb-1">Tempat / Alamat Lengkap</span>
 
                 <div class="edit-only max-w-xl mx-auto mb-4">
-                    <input type="text" id="input-location" value="The Glass House Resto & Lounge, Jl. Senopati No. 45, Jakarta Selatan" oninput="syncState()" class="w-full theme-input rounded-xl px-4 py-3 text-sm font-semibold text-center" placeholder="Ketik nama tempat & alamat lengkap...">
+                    <input type="text" id="input-location" value="The Glass House Resto & Lounge, Jl. Senopati No. 45, Jakarta Selatan" oninput="syncState()" class="w-full input-luxury-3d rounded-xl px-4 py-3.5 text-sm font-bold text-center" placeholder="Ketik nama tempat & alamat lengkap...">
                 </div>
 
-                <p id="display-location" class="guest-only font-bold text-base sm:text-xl max-w-lg mx-auto mb-5 text-white">
+                <p id="display-location" class="guest-only font-bold text-base sm:text-xl max-w-lg mx-auto mb-6 text-white">
                     The Glass House Resto & Lounge, Jl. Senopati No. 45, Jakarta Selatan
                 </p>
 
-                <a id="google-maps-link" href="https://www.google.com/maps/search/?api=1&query=The%20Glass%20House%20Resto%20%26%20Lounge%2C%20Jl.%20Senopati%20No.%2045%2C%20Jakarta%20Selatan" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 theme-btn-luxury rounded-2xl text-sm shadow-xl">
+                <a id="google-maps-link" href="https://www.google.com/maps/search/?api=1&query=The%20Glass%20House%20Resto%20%26%20Lounge%2C%20Jl.%20Senopati%20No.%2045%2C%20Jakarta%20Selatan" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 px-8 py-4 btn-luxury-3d rounded-2xl text-sm shadow-2xl">
                     <i class="fa-solid fa-map-location-dot text-lg"></i>
                     <span>Buka Lokasi di Google Maps Langsung</span>
                 </a>
@@ -443,51 +439,51 @@
         </section>
 
         <!-- 5. TEMA PESTA & SUSUNAN ACARA -->
-        <section class="card-3d-luxury rounded-3xl p-7 sm:p-9">
-            <div class="text-center mb-7">
-                <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 mb-2">
+        <section class="card-3d-true rounded-3xl p-8 sm:p-10">
+            <div class="text-center mb-8">
+                <span class="inline-block text-[11px] font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border mb-2" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
                     Party Concept & Rundown
                 </span>
-                <h3 class="font-serif text-2xl sm:text-4xl font-bold text-white">Tema Pesta & Susunan Acara</h3>
+                <h3 class="font-serif text-2xl sm:text-4xl font-extrabold text-white">Tema Pesta & Susunan Acara</h3>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-7 items-center mb-8">
+            <div class="grid md:grid-cols-2 gap-8 items-center mb-8">
                 <div class="space-y-3">
-                    <div class="rounded-2xl overflow-hidden border border-amber-500/30 relative group shadow-2xl">
-                        <img id="party-photo-img" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80" onerror="this.src='https://placehold.co/600x400/0d1322/d4af37?text=Party+Theme'" alt="Tema Pesta" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-700">
-                        <label for="party-photo-file-input" class="edit-only absolute inset-0 bg-black/70 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-semibold p-2">
+                    <div class="rounded-2xl overflow-hidden border relative group shadow-2xl" style="border-color: var(--border-3d);">
+                        <img id="party-photo-img" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80" onerror="this.src='https://placehold.co/600x400/03050a/f59e0b?text=Party+Theme'" alt="Tema Pesta" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700">
+                        <label for="party-photo-file-input" class="edit-only absolute inset-0 bg-black/75 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-semibold p-2">
                             <i class="fa-solid fa-camera text-2xl mb-1"></i>
                             <span>Ganti Foto Suasana Pesta</span>
                         </label>
                         <input type="file" id="party-photo-file-input" accept="image/*" class="hidden" onchange="handlePartyPhotoUpload(event)">
                     </div>
                     <div class="edit-only flex gap-2">
-                        <label for="party-photo-file-input" class="px-3.5 py-2 rounded-xl text-xs font-medium bg-amber-500/10 border border-amber-500/30 text-amber-400 cursor-pointer hover:bg-amber-500/20 text-center flex-1">
+                        <label for="party-photo-file-input" class="px-4 py-2.5 rounded-xl text-xs font-bold border cursor-pointer hover:opacity-90 text-center flex-1" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
                             <i class="fa-solid fa-upload mr-1"></i> Unggah Galeri HP
                         </label>
-                        <input type="url" id="input-party-photo-url" oninput="updatePartyPhotoFromUrl(this.value)" placeholder="Atau URL foto..." class="w-full theme-input rounded-xl px-3 py-2 text-xs">
+                        <input type="url" id="input-party-photo-url" oninput="updatePartyPhotoFromUrl(this.value)" placeholder="Atau URL foto..." class="w-full input-luxury-3d rounded-xl px-3 py-2 text-xs">
                     </div>
                 </div>
 
-                <div class="space-y-5">
-                    <div class="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5 shadow-sm">
-                        <span class="text-[11px] uppercase tracking-wider text-amber-400 font-bold block mb-1.5">
+                <div class="space-y-6">
+                    <div class="border rounded-2xl p-6 shadow-sm" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                        <span class="text-[11px] uppercase tracking-wider font-extrabold block mb-2" style="color: var(--accent);">
                             <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Penjelasan Tema Pesta
                         </span>
-                        <input type="text" id="input-party-theme" value="Elegant Evening & Garden Celebration" oninput="syncState()" class="edit-only w-full theme-input rounded-xl px-3.5 py-2 text-sm font-bold mb-2">
+                        <input type="text" id="input-party-theme" value="Elegant Evening & Garden Celebration" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-xl px-4 py-2.5 text-sm font-bold mb-2">
                         <h4 id="display-party-theme" class="guest-only font-bold text-lg text-white mb-2">Elegant Evening & Garden Celebration</h4>
 
-                        <textarea id="input-theme-desc" rows="3" oninput="syncState()" class="edit-only w-full theme-input rounded-xl px-3.5 py-2 text-xs sm:text-sm leading-relaxed resize-none">Suasana makan malam hangat dengan alunan musik akustik, sesi foto bersama, dan potong kue ulang tahun di bawah cahaya lampu taman.</textarea>
+                        <textarea id="input-theme-desc" rows="3" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-xl px-4 py-2.5 text-xs sm:text-sm leading-relaxed resize-none">Suasana makan malam hangat dengan alunan musik akustik, sesi foto bersama, dan potong kue ulang tahun di bawah cahaya lampu taman.</textarea>
                         <p id="display-theme-desc" class="guest-only text-xs sm:text-sm text-gray-300 leading-relaxed">
                             Suasana makan malam hangat dengan alunan musik akustik, sesi foto bersama, dan potong kue ulang tahun di bawah cahaya lampu taman.
                         </p>
                     </div>
 
-                    <div class="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5 shadow-sm">
-                        <span class="text-[11px] uppercase tracking-wider text-amber-400 font-bold block mb-1.5">
+                    <div class="border rounded-2xl p-6 shadow-sm" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                        <span class="text-[11px] uppercase tracking-wider font-extrabold block mb-2" style="color: var(--accent);">
                             <i class="fa-solid fa-shirt mr-1"></i> Dress Code Tamu
                         </span>
-                        <input type="text" id="input-dresscode" value="Smart Casual (Nuansa Hitam, Putih, Krem, atau Earth Tone)" oninput="syncState()" class="edit-only w-full theme-input rounded-xl px-3.5 py-2 text-xs font-semibold">
+                        <input type="text" id="input-dresscode" value="Smart Casual (Nuansa Hitam, Putih, Krem, atau Earth Tone)" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-xl px-4 py-2.5 text-xs font-semibold">
                         <p id="display-dresscode" class="guest-only text-xs sm:text-sm font-semibold text-white">
                             Smart Casual (Nuansa Hitam, Putih, Krem, atau Earth Tone)
                         </p>
@@ -496,27 +492,27 @@
             </div>
 
             <!-- Susunan Acara -->
-            <div class="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-6 shadow-sm">
-                <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-4 flex items-center gap-2">
+            <div class="border rounded-2xl p-7 shadow-sm" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                <h4 class="text-xs font-extrabold uppercase tracking-wider mb-5 flex items-center gap-2" style="color: var(--accent);">
                     <i class="fa-solid fa-list-check"></i> Susunan Acara Singkat
                 </h4>
                 <div class="grid sm:grid-cols-3 gap-4 text-xs">
-                    <div class="p-4 rounded-xl shadow-inner bg-slate-950/70 border border-amber-500/10">
-                        <input type="text" id="input-rundown-1-time" value="16.00 - 17.00" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold text-amber-400 mb-2" placeholder="Jam">
-                        <input type="text" id="input-rundown-1-desc" value="Registrasi Tamu & Welcome Drink" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs text-gray-200" placeholder="Kegiatan">
-                        <span id="display-rundown-1-time" class="guest-only font-bold text-amber-400 block mb-1">16.00 - 17.00</span>
+                    <div class="p-4 rounded-xl shadow-inner bg-slate-950/80 border" style="border-color: var(--border-3d);">
+                        <input type="text" id="input-rundown-1-time" value="16.00 - 17.00" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-lg px-2.5 py-1.5 text-xs font-bold mb-2" style="color: var(--accent);" placeholder="Jam">
+                        <input type="text" id="input-rundown-1-desc" value="Registrasi Tamu & Welcome Drink" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-lg px-2.5 py-1.5 text-xs text-gray-200" placeholder="Kegiatan">
+                        <span id="display-rundown-1-time" class="guest-only font-bold block mb-1" style="color: var(--accent);">16.00 - 17.00</span>
                         <span id="display-rundown-1-desc" class="guest-only text-gray-300">Registrasi Tamu & Welcome Drink</span>
                     </div>
-                    <div class="p-4 rounded-xl shadow-inner bg-slate-950/70 border border-amber-500/10">
-                        <input type="text" id="input-rundown-2-time" value="17.00 - 18.30" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold text-amber-400 mb-2" placeholder="Jam">
-                        <input type="text" id="input-rundown-2-desc" value="Sambutan, Tiup Lilin & Potong Kue" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs text-gray-200" placeholder="Kegiatan">
-                        <span id="display-rundown-2-time" class="guest-only font-bold text-amber-400 block mb-1">17.00 - 18.30</span>
+                    <div class="p-4 rounded-xl shadow-inner bg-slate-950/80 border" style="border-color: var(--border-3d);">
+                        <input type="text" id="input-rundown-2-time" value="17.00 - 18.30" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-lg px-2.5 py-1.5 text-xs font-bold mb-2" style="color: var(--accent);" placeholder="Jam">
+                        <input type="text" id="input-rundown-2-desc" value="Sambutan, Tiup Lilin & Potong Kue" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-lg px-2.5 py-1.5 text-xs text-gray-200" placeholder="Kegiatan">
+                        <span id="display-rundown-2-time" class="guest-only font-bold block mb-1" style="color: var(--accent);">17.00 - 18.30</span>
                         <span id="display-rundown-2-desc" class="guest-only text-gray-300">Sambutan, Tiup Lilin & Potong Kue</span>
                     </div>
-                    <div class="p-4 rounded-xl shadow-inner bg-slate-950/70 border border-amber-500/10">
-                        <input type="text" id="input-rundown-3-time" value="18.30 - Selesai" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold text-amber-400 mb-2" placeholder="Jam">
-                        <input type="text" id="input-rundown-3-desc" value="Makan Malam, Ramah Tamah & Foto" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs text-gray-200" placeholder="Kegiatan">
-                        <span id="display-rundown-3-time" class="guest-only font-bold text-amber-400 block mb-1">18.30 - Selesai</span>
+                    <div class="p-4 rounded-xl shadow-inner bg-slate-950/80 border" style="border-color: var(--border-3d);">
+                        <input type="text" id="input-rundown-3-time" value="18.30 - Selesai" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-lg px-2.5 py-1.5 text-xs font-bold mb-2" style="color: var(--accent);" placeholder="Jam">
+                        <input type="text" id="input-rundown-3-desc" value="Makan Malam, Ramah Tamah & Foto" oninput="syncState()" class="edit-only w-full input-luxury-3d rounded-lg px-2.5 py-1.5 text-xs text-gray-200" placeholder="Kegiatan">
+                        <span id="display-rundown-3-time" class="guest-only font-bold block mb-1" style="color: var(--accent);">18.30 - Selesai</span>
                         <span id="display-rundown-3-desc" class="guest-only text-gray-300">Makan Malam, Ramah Tamah & Foto</span>
                     </div>
                 </div>
@@ -524,17 +520,17 @@
         </section>
 
         <!-- 6. GALERI MOMEN 3D -->
-        <section class="card-3d-luxury rounded-3xl p-7 sm:p-9">
-            <div class="text-center mb-7">
-                <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 mb-2">
-                    Memories
+        <section class="card-3d-true rounded-3xl p-8 sm:p-10">
+            <div class="text-center mb-8">
+                <span class="inline-block text-[11px] font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border mb-2" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
+                    Memories Vault
                 </span>
-                <h3 class="font-serif text-2xl sm:text-4xl font-bold text-white">Galeri Momen</h3>
+                <h3 class="font-serif text-2xl sm:text-4xl font-extrabold text-white">Galeri Momen</h3>
                 <p class="text-xs text-gray-400 mt-1">Klik foto untuk memperbesar tampilan</p>
             </div>
 
             <div class="edit-only text-center mb-6">
-                <label for="gallery-upload-input" class="inline-flex items-center gap-2 px-5 py-3 theme-btn-luxury rounded-xl text-xs cursor-pointer shadow-xl">
+                <label for="gallery-upload-input" class="inline-flex items-center gap-2 px-6 py-3.5 btn-luxury-3d rounded-2xl text-xs cursor-pointer shadow-2xl">
                     <i class="fa-solid fa-images text-base"></i>
                     <span>Tambah Foto dari Galeri HP</span>
                 </label>
@@ -545,48 +541,48 @@
         </section>
 
         <!-- 7. RSVP -->
-        <section class="card-3d-luxury rounded-3xl p-7 sm:p-9">
-            <div class="text-center mb-7">
-                <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 mb-2">
+        <section class="card-3d-true rounded-3xl p-8 sm:p-10">
+            <div class="text-center mb-8">
+                <span class="inline-block text-[11px] font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border mb-2" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
                     RSVP
                 </span>
-                <h3 class="font-serif text-2xl sm:text-4xl font-bold text-white">Konfirmasi Kehadiran</h3>
+                <h3 class="font-serif text-2xl sm:text-4xl font-extrabold text-white">Konfirmasi Kehadiran</h3>
                 <p class="text-xs text-gray-400 mt-1">Mohon isi konfirmasi kehadiran Anda</p>
             </div>
 
             <form onsubmit="handleRSVPSubmit(event)" class="max-w-md mx-auto space-y-4">
-                <div class="edit-only bg-amber-500/5 border border-amber-500/20 p-4 rounded-2xl shadow-sm">
-                    <label for="input-wa-target" class="block text-xs font-bold text-amber-400 mb-1.5">
+                <div class="edit-only border p-4.5 rounded-2xl shadow-sm" style="border-color: var(--border-3d); background: var(--accent-soft);">
+                    <label for="input-wa-target" class="block text-xs font-bold mb-1.5" style="color: var(--accent);">
                         <i class="fa-brands fa-whatsapp text-emerald-400 mr-1"></i> Nomor WhatsApp Tujuan RSVP:
                     </label>
-                    <input type="tel" id="input-wa-target" value="081234567890" oninput="syncState()" class="w-full theme-input rounded-xl px-4 py-2.5 text-sm font-semibold" placeholder="Contoh: 081234567890">
+                    <input type="tel" id="input-wa-target" value="081234567890" oninput="syncState()" class="w-full input-luxury-3d rounded-xl px-4 py-3 text-sm font-bold" placeholder="Contoh: 081234567890">
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-300 mb-1">Nama Lengkap</label>
-                    <input type="text" id="rsvp-guest-name" required placeholder="Masukkan nama Anda" class="w-full theme-input rounded-xl px-4 py-3 text-sm">
+                    <input type="text" id="rsvp-guest-name" required placeholder="Masukkan nama Anda" class="w-full input-luxury-3d rounded-xl px-4 py-3.5 text-sm">
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-xs font-semibold text-gray-300 mb-1">Kehadiran</label>
-                        <select id="rsvp-status" class="w-full theme-input rounded-xl px-3.5 py-3 text-sm">
+                        <select id="rsvp-status" class="w-full input-luxury-3d rounded-xl px-3.5 py-3.5 text-sm">
                             <option value="Hadir">Hadir</option>
                             <option value="Tidak Hadir">Berhalangan Hadir</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-300 mb-1">Jumlah Tamu</label>
-                        <input type="number" id="rsvp-pax" min="1" max="50" value="1" class="w-full theme-input rounded-xl px-4 py-3 text-sm">
+                        <input type="number" id="rsvp-pax" min="1" max="50" value="1" class="w-full input-luxury-3d rounded-xl px-4 py-3.5 text-sm">
                     </div>
                 </div>
 
-                <div class="pt-2 flex flex-col sm:flex-row gap-3">
-                    <button type="submit" class="flex-1 py-3.5 px-5 theme-btn-luxury rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow-xl">
+                <div class="pt-3 flex flex-col sm:flex-row gap-3">
+                    <button type="submit" class="flex-1 py-4 px-5 btn-luxury-3d rounded-2xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow-2xl">
                         <i class="fa-solid fa-check-circle"></i>
                         <span>Konfirmasi</span>
                     </button>
-                    <button type="button" onclick="sendRSVPToWhatsApp()" class="flex-1 py-3.5 px-5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow-xl transition-all">
+                    <button type="button" onclick="sendRSVPToWhatsApp()" class="flex-1 py-4 px-5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow-2xl transition-all">
                         <i class="fa-brands fa-whatsapp text-lg"></i>
                         <span>Kirim via WA</span>
                     </button>
@@ -595,19 +591,19 @@
         </section>
 
         <!-- 8. UCAPAN & DOA -->
-        <section class="card-3d-luxury rounded-3xl p-7 sm:p-9">
-            <div class="text-center mb-7">
-                <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 mb-2">
+        <section class="card-3d-true rounded-3xl p-8 sm:p-10">
+            <div class="text-center mb-8">
+                <span class="inline-block text-[11px] font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full border mb-2" style="border-color: var(--border-3d); background: var(--accent-soft); color: var(--accent);">
                     Birthday Wishes
                 </span>
-                <h3 class="font-serif text-2xl sm:text-4xl font-bold text-white">Ucapan & Doa</h3>
+                <h3 class="font-serif text-2xl sm:text-4xl font-extrabold text-white">Ucapan & Doa</h3>
                 <p class="text-xs text-gray-400 mt-1">Tuliskan doa terbaik dan ucapan selamat ulang tahun</p>
             </div>
 
-            <form onsubmit="addWish(event)" class="max-w-lg mx-auto space-y-3 mb-6">
-                <input type="text" id="wish-sender" required placeholder="Nama Anda" class="w-full theme-input rounded-xl px-4 py-3 text-sm">
-                <textarea id="wish-message" rows="3" required placeholder="Tulis ucapan dan doa terbaik..." class="w-full theme-input rounded-xl px-4 py-3 text-sm resize-none"></textarea>
-                <button type="submit" class="w-full py-3.5 theme-btn-luxury rounded-xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow-xl">
+            <form onsubmit="addWish(event)" class="max-w-lg mx-auto space-y-3.5 mb-6">
+                <input type="text" id="wish-sender" required placeholder="Nama Anda" class="w-full input-luxury-3d rounded-xl px-4 py-3.5 text-sm">
+                <textarea id="wish-message" rows="3" required placeholder="Tulis ucapan dan doa terbaik..." class="w-full input-luxury-3d rounded-xl px-4 py-3.5 text-sm resize-none"></textarea>
+                <button type="submit" class="w-full py-4 btn-luxury-3d rounded-2xl text-sm flex items-center justify-center gap-2 cursor-pointer shadow-2xl">
                     <i class="fa-solid fa-paper-plane"></i>
                     <span>Kirim Ucapan</span>
                 </button>
@@ -617,23 +613,23 @@
         </section>
 
         <!-- Footer -->
-        <footer class="text-center text-xs text-gray-400 pt-6 pb-8">
-            <p class="font-serif italic text-base text-amber-400 mb-1">Terima kasih atas perhatian & kehadiran Anda</p>
-            <p>© <span id="footer-year">2027</span> • <span id="footer-name">Rafka Pratama</span> • VIP 3D Celebration</p>
+        <footer class="text-center text-xs text-gray-400 pt-6 pb-10">
+            <p class="font-serif italic text-base mb-1" style="color: var(--accent);">Terima kasih atas perhatian & kehadiran Anda</p>
+            <p>© <span id="footer-year">2027</span> • <span id="footer-name">Rafka Pratama</span> • Holographic 3D Celebration</p>
         </footer>
     </main>
 
     <!-- Lightbox Modal -->
-    <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-[100] bg-black/90 hidden items-center justify-center p-4">
+    <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-[110] bg-black/95 hidden items-center justify-center p-4">
         <div class="relative max-w-4xl w-full flex items-center justify-center">
-            <img id="lightbox-img" src="" alt="Perbesar Foto" class="max-w-full max-h-[85vh] rounded-3xl shadow-2xl object-contain border border-amber-500/30">
-            <button onclick="closeLightbox()" class="absolute -top-4 -right-4 w-11 h-11 rounded-full theme-btn-luxury flex items-center justify-center shadow-2xl cursor-pointer">
+            <img id="lightbox-img" src="" alt="Perbesar Foto" class="max-w-full max-h-[85vh] rounded-3xl shadow-2xl object-contain border" style="border-color: var(--border-3d);">
+            <button onclick="closeLightbox()" class="absolute -top-4 -right-4 w-12 h-12 rounded-full btn-luxury-3d flex items-center justify-center shadow-2xl cursor-pointer">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIKA 3D & PENYEMPURNAAN VIP -->
+    <!-- JAVASCRIPT LOGIKA 3D HOLOGRAPHIC VIP -->
     <script>
         /* 1. AUDIO ENGINE (VOLUME TINGGI, ANTI DOUBLE PLAY, SLIDER KONTROL) */
         const AudioEngine = (() => {
@@ -667,7 +663,7 @@
                 osc1.type = 'triangle'; osc2.type = 'sine';
                 osc1.frequency.setValueAtTime(freq, now); osc2.frequency.setValueAtTime(freq * 2, now);
                 noteGain.gain.setValueAtTime(0.001, now);
-                noteGain.gain.linearRampToValueAtTime(0.8, now + 0.02);
+                noteGain.gain.linearRampToValueAtTime(0.85, now + 0.02);
                 noteGain.gain.exponentialRampToValueAtTime(0.001, now + durationSec * 0.95);
                 osc1.connect(noteGain); osc2.connect(noteGain); noteGain.connect(compressor);
                 osc1.start(now); osc2.start(now); osc1.stop(now + durationSec); osc2.stop(now + durationSec);
@@ -716,7 +712,7 @@
         })();
 
         /* 2. STATE PERSISTENCE & URL SHARING LENGKAP */
-        const STORAGE_KEY = 'birthday_invitation_3d_vip_v3';
+        const STORAGE_KEY = 'birthday_invitation_3d_holographic_v4';
         const DEFAULT_GALLERY = [
             'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=80',
             'https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=600&q=80',
@@ -725,7 +721,7 @@
         const DEFAULT_PARTY_PHOTO = 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80';
 
         let state = {
-            theme: 'navy', name: 'Rafka Pratama', age: '21',
+            theme: 'gold', name: 'Rafka Pratama', age: '21',
             greeting: 'Dengan penuh rasa syukur dan kebahagiaan, saya mengundang Bapak/Ibu/Saudara/i serta sahabat sekalian untuk hadir merayakan hari ulang tahun saya.',
             datetime: '2027-07-25T16:00', timeLabel: '16.00 WIB - Selesai',
             location: 'The Glass House Resto & Lounge, Jl. Senopati No. 45, Jakarta Selatan',
@@ -844,19 +840,25 @@
             updateCountdown();
         }
 
-        function setTheme(t) { state.theme = t; document.documentElement.setAttribute('data-theme', t); saveState(); showToast('Tema 3D Mewah diperbarui!'); }
+        function setTheme(t) { 
+            state.theme = t; 
+            document.documentElement.setAttribute('data-theme', t); 
+            saveState(); 
+            showToast('Tema Holografik 3D diperbarui!'); 
+        }
+
         function toggleViewMode() {
             isGuestMode = !isGuestMode;
             document.body.classList.toggle('guest-mode', isGuestMode);
             document.getElementById('mode-toggle-text').textContent = isGuestMode ? 'Edit Undangan' : 'Mode Tamu';
             document.getElementById('mode-toggle-icon').className = isGuestMode ? 'fa-solid fa-pen' : 'fa-solid fa-eye';
-            showToast(isGuestMode ? 'Beralih ke Mode Tamu' : 'Beralih ke Mode Edit VIP');
+            showToast(isGuestMode ? 'Beralih ke Mode Tamu' : 'Beralih ke Mode Edit VIP 3D');
         }
 
         function shareInvitation() {
             const shareUrl = `${window.location.origin}${window.location.pathname}?invite=${btoa(unescape(encodeURIComponent(JSON.stringify(state))))}`;
             const temp = document.createElement('textarea'); temp.value = shareUrl; document.body.appendChild(temp); temp.select(); document.execCommand('copy'); document.body.removeChild(temp);
-            showToast('Link undangan VIP berhasil disalin! Foto & nama kustom Anda ikut terbawa.');
+            showToast('Link undangan 3D berhasil disalin! Foto & nama kustom ikut terbawa.');
         }
 
         function resetAllData() { localStorage.removeItem(STORAGE_KEY); window.location.href = window.location.pathname; }
@@ -905,7 +907,7 @@
         function renderGallery() {
             const g = document.getElementById('gallery-grid'); g.innerHTML = '';
             state.gallery.forEach((src, idx) => {
-                g.innerHTML += `<div class="relative group rounded-2xl overflow-hidden aspect-square border shadow-xl cursor-pointer" style="border-color:var(--border-color)">
+                g.innerHTML += `<div class="relative group rounded-2xl overflow-hidden aspect-square border shadow-xl cursor-pointer" style="border-color:var(--border-3d)">
                     <img src="${src}" onclick="openLightbox('${src}')" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <button onclick="event.stopPropagation(); removeGalleryPhoto(${idx})" class="edit-only absolute top-2 right-2 w-8 h-8 rounded-full bg-red-600 text-white text-xs flex items-center justify-center shadow-lg cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                 </div>`;
@@ -935,34 +937,34 @@
             const flame = document.getElementById('candle-flame-group'), note = document.getElementById('candle-instruction');
             if (!candleLit) {
                 flame.classList.add('extinguished');
-                note.textContent = '🎉 Yeay! Harapan Anda terkabul! (Ketuk lagi untuk menyalakan)';
+                note.textContent = '🎉 Yeay! Harapan 3D Anda terkabul! (Ketuk lagi untuk menyalakan)';
                 triggerConfettiBurst();
             } else {
                 flame.classList.remove('extinguished');
-                note.textContent = '🎂 Ketuk lilin di atas kue untuk meniup & membuat harapan!';
+                note.textContent = '🎂 Ketuk lilin di atas kue untuk meniup & membuat harapan 3D!';
             }
         }
 
         function triggerConfettiBurst() {
             if (typeof confetti === 'function') {
-                confetti({ particleCount: 100, spread: 90, origin: { y: 0.6 }, colors: ['#d4af37', '#ffffff', '#10b981', '#f43f5e'] });
+                confetti({ particleCount: 120, spread: 100, origin: { y: 0.6 }, colors: ['#f59e0b', '#ffffff', '#10b981', '#f43f5e', '#06b6d4'] });
             }
         }
 
         function spawnBalloons() {
-            const colors = ['#d4af37', '#3b82f6', '#10b981', '#c084fc', '#f43f5e'];
-            for (let i = 0; i < 8; i++) {
+            const colors = ['#f59e0b', '#3b82f6', '#10b981', '#c084fc', '#f43f5e', '#06b6d4'];
+            for (let i = 0; i < 9; i++) {
                 const b = document.createElement('div');
-                b.className = 'balloon-3d';
+                b.className = 'balloon-floating-3d';
                 b.style.left = `${Math.random() * 85 + 5}vw`;
                 b.style.animationDuration = `${Math.random() * 4 + 8}s`;
                 b.style.animationDelay = `${Math.random() * 1.5}s`;
-                b.innerHTML = `<svg width="40" height="52" viewBox="0 0 36 48"><ellipse cx="18" cy="20" rx="16" ry="19" fill="${colors[Math.floor(Math.random()*colors.length)]}"/><path d="M18 39 L18 46" stroke="#94a3b8" stroke-width="1.5"/></svg>`;
+                b.innerHTML = `<svg width="42" height="54" viewBox="0 0 36 48"><ellipse cx="18" cy="20" rx="16" ry="19" fill="${colors[Math.floor(Math.random()*colors.length)]}"/><path d="M18 39 L18 46" stroke="#94a3b8" stroke-width="1.5"/></svg>`;
                 b.onclick = () => { b.remove(); triggerConfettiBurst(); };
                 document.body.appendChild(b);
                 setTimeout(() => b.remove(), 12000);
             }
-            showToast('Balon 3D melayang! Ketuk balon untuk meletuskannya.');
+            showToast('Balon Holografik 3D melayang! Ketuk balon untuk meletuskannya.');
         }
 
         function handleRSVPSubmit(e) {
@@ -985,14 +987,14 @@
             if (!sender || !msg) return;
             state.wishes.unshift({ name: sender, msg, time: 'Baru saja' });
             document.getElementById('wish-sender').value = ''; document.getElementById('wish-message').value = '';
-            renderWishes(); saveState(); showToast('Doa & ucapan VIP terkirim!');
+            renderWishes(); saveState(); showToast('Doa & ucapan 3D terkirim!');
         }
 
         function renderWishes() {
             const c = document.getElementById('wishes-list'); c.innerHTML = '';
             state.wishes.forEach(w => {
-                c.innerHTML += `<div class="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-4 shadow-sm">
-                    <div class="flex items-center justify-between mb-1"><span class="font-bold text-xs sm:text-sm text-amber-400">${w.name}</span><span class="text-[10px] text-gray-400">${w.time}</span></div>
+                c.innerHTML += `<div class="border rounded-2xl p-4 shadow-sm" style="border-color:var(--border-3d); background:var(--accent-soft);">
+                    <div class="flex items-center justify-between mb-1"><span class="font-bold text-xs sm:text-sm" style="color:var(--accent);">${w.name}</span><span class="text-[10px] text-gray-400">${w.time}</span></div>
                     <p class="text-xs sm:text-sm leading-relaxed text-gray-200">${w.msg}</p>
                 </div>`;
             });
@@ -1000,7 +1002,8 @@
 
         function showToast(text) {
             const container = document.getElementById('toast-container'), toast = document.createElement('div');
-            toast.className = 'card-3d-luxury px-5 py-3.5 rounded-2xl text-xs font-semibold text-center shadow-2xl border border-amber-500/40 text-amber-300';
+            toast.className = 'card-3d-true px-5 py-3.5 rounded-2xl text-xs font-bold text-center shadow-2xl border text-amber-300';
+            toast.style.borderColor = 'var(--border-3d)';
             toast.textContent = text; container.appendChild(toast);
             setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3200);
         }
@@ -1011,12 +1014,13 @@
             let particles = [];
             function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
             window.addEventListener('resize', resize); resize();
-            for (let i = 0; i < 50; i++) {
-                particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 3 + 1, vy: -(Math.random() * 0.5 + 0.1), vx: (Math.random() - 0.5) * 0.4 });
+            for (let i = 0; i < 60; i++) {
+                particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 3.5 + 1, vy: -(Math.random() * 0.6 + 0.1), vx: (Math.random() - 0.5) * 0.5 });
             }
             function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim() || 'rgba(212, 175, 55, 0.6)';
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#f59e0b';
+                ctx.globalAlpha = 0.45;
                 particles.forEach(p => {
                     ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
                     p.y += p.vy; p.x += p.vx;
