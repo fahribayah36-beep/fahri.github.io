@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Ulang Tahun Spesial</title>
+    <title>Undangan Ulang Tahun Spesial 3D</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
@@ -27,50 +27,47 @@
     </script>
 
     <style>
-        /* Variabel Tema Dinamis (Default: Midnight Navy & Champagne Gold) */
+        /* Variabel Tema 3D Mewah & Maskulin/Netral (Midnight Navy & Champagne Gold) */
         :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-card: rgba(30, 41, 59, 0.85);
-            --bg-card-solid: #1e293b;
+            --bg-primary: #070b14;
+            --bg-secondary: #0f172a;
+            --bg-card: rgba(15, 23, 42, 0.88);
             --text-main: #f8fafc;
-            --text-muted: #cbd5e1;
+            --text-muted: #94a3b8;
             --accent: #d4af37;
-            --accent-hover: #b5952f;
+            --accent-hover: #f3e5ab;
             --accent-soft: rgba(212, 175, 55, 0.15);
-            --border-color: rgba(212, 175, 55, 0.3);
-            --input-bg: rgba(15, 23, 42, 0.7);
-            --particle-color: rgba(212, 175, 55, 0.45);
+            --border-color: rgba(212, 175, 55, 0.35);
+            --input-bg: rgba(7, 11, 20, 0.85);
+            --particle-color: rgba(212, 175, 55, 0.5);
         }
 
-        [data-theme="sage"] {
-            --bg-primary: #f4f6f0;
-            --bg-secondary: #e6ece0;
-            --bg-card: rgba(255, 255, 255, 0.88);
-            --bg-card-solid: #ffffff;
-            --text-main: #1f2922;
-            --text-muted: #4b5e50;
-            --accent: #4d7c5b;
-            --accent-hover: #3b6146;
-            --accent-soft: rgba(77, 124, 91, 0.12);
-            --border-color: rgba(77, 124, 91, 0.28);
-            --input-bg: rgba(244, 246, 240, 0.85);
-            --particle-color: rgba(77, 124, 91, 0.35);
+        [data-theme="emerald"] {
+            --bg-primary: #051911;
+            --bg-secondary: #0a291e;
+            --bg-card: rgba(10, 41, 30, 0.88);
+            --text-main: #ecfdf5;
+            --text-muted: #6ee7b7;
+            --accent: #10b981;
+            --accent-hover: #34d399;
+            --accent-soft: rgba(16, 185, 129, 0.15);
+            --border-color: rgba(16, 185, 129, 0.35);
+            --input-bg: rgba(5, 25, 17, 0.85);
+            --particle-color: rgba(16, 185, 129, 0.5);
         }
 
-        [data-theme="rose"] {
-            --bg-primary: #2a1820;
-            --bg-secondary: #3b222d;
-            --bg-card: rgba(59, 34, 45, 0.86);
-            --bg-card-solid: #3b222d;
-            --text-main: #fdf2f5;
-            --text-muted: #e5c3ce;
-            --accent: #e5a98c;
-            --accent-hover: #d19173;
-            --accent-soft: rgba(229, 169, 140, 0.16);
-            --border-color: rgba(229, 169, 140, 0.32);
-            --input-bg: rgba(42, 24, 32, 0.75);
-            --particle-color: rgba(229, 169, 140, 0.4);
+        [data-theme="royal"] {
+            --bg-primary: #110c1d;
+            --bg-secondary: #1e1335;
+            --bg-card: rgba(30, 19, 53, 0.88);
+            --text-main: #faf5ff;
+            --text-muted: #d8b4fe;
+            --accent: #c084fc;
+            --accent-hover: #e879f9;
+            --accent-soft: rgba(192, 132, 252, 0.15);
+            --border-color: rgba(192, 132, 252, 0.35);
+            --input-bg: rgba(17, 12, 29, 0.85);
+            --particle-color: rgba(192, 132, 252, 0.5);
         }
 
         body {
@@ -78,331 +75,286 @@
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+            perspective: 1400px;
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Tekstur Latar Belakang Halus */
         .bg-texture {
-            background-image: radial-gradient(var(--border-color) 1px, transparent 1px),
-                              radial-gradient(var(--border-color) 1px, var(--bg-primary) 1px);
+            background-image: radial-gradient(var(--border-color) 1.5px, transparent 1.5px);
             background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
         }
 
-        .theme-card {
+        /* 3D Glassmorphism Card dengan Efek Depth & Hover Tilt */
+        .theme-card-3d {
             background: var(--bg-card);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--border-color);
-            box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.25);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+        }
+        .theme-card-3d:hover {
+            transform: translateY(-4px) rotateX(1.5deg) rotateY(-1.5deg);
+            box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.8);
         }
 
         .theme-input {
             background-color: var(--input-bg);
             color: var(--text-main);
             border: 1px solid var(--border-color);
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
         }
-
         .theme-input:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-soft);
+            box-shadow: 0 0 0 4px var(--accent-soft);
         }
 
         .theme-btn-primary {
-            background-color: var(--accent);
-            color: #0f172a;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: #070b14;
             font-weight: 700;
-            transition: all 0.25s ease;
-        }
-        [data-theme="sage"] .theme-btn-primary {
-            color: #ffffff;
+            box-shadow: 0 10px 25px -5px var(--accent-soft);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .theme-btn-primary:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px -5px var(--accent-soft);
         }
 
-        .theme-accent-text {
-            color: var(--accent);
-        }
-
-        .theme-muted-text {
-            color: var(--text-muted);
-        }
-
+        .theme-accent-text { color: var(--accent); }
+        .theme-muted-text { color: var(--text-muted); }
         .theme-soft-bg {
             background-color: var(--accent-soft);
             border: 1px solid var(--border-color);
         }
 
-        /* Mode Tamu menyembunyikan elemen khusus edit */
-        body.guest-mode .edit-only {
-            display: none !important;
+        body.guest-mode .edit-only { display: none !important; }
+        body:not(.guest-mode) .guest-only { display: none !important; }
+
+        /* Animasi 3D Amplop & Segel Lilin */
+        #envelope-wrapper {
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+            transform-style: preserve-3d;
         }
-        body:not(.guest-mode) .guest-only {
-            display: none !important;
+        #envelope-wrapper.opening {
+            transform: scale(1.35) rotateX(35deg) translateY(120px);
+            opacity: 0;
+            pointer-events: none;
         }
 
-        /* Animasi Balon & Api Lilin */
-        @keyframes floatBalloon {
-            0%, 100% { transform: translateY(0px) rotate(-2deg); }
-            50% { transform: translateY(-18px) rotate(3deg); }
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 25px var(--accent); }
+            50% { transform: scale(1.08); box-shadow: 0 0 40px var(--accent); }
         }
-        .balloon-float {
-            animation: floatBalloon 5s ease-in-out infinite;
-        }
+        .wax-seal { animation: pulseGlow 2.5s infinite ease-in-out; }
 
-        @keyframes flickerFlame {
-            0%, 100% { transform: scale(1) rotate(-2deg); opacity: 0.95; }
-            25% { transform: scale(1.08, 0.94) rotate(2deg); opacity: 1; }
-            50% { transform: scale(0.95, 1.06) rotate(-1deg); opacity: 0.9; }
-            75% { transform: scale(1.05, 0.96) rotate(3deg); opacity: 1; }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        .floating-anim { animation: floatSlow 4s ease-in-out infinite; }
+
+        @keyframes flicker {
+            0%, 100% { transform: scale(1) rotate(-3deg); opacity: 0.95; }
+            50% { transform: scale(1.12, 0.92) rotate(3deg); opacity: 1; filter: drop-shadow(0 0 12px var(--accent)); }
         }
         .candle-flame {
             transform-origin: bottom center;
-            animation: flickerFlame 0.9s infinite alternate ease-in-out;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            animation: flicker 0.75s infinite alternate ease-in-out;
         }
-        .candle-flame.extinguished {
-            opacity: 0;
-            transform: scale(0);
-            animation: none;
+        .candle-flame.extinguished { opacity: 0; transform: scale(0); transition: all 0.4s ease; }
+
+        /* Balon Terbang Mengambang 3D */
+        .flying-balloon {
+            position: fixed;
+            bottom: -120px;
+            z-index: 55;
+            cursor: pointer;
+            animation: flyUp 10s linear infinite;
+            filter: drop-shadow(0 12px 18px rgba(0,0,0,0.4));
+            transition: transform 0.2s ease;
+        }
+        .flying-balloon:hover { transform: scale(1.25) rotate(8deg); }
+        @keyframes flyUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.95; }
+            100% { transform: translateY(-115vh) rotate(20deg); opacity: 0; }
         }
 
-        /* Custom Range Slider untuk Volume */
-        input[type=range].volume-slider {
-            -webkit-appearance: none;
-            background: transparent;
-        }
-        input[type=range].volume-slider::-webkit-slider-runnable-track {
-            height: 6px;
-            border-radius: 999px;
-            background: var(--border-color);
-        }
+        /* Slider Volume */
+        input[type=range].volume-slider { -webkit-appearance: none; background: transparent; }
+        input[type=range].volume-slider::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: var(--border-color); }
         input[type=range].volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            background: var(--accent);
-            margin-top: -5px;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--accent); margin-top: -5px; cursor: pointer; box-shadow: 0 0 12px var(--accent);
         }
     </style>
 </head>
 <body class="bg-texture min-h-screen relative selection:bg-amber-500/30">
 
-    <!-- Canvas Latar Belakang Partikel Emas / Bokeh Melayang -->
     <canvas id="bg-particles" class="fixed inset-0 pointer-events-none z-0"></canvas>
+    <div id="toast-container" class="fixed top-20 left-1/2 -translate-x-1/2 z-[80] flex flex-col gap-2 pointer-events-none w-[90%] max-w-sm"></div>
 
-    <!-- Notifikasi Toast Non-Blocking (Pengganti alert) -->
-    <div id="toast-container" class="fixed top-20 left-1/2 -translate-x-1/2 z-[70] flex flex-col gap-2 pointer-events-none w-[90%] max-w-sm"></div>
-
-    <!-- Widget Pemutar Musik Melayang (Anti-Bug + Slider Volume) -->
-    <div id="music-widget" class="fixed bottom-4 right-4 z-50 theme-card rounded-2xl px-3.5 py-2.5 flex items-center gap-3 shadow-2xl">
-        <button id="music-toggle-btn" onclick="AudioEngine.toggle()" aria-label="Putar atau Jeda Musik" class="w-10 h-10 rounded-xl theme-btn-primary flex items-center justify-center shadow-md flex-shrink-0">
+    <!-- Music Player Widget (Volume Kuat & Anti-Double Bug) -->
+    <div id="music-widget" class="fixed bottom-4 right-4 z-50 theme-card-3d rounded-2xl px-3.5 py-2.5 flex items-center gap-3 shadow-2xl">
+        <button id="music-toggle-btn" onclick="AudioEngine.toggle()" aria-label="Putar atau Jeda Musik" class="w-10 h-10 rounded-xl theme-btn-primary flex items-center justify-center shadow-md flex-shrink-0 cursor-pointer">
             <i id="music-icon" class="fa-solid fa-play text-sm"></i>
         </button>
         <div class="flex flex-col min-w-[115px]">
             <div class="flex items-center justify-between text-[11px] font-semibold mb-1">
                 <span class="theme-accent-text flex items-center gap-1">
-                    <i class="fa-solid fa-music text-[10px]"></i> Happy Birthday
+                    <i class="fa-solid fa-music text-[10px]"></i> HBD Melodi
                 </span>
-                <span id="volume-label" class="theme-muted-text">85%</span>
+                <span id="volume-label" class="theme-muted-text">90%</span>
             </div>
-            <input id="volume-slider" type="range" min="0" max="100" value="85" oninput="AudioEngine.setVolume(this.value)" class="volume-slider w-full" title="Atur Volume Musik">
+            <input id="volume-slider" type="range" min="0" max="100" value="90" oninput="AudioEngine.setVolume(this.value)" class="volume-slider w-full" title="Atur Volume">
         </div>
     </div>
 
     <!-- =========================================================
-         1. HALAMAN PEMBUKA / COVER UNDANGAN
+         1. HALAMAN PEMBUKA 3D: AMPLOP SURAT MEWAH & WAX SEAL
     ========================================================== -->
-    <section id="cover-section" class="fixed inset-0 z-[60] flex flex-col items-center justify-center p-5 text-center transition-all duration-700" style="background: radial-gradient(circle at top, var(--bg-secondary), var(--bg-primary));">
-        <!-- Dekorasi Balon SVG Mengambang -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-45">
-            <svg class="balloon-float absolute top-8 left-6 w-16 h-24" viewBox="0 0 64 96" fill="none">
-                <ellipse cx="32" cy="34" rx="24" ry="30" fill="url(#goldGrad1)"/>
-                <path d="M32 64 C32 76, 26 84, 34 94" stroke="#d4af37" stroke-width="1.5"/>
-                <defs>
-                    <linearGradient id="goldGrad1" x1="10" y1="8" x2="54" y2="60" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#f3e5ab"/><stop offset="0.5" stop-color="#d4af37"/><stop offset="1" stop-color="#8a6d1c"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-            <svg class="balloon-float absolute bottom-16 right-8 w-20 h-28" style="animation-delay: 1.5s;" viewBox="0 0 64 96" fill="none">
-                <ellipse cx="32" cy="34" rx="24" ry="30" fill="url(#goldGrad2)"/>
-                <path d="M32 64 C32 76, 38 84, 30 94" stroke="#d4af37" stroke-width="1.5"/>
-                <defs>
-                    <linearGradient id="goldGrad2" x1="10" y1="8" x2="54" y2="60" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#e2e8f0"/><stop offset="0.5" stop-color="#94a3b8"/><stop offset="1" stop-color="#475569"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
+    <section id="cover-section" class="fixed inset-0 z-[70] flex items-center justify-center p-4 overflow-hidden" style="background: radial-gradient(circle at center, var(--bg-secondary), var(--bg-primary));">
+        <div id="envelope-wrapper" class="relative max-w-md w-full theme-card-3d p-8 rounded-3xl text-center shadow-2xl">
+            <div class="absolute -top-7 left-1/2 -translate-x-1/2 w-16 h-16 rounded-full theme-btn-primary flex items-center justify-center shadow-2xl wax-seal cursor-pointer" onclick="openInvitation()" title="Buka Surat Undangan">
+                <i class="fa-solid fa-award text-2xl"></i>
+            </div>
 
-        <div class="relative z-10 max-w-md w-full theme-card p-7 sm:p-9 rounded-3xl">
-            <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full theme-soft-bg theme-accent-text mb-3">
-                Birthday Celebration
+            <span class="inline-block text-[11px] font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-full theme-soft-bg theme-accent-text mt-4 mb-3">
+                Exclusive 3D Invitation
             </span>
-            <h1 class="font-serif text-4xl sm:text-5xl font-bold theme-accent-text mb-1">You're Invited</h1>
-            <p class="theme-muted-text text-xs sm:text-sm mb-6">Merayakan Hari Spesial & Momen Kebersamaan</p>
+            <h1 class="font-serif text-4xl sm:text-5xl font-bold theme-accent-text mb-2">You're Invited</h1>
+            <p class="theme-muted-text text-xs sm:text-sm mb-6">Sebuah Kehormatan & Kebahagiaan Kehadiran Anda</p>
 
-            <!-- Foto / Avatar Cover -->
-            <div class="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-5 rounded-full p-1.5" style="background: linear-gradient(135deg, var(--accent), transparent, var(--accent));">
-                <div class="w-full h-full rounded-full overflow-hidden bg-slate-800 flex items-center justify-center relative">
-                    <img id="cover-photo-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80" onerror="this.src='https://placehold.co/400x400/1e293b/d4af37?text=Birthday'" alt="Foto Utama" class="w-full h-full object-cover">
+            <div class="relative w-32 h-32 sm:w-36 sm:h-36 mx-auto mb-5 rounded-full p-1.5 shadow-2xl" style="background: linear-gradient(135deg, var(--accent), transparent, var(--accent));">
+                <div class="w-full h-full rounded-full overflow-hidden bg-slate-900 flex items-center justify-center">
+                    <img id="cover-photo-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80" onerror="this.src='https://placehold.co/400x400/1e293b/d4af37?text=Birthday'" alt="Cover" class="w-full h-full object-cover">
                 </div>
             </div>
 
-            <!-- Nama yang Berulang Tahun di Cover -->
             <h2 id="cover-display-name" class="font-serif text-2xl sm:text-3xl font-bold mb-1">Rafka Pratama</h2>
-            <p class="text-xs theme-accent-text font-semibold tracking-wider uppercase mb-5">Ulang Tahun ke-<span id="cover-display-age">21</span></p>
+            <p class="text-xs theme-accent-text font-semibold tracking-wider uppercase mb-6">Ulang Tahun ke-<span id="cover-display-age">21</span></p>
 
-            <p class="theme-muted-text text-xs sm:text-sm leading-relaxed mb-6 italic">
-                "Kehadiran serta doa restu Anda merupakan kado terindah dalam perayaan hari bahagia ini."
-            </p>
-
-            <button onclick="openInvitation()" class="w-full py-3.5 px-6 theme-btn-primary rounded-2xl shadow-xl flex items-center justify-center gap-2.5 text-sm sm:text-base cursor-pointer">
-                <i class="fa-solid fa-envelope-open-text"></i>
-                <span>Buka Undangan</span>
+            <button onclick="openInvitation()" class="w-full py-4 px-6 theme-btn-primary rounded-2xl shadow-2xl flex items-center justify-center gap-3 text-base cursor-pointer">
+                <i class="fa-solid fa-envelope-open-text text-lg animate-bounce"></i>
+                <span>Buka Surat Undangan</span>
             </button>
         </div>
     </section>
 
-    <!-- =========================================================
-         TOP BAR KONTROL (MODE EDIT / MODE TAMU, TEMA & BAGIKAN)
-    ========================================================== -->
-    <header id="top-navbar" class="sticky top-0 z-40 hidden border-b" style="background-color: var(--bg-card); backdrop-filter: blur(12px); border-color: var(--border-color);">
+    <!-- TOP NAVBAR KONTROL -->
+    <header id="top-navbar" class="sticky top-0 z-40 hidden border-b backdrop-blur-md" style="background-color: var(--bg-card); border-color: var(--border-color);">
         <div class="max-w-3xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
-            <!-- Pemilih Tema Warna -->
             <div class="flex items-center gap-1.5">
-                <span class="text-[11px] font-semibold theme-muted-text hidden sm:inline mr-1">Tema:</span>
-                <button onclick="setTheme('navy')" title="Midnight Navy & Gold" class="w-6 h-6 rounded-full border-2 border-amber-400 bg-[#0f172a] cursor-pointer transition-transform hover:scale-110"></button>
-                <button onclick="setTheme('sage')" title="Sage Green & Cream" class="w-6 h-6 rounded-full border-2 border-emerald-600 bg-[#f4f6f0] cursor-pointer transition-transform hover:scale-110"></button>
-                <button onclick="setTheme('rose')" title="Rose Champagne" class="w-6 h-6 rounded-full border-2 border-rose-300 bg-[#2a1820] cursor-pointer transition-transform hover:scale-110"></button>
+                <span class="text-[11px] font-semibold theme-muted-text hidden sm:inline mr-1">Tema 3D:</span>
+                <button onclick="setTheme('navy')" title="Midnight Gold" class="w-6 h-6 rounded-full border-2 border-amber-400 bg-[#070b14] cursor-pointer hover:scale-110 transition-transform"></button>
+                <button onclick="setTheme('emerald')" title="Emerald Green" class="w-6 h-6 rounded-full border-2 border-emerald-500 bg-[#051911] cursor-pointer hover:scale-110 transition-transform"></button>
+                <button onclick="setTheme('royal')" title="Royal Purple" class="w-6 h-6 rounded-full border-2 border-purple-400 bg-[#110c1d] cursor-pointer hover:scale-110 transition-transform"></button>
             </div>
 
-            <!-- Toggle Mode Edit vs Mode Tamu + Tombol Bagikan -->
             <div class="flex items-center gap-2">
+                <button onclick="spawnBalloons()" class="px-3 py-1.5 rounded-xl text-xs theme-soft-bg theme-accent-text flex items-center gap-1 cursor-pointer hover:scale-105 transition-transform" title="Lepas Balon">
+                    <i class="fa-solid fa-child-reaching"></i> <span>Balon</span>
+                </button>
                 <button id="mode-toggle-btn" onclick="toggleViewMode()" class="px-3 py-1.5 rounded-xl text-xs font-semibold theme-soft-bg theme-accent-text flex items-center gap-1.5 cursor-pointer">
                     <i id="mode-toggle-icon" class="fa-solid fa-eye"></i>
                     <span id="mode-toggle-text">Mode Tamu</span>
                 </button>
                 <button onclick="shareInvitation()" class="px-3.5 py-1.5 rounded-xl text-xs theme-btn-primary flex items-center gap-1.5 shadow cursor-pointer">
                     <i class="fa-solid fa-share-nodes"></i>
-                    <span>Bagikan Link</span>
+                    <span>Bagikan</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- =========================================================
-         KONTEN UTAMA UNDANGAN
+         KONTEN UTAMA UNDANGAN 3D
     ========================================================== -->
     <main id="main-content" class="hidden opacity-0 transition-opacity duration-700 relative z-10 max-w-3xl mx-auto px-4 py-8 pb-28 space-y-8">
 
-        <!-- Banner Petunjuk Mode Edit -->
-        <div class="edit-only theme-soft-bg rounded-2xl p-3.5 flex items-center justify-between gap-3 text-xs">
+        <!-- Banner Mode Edit -->
+        <div class="edit-only theme-soft-bg rounded-2xl p-3.5 flex items-center justify-between gap-3 text-xs shadow-lg">
             <div class="flex items-center gap-2.5">
-                <i class="fa-solid fa-pen-to-square theme-accent-text text-base"></i>
-                <span><strong>Mode Edit Aktif:</strong> Ubah nama, foto, tanggal, alamat, atau tema pesta di bawah ini. Semua perubahan tersimpan otomatis & siap dibagikan lewat tombol <strong>Bagikan Link</strong>.</span>
+                <i class="fa-solid fa-pen-to-square theme-accent-text text-base animate-pulse"></i>
+                <span><strong>Mode Edit Aktif:</strong> Sesuaikan nama, foto, tanggal, dan lokasi. Data otomatis tersimpan & siap dibagikan!</span>
             </div>
             <button onclick="resetAllData()" class="text-[11px] underline theme-muted-text hover:text-red-400 whitespace-nowrap cursor-pointer">Reset</button>
         </div>
 
-        <!-- 2. PROFIL YANG BERULANG TAHUN & KUE INTERAKTIF -->
-        <section class="theme-card rounded-3xl p-6 sm:p-9 text-center relative overflow-hidden">
+        <!-- 2. PROFIL & KUE 3D INTERAKTIF -->
+        <section class="theme-card-3d rounded-3xl p-6 sm:p-9 text-center relative overflow-hidden">
             <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full theme-soft-bg theme-accent-text mb-4">
                 The Birthday Star
             </span>
 
-            <!-- Foto Profil -->
-            <div class="relative w-36 h-36 sm:w-40 sm:h-40 mx-auto mb-4 rounded-full p-1.5" style="background: linear-gradient(135deg, var(--accent), transparent, var(--accent));">
-                <div class="w-full h-full rounded-full overflow-hidden bg-slate-800 relative group">
+            <div class="relative w-36 h-36 sm:w-40 sm:h-40 mx-auto mb-4 rounded-full p-1.5 shadow-2xl floating-anim" style="background: linear-gradient(135deg, var(--accent), transparent, var(--accent));">
+                <div class="w-full h-full rounded-full overflow-hidden bg-slate-900 relative group">
                     <img id="profile-photo-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80" onerror="this.src='https://placehold.co/400x400/1e293b/d4af37?text=Birthday'" alt="Profil" class="w-full h-full object-cover">
                     <label for="photo-file-input" class="edit-only absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-semibold p-2">
                         <i class="fa-solid fa-camera text-lg mb-1"></i>
-                        <span>Unggah Foto</span>
+                        <span>Ganti Foto</span>
                     </label>
                     <input type="file" id="photo-file-input" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
                 </div>
             </div>
 
-            <!-- Kontrol Foto pada Mode Edit -->
             <div class="edit-only max-w-md mx-auto mb-5 space-y-2">
                 <div class="flex flex-wrap justify-center gap-2">
                     <label for="photo-file-input" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-accent-text cursor-pointer hover:opacity-90">
                         <i class="fa-solid fa-upload mr-1"></i> Pilih dari Galeri
                     </label>
-                    <button type="button" onclick="useThemePhoto('male')" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-muted-text cursor-pointer hover:opacity-90">
-                        Foto Pria
-                    </button>
-                    <button type="button" onclick="useThemePhoto('female')" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-muted-text cursor-pointer hover:opacity-90">
-                        Foto Wanita
-                    </button>
-                    <button type="button" onclick="useThemePhoto('cake')" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-muted-text cursor-pointer hover:opacity-90">
-                        Foto Kue
-                    </button>
+                    <button type="button" onclick="useThemePhoto('male')" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-muted-text cursor-pointer">Pria</button>
+                    <button type="button" onclick="useThemePhoto('female')" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-muted-text cursor-pointer">Wanita</button>
+                    <button type="button" onclick="useThemePhoto('cake')" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-muted-text cursor-pointer">Kue</button>
                 </div>
-                <input type="url" id="input-photo-url" oninput="updatePhotoFromUrl(this.value)" placeholder="Atau tempel URL foto publik agar ikut terbawa di link..." class="w-full theme-input rounded-xl px-3 py-1.5 text-xs text-center">
+                <input type="url" id="input-photo-url" oninput="updatePhotoFromUrl(this.value)" placeholder="Atau tempel URL foto publik..." class="w-full theme-input rounded-xl px-3 py-1.5 text-xs text-center">
             </div>
 
-            <!-- Usia -->
             <div class="mb-2 flex items-center justify-center gap-2">
-                <span class="text-xs uppercase tracking-widest theme-accent-text font-bold">Merayakan Usia Ke-</span>
+                <span class="text-xs uppercase tracking-widest theme-accent-text font-bold">Usia Ke-</span>
                 <input type="number" id="input-age" value="21" min="1" max="150" oninput="syncState()" class="edit-only w-16 theme-input rounded-lg px-2 py-0.5 text-center font-bold text-sm">
                 <span id="display-age" class="guest-only font-bold text-base theme-accent-text">21</span>
             </div>
 
-            <!-- Nama Lengkap -->
             <div class="mb-4">
                 <input type="text" id="input-name" value="Rafka Pratama" oninput="syncState()" class="edit-only w-full max-w-md mx-auto text-center font-serif text-3xl sm:text-4xl font-bold theme-input rounded-2xl px-4 py-2" placeholder="Nama Lengkap">
                 <h2 id="display-name" class="guest-only font-serif text-3xl sm:text-4xl font-bold">Rafka Pratama</h2>
             </div>
 
-            <!-- Sambutan / Kutipan -->
             <div class="max-w-xl mx-auto theme-soft-bg rounded-2xl p-4 sm:p-5 mb-6">
-                <textarea id="input-greeting" rows="2" oninput="syncState()" class="edit-only w-full bg-transparent text-center text-sm italic leading-relaxed focus:outline-none resize-none" placeholder="Tulis pesan sambutan...">Dengan penuh rasa syukur dan kebahagiaan, saya mengundang Bapak/Ibu/Saudara/i serta sahabat sekalian untuk hadir merayakan hari ulang tahun saya.</textarea>
+                <textarea id="input-greeting" rows="2" oninput="syncState()" class="edit-only w-full bg-transparent text-center text-sm italic leading-relaxed focus:outline-none resize-none" placeholder="Tulis sambutan...">Dengan penuh rasa syukur dan kebahagiaan, saya mengundang Bapak/Ibu/Saudara/i serta sahabat sekalian untuk hadir merayakan hari ulang tahun saya.</textarea>
                 <p id="display-greeting" class="guest-only text-sm sm:text-base italic leading-relaxed theme-muted-text">
                     "Dengan penuh rasa syukur dan kebahagiaan, saya mengundang Bapak/Ibu/Saudara/i serta sahabat sekalian untuk hadir merayakan hari ulang tahun saya."
                 </p>
             </div>
 
-            <!-- Elemen Interaktif: Kue Ulang Tahun & Tiup Lilin -->
-            <div class="pt-2 border-t" style="border-color: var(--border-color);">
-                <p id="candle-instruction" class="text-xs theme-accent-text font-semibold mb-2">
-                    ✨ Klik lilin di atas kue untuk membuat harapan & meniup lilin!
+            <!-- Kue 3D Interaktif -->
+            <div class="pt-3 border-t" style="border-color: var(--border-color);">
+                <p id="candle-instruction" class="text-xs theme-accent-text font-semibold mb-2 animate-pulse">
+                    🎂 Ketuk lilin di atas kue untuk meniup & membuat harapan!
                 </p>
-                <div onclick="blowCandle()" class="inline-block cursor-pointer select-none group p-3 rounded-2xl hover:bg-white/5 transition-all" title="Klik untuk meniup atau menyalakan lilin">
-                    <svg class="w-28 h-28 mx-auto" viewBox="0 0 120 120" fill="none">
-                        <!-- Api Lilin -->
+                <div onclick="blowCandle()" class="inline-block cursor-pointer select-none group p-3 rounded-2xl hover:scale-110 transition-transform" title="Tiup Lilin">
+                    <svg class="w-32 h-32 mx-auto filter drop-shadow-[0_10px_10px_rgba(212,175,55,0.35)]" viewBox="0 0 120 120" fill="none">
                         <g id="candle-flame-group" class="candle-flame">
-                            <path d="M60 12 C54 22, 53 30, 60 33 C67 30, 66 22, 60 12 Z" fill="#fbbf24"/>
-                            <path d="M60 18 C57 24, 57 29, 60 31 C63 29, 63 24, 60 18 Z" fill="#fef08a"/>
+                            <path d="M60 10 C52 20, 51 29, 60 33 C69 29, 68 20, 60 10 Z" fill="#fbbf24"/>
+                            <path d="M60 16 C57 22, 57 28, 60 30 C63 28, 63 22, 60 16 Z" fill="#fef08a"/>
                         </g>
-                        <!-- Sumbu & Batang Lilin -->
                         <rect x="59" y="32" width="2" height="5" fill="#94a3b8"/>
-                        <rect x="55" y="37" width="10" height="22" rx="2" fill="#f8fafc" stroke="#d4af37" stroke-width="1.5"/>
-                        <path d="M55 43 L65 47 M55 50 L65 54" stroke="#d4af37" stroke-width="1.5"/>
-                        <!-- Kue Lapis Atas -->
-                        <rect x="32" y="59" width="56" height="20" rx="6" fill="#d4af37"/>
-                        <path d="M32 66 Q39 73 46 66 T60 66 T74 66 T88 66" stroke="#fffbeb" stroke-width="3" fill="none" stroke-linecap="round"/>
-                        <!-- Kue Lapis Bawah -->
-                        <rect x="20" y="79" width="80" height="24" rx="7" fill="#b5952f"/>
-                        <path d="M20 87 Q30 94 40 87 T60 87 T80 87 T100 87" stroke="#fffbeb" stroke-width="3" fill="none" stroke-linecap="round"/>
-                        <!-- Piring Kue -->
-                        <rect x="12" y="103" width="96" height="6" rx="3" fill="#cbd5e1"/>
+                        <rect x="54" y="37" width="12" height="22" rx="3" fill="#f8fafc" stroke="var(--accent)" stroke-width="1.5"/>
+                        <rect x="30" y="59" width="60" height="20" rx="6" fill="var(--accent)"/>
+                        <path d="M30 66 Q45 74 60 66 T90 66" stroke="#fffbeb" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <rect x="18" y="79" width="84" height="24" rx="7" fill="#b5952f"/>
+                        <path d="M18 87 Q35 96 60 87 T102 87" stroke="#fffbeb" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <rect x="10" y="103" width="100" height="6" rx="3" fill="#94a3b8"/>
                     </svg>
                 </div>
             </div>
         </section>
 
-        <!-- 3. COUNTDOWN REAL-TIME & PENGATUR TANGGAL ACARA -->
-        <section class="theme-card rounded-3xl p-6 sm:p-8 text-center">
+        <!-- 3. COUNTDOWN 3D (LENGKAP HARI, JAM, MENIT, DETIK) -->
+        <section class="theme-card-3d rounded-3xl p-6 sm:p-8 text-center">
             <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full theme-soft-bg theme-accent-text mb-2">
                 Save The Date
             </span>
@@ -411,7 +363,6 @@
                 Minggu, 25 Juli 2027 • Pukul 16.00 WIB
             </p>
 
-            <!-- Input DateTime Terintegrasi pada Mode Edit -->
             <div class="edit-only max-w-sm mx-auto mb-6 theme-soft-bg p-3.5 rounded-2xl">
                 <label for="input-datetime" class="block text-xs font-bold theme-accent-text mb-1.5">
                     <i class="fa-regular fa-calendar-check mr-1"></i> Atur Tanggal & Jam Acara:
@@ -419,21 +370,20 @@
                 <input type="datetime-local" id="input-datetime" value="2027-07-25T16:00" onchange="syncState()" class="w-full theme-input rounded-xl px-3.5 py-2 text-sm font-semibold text-center">
             </div>
 
-            <!-- Kotak Hitung Mundur -->
             <div class="grid grid-cols-4 gap-2.5 sm:gap-4 max-w-lg mx-auto">
-                <div class="theme-soft-bg rounded-2xl p-3 sm:p-4">
+                <div class="theme-soft-bg rounded-2xl p-3 sm:p-4 shadow-inner">
                     <span id="cd-days" class="font-serif text-2xl sm:text-4xl font-bold theme-accent-text block">00</span>
                     <span class="text-[10px] sm:text-xs uppercase tracking-wider theme-muted-text font-semibold">Hari</span>
                 </div>
-                <div class="theme-soft-bg rounded-2xl p-3 sm:p-4">
+                <div class="theme-soft-bg rounded-2xl p-3 sm:p-4 shadow-inner">
                     <span id="cd-hours" class="font-serif text-2xl sm:text-4xl font-bold theme-accent-text block">00</span>
                     <span class="text-[10px] sm:text-xs uppercase tracking-wider theme-muted-text font-semibold">Jam</span>
                 </div>
-                <div class="theme-soft-bg rounded-2xl p-3 sm:p-4">
+                <div class="theme-soft-bg rounded-2xl p-3 sm:p-4 shadow-inner">
                     <span id="cd-minutes" class="font-serif text-2xl sm:text-4xl font-bold theme-accent-text block">00</span>
                     <span class="text-[10px] sm:text-xs uppercase tracking-wider theme-muted-text font-semibold">Menit</span>
                 </div>
-                <div class="theme-soft-bg rounded-2xl p-3 sm:p-4">
+                <div class="theme-soft-bg rounded-2xl p-3 sm:p-4 shadow-inner">
                     <span id="cd-seconds" class="font-serif text-2xl sm:text-4xl font-bold theme-accent-text block">00</span>
                     <span class="text-[10px] sm:text-xs uppercase tracking-wider theme-muted-text font-semibold">Detik</span>
                 </div>
@@ -441,8 +391,8 @@
             <p id="cd-status-note" class="text-xs theme-muted-text mt-4"></p>
         </section>
 
-        <!-- 4. LOKASI & DETAIL WAKTU ACARA (INTEGRASI GOOGLE MAPS OTOMATIS) -->
-        <section class="theme-card rounded-3xl p-6 sm:p-8">
+        <!-- 4. LOKASI & GOOGLE MAPS DIRECT QUERY -->
+        <section class="theme-card-3d rounded-3xl p-6 sm:p-8">
             <div class="text-center mb-6">
                 <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full theme-soft-bg theme-accent-text mb-2">
                     Venue & Time
@@ -451,7 +401,7 @@
             </div>
 
             <div class="grid sm:grid-cols-2 gap-4 mb-5">
-                <div class="theme-soft-bg rounded-2xl p-4 flex items-start gap-3.5">
+                <div class="theme-soft-bg rounded-2xl p-4 flex items-start gap-3.5 shadow-sm">
                     <div class="w-11 h-11 rounded-xl theme-btn-primary flex items-center justify-center flex-shrink-0 text-base">
                         <i class="fa-regular fa-calendar"></i>
                     </div>
@@ -461,7 +411,7 @@
                     </div>
                 </div>
 
-                <div class="theme-soft-bg rounded-2xl p-4 flex items-start gap-3.5">
+                <div class="theme-soft-bg rounded-2xl p-4 flex items-start gap-3.5 shadow-sm">
                     <div class="w-11 h-11 rounded-xl theme-btn-primary flex items-center justify-center flex-shrink-0 text-base">
                         <i class="fa-regular fa-clock"></i>
                     </div>
@@ -473,7 +423,6 @@
                 </div>
             </div>
 
-            <!-- Alamat & Tombol Google Maps Otomatis -->
             <div class="theme-soft-bg rounded-2xl p-5 text-center">
                 <div class="w-12 h-12 rounded-2xl theme-btn-primary flex items-center justify-center mx-auto mb-3 text-lg shadow">
                     <i class="fa-solid fa-location-dot"></i>
@@ -482,55 +431,50 @@
 
                 <div class="edit-only max-w-lg mx-auto mb-3">
                     <input type="text" id="input-location" value="The Glass House Resto & Lounge, Jl. Senopati No. 45, Jakarta Selatan" oninput="syncState()" class="w-full theme-input rounded-xl px-4 py-2.5 text-sm font-semibold text-center" placeholder="Ketik nama tempat & alamat lengkap...">
-                    <p class="text-[11px] theme-muted-text mt-1.5">
-                        <i class="fa-solid fa-circle-info theme-accent-text mr-1"></i> Tombol Google Maps di bawah otomatis mencari alamat di atas.
-                    </p>
                 </div>
 
                 <p id="display-location" class="guest-only font-bold text-base sm:text-lg max-w-md mx-auto mb-4">
                     The Glass House Resto & Lounge, Jl. Senopati No. 45, Jakarta Selatan
                 </p>
 
-                <a id="google-maps-link" href="https://www.google.com/maps/search/?api=1&query=The%20Glass%20House%20Resto%20%26%20Lounge%2C%20Jl.%20Senopati%20No.%2045%2C%20Jakarta%20Selatan" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 py-3 theme-btn-primary rounded-2xl text-sm shadow-lg">
+                <a id="google-maps-link" href="https://www.google.com/maps/search/?api=1&query=The%20Glass%20House%20Resto%20%26%20Lounge%2C%20Jl.%20Senopati%20No.%2045%2C%20Jakarta%20Selatan" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 py-3 theme-btn-primary rounded-2xl text-sm shadow-xl">
                     <i class="fa-solid fa-map-location-dot"></i>
                     <span>Buka Lokasi di Google Maps</span>
                 </a>
             </div>
         </section>
 
-        <!-- 5. TEMA PESTA, DRESS CODE & RUNDOWN ACARA -->
-        <section class="theme-card rounded-3xl p-6 sm:p-8">
+        <!-- 5. TEMA PESTA & SUSUNAN ACARA -->
+        <section class="theme-card-3d rounded-3xl p-6 sm:p-8">
             <div class="text-center mb-6">
                 <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full theme-soft-bg theme-accent-text mb-2">
-                    Party Concept & Dress Code
+                    Party Concept & Rundown
                 </span>
                 <h3 class="font-serif text-2xl sm:text-3xl font-bold">Tema Pesta & Susunan Acara</h3>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6 items-center mb-6">
-                <!-- Ilustrasi / Foto Dekorasi Pesta (Bisa Diunggah dari Galeri Masing-Masing) -->
                 <div class="space-y-2.5">
-                    <div class="rounded-2xl overflow-hidden border relative group" style="border-color: var(--border-color);">
-                        <img id="party-photo-img" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80" onerror="this.src='https://placehold.co/600x400/1e293b/d4af37?text=Elegant+Party+Theme'" alt="Suasana Pesta Ulang Tahun" class="w-full h-52 object-cover">
-                        <label for="party-photo-file-input" class="edit-only absolute inset-0 bg-black/55 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-semibold p-2">
-                            <i class="fa-solid fa-camera text-lg mb-1"></i>
-                            <span>Ganti Foto Tema dari Galeri</span>
+                    <div class="rounded-2xl overflow-hidden border relative group shadow-xl" style="border-color: var(--border-color);">
+                        <img id="party-photo-img" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80" onerror="this.src='https://placehold.co/600x400/1e293b/d4af37?text=Party+Theme'" alt="Tema Pesta" class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500">
+                        <label for="party-photo-file-input" class="edit-only absolute inset-0 bg-black/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-semibold p-2">
+                            <i class="fa-solid fa-camera text-xl mb-1"></i>
+                            <span>Ganti Foto Tema</span>
                         </label>
                         <input type="file" id="party-photo-file-input" accept="image/*" class="hidden" onchange="handlePartyPhotoUpload(event)">
                     </div>
-                    <div class="edit-only flex flex-col sm:flex-row gap-2">
-                        <label for="party-photo-file-input" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-accent-text cursor-pointer hover:opacity-90 text-center whitespace-nowrap">
-                            <i class="fa-solid fa-upload mr-1"></i> Ambil dari Galeri
+                    <div class="edit-only flex gap-2">
+                        <label for="party-photo-file-input" class="px-3 py-1.5 rounded-xl text-xs font-medium theme-soft-bg theme-accent-text cursor-pointer hover:opacity-90 text-center flex-1">
+                            <i class="fa-solid fa-upload mr-1"></i> Unggah Galeri
                         </label>
-                        <input type="url" id="input-party-photo-url" oninput="updatePartyPhotoFromUrl(this.value)" placeholder="Atau tempel URL foto tema pesta..." class="w-full theme-input rounded-xl px-3 py-1.5 text-xs">
+                        <input type="url" id="input-party-photo-url" oninput="updatePartyPhotoFromUrl(this.value)" placeholder="Atau URL foto..." class="w-full theme-input rounded-xl px-3 py-1.5 text-xs">
                     </div>
                 </div>
 
-                <!-- Detail Tema & Dress Code -->
                 <div class="space-y-4">
-                    <div class="theme-soft-bg rounded-2xl p-4">
+                    <div class="theme-soft-bg rounded-2xl p-4 shadow-sm">
                         <span class="text-[11px] uppercase tracking-wider theme-accent-text font-bold block mb-1">
-                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Konsep & Tema Pesta
+                            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Penjelasan Tema Pesta
                         </span>
                         <input type="text" id="input-party-theme" value="Elegant Evening & Garden Celebration" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-3 py-1.5 text-sm font-bold mb-1.5">
                         <h4 id="display-party-theme" class="guest-only font-bold text-base mb-1">Elegant Evening & Garden Celebration</h4>
@@ -541,9 +485,9 @@
                         </p>
                     </div>
 
-                    <div class="theme-soft-bg rounded-2xl p-4">
+                    <div class="theme-soft-bg rounded-2xl p-4 shadow-sm">
                         <span class="text-[11px] uppercase tracking-wider theme-accent-text font-bold block mb-1">
-                            <i class="fa-solid fa-shirt mr-1"></i> Rekomendasi Dress Code
+                            <i class="fa-solid fa-shirt mr-1"></i> Dress Code
                         </span>
                         <input type="text" id="input-dresscode" value="Smart Casual (Nuansa Hitam, Putih, Krem, atau Earth Tone)" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-3 py-1.5 text-xs font-semibold">
                         <p id="display-dresscode" class="guest-only text-xs sm:text-sm font-semibold">
@@ -553,30 +497,27 @@
                 </div>
             </div>
 
-            <!-- Rundown Singkat (Bisa Diketik Manual Masing-Masing) -->
-            <div class="theme-soft-bg rounded-2xl p-4 sm:p-5">
+            <!-- Susunan Acara -->
+            <div class="theme-soft-bg rounded-2xl p-4 sm:p-5 shadow-sm">
                 <h4 class="text-xs font-bold uppercase tracking-wider theme-accent-text mb-3">
                     <i class="fa-solid fa-list-check mr-1.5"></i> Susunan Acara Singkat
                 </h4>
                 <div class="grid sm:grid-cols-3 gap-3 text-xs">
-                    <!-- Sesi 1 -->
-                    <div class="p-3 rounded-xl" style="background-color: var(--input-bg);">
-                        <input type="text" id="input-rundown-1-time" value="16.00 - 17.00" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold theme-accent-text mb-1.5" placeholder="Jam Sesi 1">
-                        <input type="text" id="input-rundown-1-desc" value="Registrasi Tamu & Welcome Drink" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs" placeholder="Kegiatan Sesi 1">
+                    <div class="p-3 rounded-xl shadow-inner" style="background-color: var(--input-bg);">
+                        <input type="text" id="input-rundown-1-time" value="16.00 - 17.00" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold theme-accent-text mb-1.5" placeholder="Jam">
+                        <input type="text" id="input-rundown-1-desc" value="Registrasi Tamu & Welcome Drink" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs" placeholder="Kegiatan">
                         <span id="display-rundown-1-time" class="guest-only font-bold theme-accent-text block mb-0.5">16.00 - 17.00</span>
                         <span id="display-rundown-1-desc" class="guest-only theme-muted-text">Registrasi Tamu & Welcome Drink</span>
                     </div>
-                    <!-- Sesi 2 -->
-                    <div class="p-3 rounded-xl" style="background-color: var(--input-bg);">
-                        <input type="text" id="input-rundown-2-time" value="17.00 - 18.30" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold theme-accent-text mb-1.5" placeholder="Jam Sesi 2">
-                        <input type="text" id="input-rundown-2-desc" value="Sambutan, Tiup Lilin & Potong Kue" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs" placeholder="Kegiatan Sesi 2">
+                    <div class="p-3 rounded-xl shadow-inner" style="background-color: var(--input-bg);">
+                        <input type="text" id="input-rundown-2-time" value="17.00 - 18.30" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold theme-accent-text mb-1.5" placeholder="Jam">
+                        <input type="text" id="input-rundown-2-desc" value="Sambutan, Tiup Lilin & Potong Kue" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs" placeholder="Kegiatan">
                         <span id="display-rundown-2-time" class="guest-only font-bold theme-accent-text block mb-0.5">17.00 - 18.30</span>
                         <span id="display-rundown-2-desc" class="guest-only theme-muted-text">Sambutan, Tiup Lilin & Potong Kue</span>
                     </div>
-                    <!-- Sesi 3 -->
-                    <div class="p-3 rounded-xl" style="background-color: var(--input-bg);">
-                        <input type="text" id="input-rundown-3-time" value="18.30 - Selesai" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold theme-accent-text mb-1.5" placeholder="Jam Sesi 3">
-                        <input type="text" id="input-rundown-3-desc" value="Makan Malam, Ramah Tamah & Foto" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs" placeholder="Kegiatan Sesi 3">
+                    <div class="p-3 rounded-xl shadow-inner" style="background-color: var(--input-bg);">
+                        <input type="text" id="input-rundown-3-time" value="18.30 - Selesai" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs font-bold theme-accent-text mb-1.5" placeholder="Jam">
+                        <input type="text" id="input-rundown-3-desc" value="Makan Malam, Ramah Tamah & Foto" oninput="syncState()" class="edit-only w-full theme-input rounded-lg px-2 py-1 text-xs" placeholder="Kegiatan">
                         <span id="display-rundown-3-time" class="guest-only font-bold theme-accent-text block mb-0.5">18.30 - Selesai</span>
                         <span id="display-rundown-3-desc" class="guest-only theme-muted-text">Makan Malam, Ramah Tamah & Foto</span>
                     </div>
@@ -584,8 +525,8 @@
             </div>
         </section>
 
-        <!-- 6. GALERI MOMEN (DENGAN GAMBAR DEFAULT MENARIK + UPLOAD GALERI) -->
-        <section class="theme-card rounded-3xl p-6 sm:p-8">
+        <!-- 6. GALERI MOMEN -->
+        <section class="theme-card-3d rounded-3xl p-6 sm:p-8">
             <div class="text-center mb-6">
                 <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full theme-soft-bg theme-accent-text mb-2">
                     Memories
@@ -597,29 +538,26 @@
             <div class="edit-only text-center mb-5">
                 <label for="gallery-upload-input" class="inline-flex items-center gap-2 px-4 py-2.5 theme-btn-primary rounded-xl text-xs cursor-pointer shadow">
                     <i class="fa-solid fa-images"></i>
-                    <span>Tambah Foto dari Perangkat</span>
+                    <span>Tambah Foto dari Galeri</span>
                 </label>
                 <input type="file" id="gallery-upload-input" accept="image/*" multiple class="hidden" onchange="handleGalleryUpload(event)">
             </div>
 
-            <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-                <!-- Diisi otomatis oleh JavaScript -->
-            </div>
+            <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4"></div>
         </section>
 
-        <!-- 7. RSVP / KONFIRMASI KEHADIRAN -->
-        <section class="theme-card rounded-3xl p-6 sm:p-8">
+        <!-- 7. RSVP -->
+        <section class="theme-card-3d rounded-3xl p-6 sm:p-8">
             <div class="text-center mb-6">
                 <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full theme-soft-bg theme-accent-text mb-2">
                     RSVP
                 </span>
                 <h3 class="font-serif text-2xl sm:text-3xl font-bold">Konfirmasi Kehadiran</h3>
-                <p class="text-xs theme-muted-text mt-1">Mohon isi konfirmasi kehadiran Anda di bawah ini</p>
+                <p class="text-xs theme-muted-text mt-1">Mohon isi konfirmasi kehadiran Anda</p>
             </div>
 
             <form onsubmit="handleRSVPSubmit(event)" class="max-w-md mx-auto space-y-4">
-                <!-- Pengaturan Nomor WhatsApp Tuan Rumah (Mode Edit) -->
-                <div class="edit-only theme-soft-bg p-3.5 rounded-2xl">
+                <div class="edit-only theme-soft-bg p-3.5 rounded-2xl shadow-sm">
                     <label for="input-wa-target" class="block text-xs font-bold theme-accent-text mb-1">
                         <i class="fa-brands fa-whatsapp text-emerald-400 mr-1"></i> Nomor WhatsApp Tujuan RSVP:
                     </label>
@@ -658,8 +596,8 @@
             </form>
         </section>
 
-        <!-- 8. UCAPAN & DOA (WISHES WALL - KOSONG DI AWAL) -->
-        <section class="theme-card rounded-3xl p-6 sm:p-8">
+        <!-- 8. UCAPAN & DOA (KOSONG DI AWAL) -->
+        <section class="theme-card-3d rounded-3xl p-6 sm:p-8">
             <div class="text-center mb-6">
                 <span class="inline-block text-[11px] font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full theme-soft-bg theme-accent-text mb-2">
                     Birthday Wishes
@@ -677,10 +615,7 @@
                 </button>
             </form>
 
-            <!-- Daftar Ucapan (Polos / Kosong sebelum diisi) -->
-            <div id="wishes-list" class="max-w-lg mx-auto space-y-3 max-h-80 overflow-y-auto pr-1">
-                <!-- Diisi otomatis saat ada ucapan yang dikirim -->
-            </div>
+            <div id="wishes-list" class="max-w-lg mx-auto space-y-3 max-h-80 overflow-y-auto pr-1"></div>
         </section>
 
         <!-- Footer -->
@@ -690,8 +625,8 @@
         </footer>
     </main>
 
-    <!-- Lightbox Modal untuk Galeri -->
-    <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-[80] bg-black/85 hidden items-center justify-center p-4">
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-[90] bg-black/85 hidden items-center justify-center p-4">
         <div class="relative max-w-3xl w-full flex items-center justify-center">
             <img id="lightbox-img" src="" alt="Perbesar Foto" class="max-w-full max-h-[85vh] rounded-2xl shadow-2xl object-contain">
             <button onclick="closeLightbox()" class="absolute -top-3 -right-3 w-10 h-10 rounded-full theme-btn-primary flex items-center justify-center shadow-lg cursor-pointer">
@@ -700,144 +635,59 @@
         </div>
     </div>
 
-    <!-- =========================================================
-         JAVASCRIPT LOGIKA LENGKAP (AUDIO, STATE, URL SHARE, COUNTDOWN)
-    ========================================================== -->
+    <!-- JAVASCRIPT LOGIKA 3D & PENYEMPURNAAN LENGKAP -->
     <script>
-        /* -----------------------------------------------------------
-           1. SISTEM AUDIO WEB AUDIO API (KERAS, JERNIH, ANTI-DOUBLE)
-        ----------------------------------------------------------- */
+        /* 1. AUDIO ENGINE (VOLUME TINGGI, ANTI DOUBLE PLAY, SLIDER KONTROL) */
         const AudioEngine = (() => {
-            let ctx = null;
-            let masterGain = null;
-            let compressor = null;
-            let isPlaying = false;
-            let noteTimer = null;
-            let noteIndex = 0;
-            let volume = 0.85;
-
-            const tempo = 112;
-            const beat = 60 / tempo;
-
+            let ctx = null, masterGain = null, compressor = null, isPlaying = false, noteTimer = null, noteIndex = 0, volume = 0.90;
+            const tempo = 112, beat = 60 / tempo;
             const song = [
-                { f: 261.63, b: 130.81, d: 0.75 },
-                { f: 261.63, b: 130.81, d: 0.25 },
-                { f: 293.66, b: 130.81, d: 1.00 },
-                { f: 261.63, b: 130.81, d: 1.00 },
-                { f: 349.23, b: 174.61, d: 1.00 },
-                { f: 329.63, b: 130.81, d: 2.00 },
-
-                { f: 261.63, b: 130.81, d: 0.75 },
-                { f: 261.63, b: 130.81, d: 0.25 },
-                { f: 293.66, b: 130.81, d: 1.00 },
-                { f: 261.63, b: 130.81, d: 1.00 },
-                { f: 392.00, b: 196.00, d: 1.00 },
-                { f: 349.23, b: 174.61, d: 2.00 },
-
-                { f: 261.63, b: 130.81, d: 0.75 },
-                { f: 261.63, b: 130.81, d: 0.25 },
-                { f: 523.25, b: 130.81, d: 1.00 },
-                { f: 440.00, b: 174.61, d: 1.00 },
-                { f: 349.23, b: 174.61, d: 1.00 },
-                { f: 329.63, b: 130.81, d: 1.00 },
-                { f: 293.66, b: 146.83, d: 2.00 },
-
-                { f: 466.16, b: 233.08, d: 0.75 },
-                { f: 466.16, b: 233.08, d: 0.25 },
-                { f: 440.00, b: 174.61, d: 1.00 },
-                { f: 349.23, b: 174.61, d: 1.00 },
-                { f: 392.00, b: 196.00, d: 1.00 },
-                { f: 349.23, b: 174.61, d: 2.50 }
+                { f: 261.63, b: 130.81, d: 0.75 }, { f: 261.63, b: 130.81, d: 0.25 }, { f: 293.66, b: 130.81, d: 1.00 }, { f: 261.63, b: 130.81, d: 1.00 }, { f: 349.23, b: 174.61, d: 1.00 }, { f: 329.63, b: 130.81, d: 2.00 },
+                { f: 261.63, b: 130.81, d: 0.75 }, { f: 261.63, b: 130.81, d: 0.25 }, { f: 293.66, b: 130.81, d: 1.00 }, { f: 261.63, b: 130.81, d: 1.00 }, { f: 392.00, b: 196.00, d: 1.00 }, { f: 349.23, b: 174.61, d: 2.00 },
+                { f: 261.63, b: 130.81, d: 0.75 }, { f: 261.63, b: 130.81, d: 0.25 }, { f: 523.25, b: 130.81, d: 1.00 }, { f: 440.00, b: 174.61, d: 1.00 }, { f: 349.23, b: 174.61, d: 1.00 }, { f: 329.63, b: 130.81, d: 1.00 }, { f: 293.66, b: 146.83, d: 2.00 },
+                { f: 466.16, b: 233.08, d: 0.75 }, { f: 466.16, b: 233.08, d: 0.25 }, { f: 440.00, b: 174.61, d: 1.00 }, { f: 349.23, b: 174.61, d: 1.00 }, { f: 392.00, b: 196.00, d: 1.00 }, { f: 349.23, b: 174.61, d: 2.50 }
             ];
 
             function initContext() {
                 if (!ctx) {
                     const AudioCtx = window.AudioContext || window.webkitAudioContext;
                     ctx = new AudioCtx();
-
                     compressor = ctx.createDynamicsCompressor();
-                    compressor.threshold.setValueAtTime(-18, ctx.currentTime);
-                    compressor.knee.setValueAtTime(12, ctx.currentTime);
-                    compressor.ratio.setValueAtTime(6, ctx.currentTime);
-                    compressor.attack.setValueAtTime(0.005, ctx.currentTime);
-                    compressor.release.setValueAtTime(0.15, ctx.currentTime);
-
+                    compressor.threshold.setValueAtTime(-15, ctx.currentTime);
                     masterGain = ctx.createGain();
-                    masterGain.gain.setValueAtTime(volume * 0.75, ctx.currentTime);
-
+                    masterGain.gain.setValueAtTime(volume * 0.9, ctx.currentTime);
                     compressor.connect(masterGain);
                     masterGain.connect(ctx.destination);
                 }
-                if (ctx.state === 'suspended') {
-                    ctx.resume();
-                }
+                if (ctx.state === 'suspended') ctx.resume();
             }
 
             function playTone(freq, bassFreq, durationSec) {
                 if (!ctx || !isPlaying) return;
                 const now = ctx.currentTime;
-
-                const osc1 = ctx.createOscillator();
-                const osc2 = ctx.createOscillator();
-                const noteGain = ctx.createGain();
-
-                osc1.type = 'triangle';
-                osc2.type = 'sine';
-                osc1.frequency.setValueAtTime(freq, now);
-                osc2.frequency.setValueAtTime(freq * 2, now);
-
-                const harmonicGain = ctx.createGain();
-                harmonicGain.gain.setValueAtTime(0.22, now);
-
+                const osc1 = ctx.createOscillator(), osc2 = ctx.createOscillator(), noteGain = ctx.createGain();
+                osc1.type = 'triangle'; osc2.type = 'sine';
+                osc1.frequency.setValueAtTime(freq, now); osc2.frequency.setValueAtTime(freq * 2, now);
                 noteGain.gain.setValueAtTime(0.001, now);
-                noteGain.gain.linearRampToValueAtTime(0.65, now + 0.025);
+                noteGain.gain.linearRampToValueAtTime(0.75, now + 0.02);
                 noteGain.gain.exponentialRampToValueAtTime(0.001, now + durationSec * 0.95);
-
-                osc1.connect(noteGain);
-                osc2.connect(harmonicGain);
-                harmonicGain.connect(noteGain);
-                noteGain.connect(compressor);
-
-                osc1.start(now);
-                osc2.start(now);
-                osc1.stop(now + durationSec);
-                osc2.stop(now + durationSec);
-
-                const bassOsc = ctx.createOscillator();
-                const bassGain = ctx.createGain();
-                bassOsc.type = 'sine';
-                bassOsc.frequency.setValueAtTime(bassFreq, now);
-
-                bassGain.gain.setValueAtTime(0.001, now);
-                bassGain.gain.linearRampToValueAtTime(0.45, now + 0.04);
-                bassGain.gain.exponentialRampToValueAtTime(0.001, now + durationSec * 0.9);
-
-                bassOsc.connect(bassGain);
-                bassGain.connect(compressor);
-
-                bassOsc.start(now);
-                bassOsc.stop(now + durationSec);
+                osc1.connect(noteGain); osc2.connect(noteGain); noteGain.connect(compressor);
+                osc1.start(now); osc2.start(now); osc1.stop(now + durationSec); osc2.stop(now + durationSec);
             }
 
             function scheduleNextNote() {
                 if (!isPlaying) return;
-
                 const current = song[noteIndex];
                 const durationSec = current.d * beat;
-
                 playTone(current.f, current.b, durationSec);
-
                 noteIndex = (noteIndex + 1) % song.length;
-
                 clearTimeout(noteTimer);
                 noteTimer = setTimeout(scheduleNextNote, durationSec * 1000);
             }
 
             function updateUI() {
                 const icon = document.getElementById('music-icon');
-                if (icon) {
-                    icon.className = isPlaying ? 'fa-solid fa-pause text-sm' : 'fa-solid fa-play text-sm';
-                }
+                if (icon) icon.className = isPlaying ? 'fa-solid fa-pause text-sm' : 'fa-solid fa-play text-sm';
             }
 
             return {
@@ -856,57 +706,39 @@
                     updateUI();
                 },
                 toggle() {
-                    if (isPlaying) {
-                        this.stop();
-                    } else {
-                        this.start();
-                    }
+                    if (isPlaying) this.stop();
+                    else this.start();
                 },
                 setVolume(val) {
                     volume = Math.max(0, Math.min(1, Number(val) / 100));
                     document.getElementById('volume-label').textContent = `${val}%`;
-                    if (masterGain && ctx) {
-                        masterGain.gain.setTargetAtTime(volume * 0.75, ctx.currentTime, 0.02);
-                    }
+                    if (masterGain && ctx) masterGain.gain.setTargetAtTime(volume * 0.9, ctx.currentTime, 0.02);
                 }
             };
         })();
 
-        /* -----------------------------------------------------------
-           2. STATE UNDANGAN, LOCALSTORAGE & URL SHARE PERSISTENCE
-        ----------------------------------------------------------- */
-        const STORAGE_KEY = 'birthday_invitation_v3';
-
+        /* 2. STATE PERSISTENCE & URL SHARING LENGKAP */
+        const STORAGE_KEY = 'birthday_invitation_3d_v2';
         const DEFAULT_GALLERY = [
             'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=80',
             'https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=600&q=80',
             'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?auto=format&fit=crop&w=600&q=80'
         ];
-
         const DEFAULT_PARTY_PHOTO = 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=800&q=80';
 
         let state = {
-            theme: 'navy',
-            name: 'Rafka Pratama',
-            age: '21',
+            theme: 'navy', name: 'Rafka Pratama', age: '21',
             greeting: 'Dengan penuh rasa syukur dan kebahagiaan, saya mengundang Bapak/Ibu/Saudara/i serta sahabat sekalian untuk hadir merayakan hari ulang tahun saya.',
-            datetime: '2027-07-25T16:00',
-            timeLabel: '16.00 WIB - Selesai',
+            datetime: '2027-07-25T16:00', timeLabel: '16.00 WIB - Selesai',
             location: 'The Glass House Resto & Lounge, Jl. Senopati No. 45, Jakarta Selatan',
-            partyPhoto: DEFAULT_PARTY_PHOTO,
-            partyTheme: 'Elegant Evening & Garden Celebration',
+            partyPhoto: DEFAULT_PARTY_PHOTO, partyTheme: 'Elegant Evening & Garden Celebration',
             themeDesc: 'Suasana makan malam hangat dengan alunan musik akustik, sesi foto bersama, dan potong kue ulang tahun di bawah cahaya lampu taman.',
             dresscode: 'Smart Casual (Nuansa Hitam, Putih, Krem, atau Earth Tone)',
-            rundown1Time: '16.00 - 17.00',
-            rundown1Desc: 'Registrasi Tamu & Welcome Drink',
-            rundown2Time: '17.00 - 18.30',
-            rundown2Desc: 'Sambutan, Tiup Lilin & Potong Kue',
-            rundown3Time: '18.30 - Selesai',
-            rundown3Desc: 'Makan Malam, Ramah Tamah & Foto',
-            waTarget: '081234567890',
-            photo: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80',
-            gallery: [...DEFAULT_GALLERY],
-            wishes: [] // Polos / kosong di awal agar siap diisi siapa saja
+            rundown1Time: '16.00 - 17.00', rundown1Desc: 'Registrasi Tamu & Welcome Drink',
+            rundown2Time: '17.00 - 18.30', rundown2Desc: 'Sambutan, Tiup Lilin & Potong Kue',
+            rundown3Time: '18.30 - Selesai', rundown3Desc: 'Makan Malam, Ramah Tamah & Foto',
+            waTarget: '081234567890', photo: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80',
+            gallery: [...DEFAULT_GALLERY], wishes: []
         };
 
         let isGuestMode = false;
@@ -914,47 +746,23 @@
         function loadState() {
             const params = new URLSearchParams(window.location.search);
             const sharedData = params.get('invite');
-
             if (sharedData) {
                 try {
-                    const decodedJson = decodeURIComponent(escape(atob(sharedData)));
-                    const parsed = JSON.parse(decodedJson);
-                    state = { ...state, ...parsed };
+                    state = { ...state, ...JSON.parse(decodeURIComponent(escape(atob(sharedData)))) };
                     isGuestMode = true;
-                } catch (e) {
-                    console.warn('Gagal membaca parameter undangan dari URL:', e);
-                }
+                } catch (e) { console.warn(e); }
             } else {
-                try {
-                    const saved = localStorage.getItem(STORAGE_KEY);
-                    if (saved) {
-                        state = { ...state, ...JSON.parse(saved) };
-                    }
-                } catch (e) {
-                    console.warn('Gagal memuat localStorage:', e);
-                }
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) state = { ...state, ...JSON.parse(saved) };
             }
         }
 
         function saveState() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-            } catch (e) {
-                const lightState = { ...state };
-                if (lightState.photo && lightState.photo.startsWith('data:')) {
-                    lightState.photo = DEFAULT_GALLERY[0];
-                }
-                if (lightState.partyPhoto && lightState.partyPhoto.startsWith('data:')) {
-                    lightState.partyPhoto = DEFAULT_PARTY_PHOTO;
-                }
-                lightState.gallery = lightState.gallery.filter(img => !img.startsWith('data:'));
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(lightState));
-            }
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { console.warn(e); }
         }
 
         function applyStateToUI() {
             document.documentElement.setAttribute('data-theme', state.theme);
-
             document.getElementById('input-name').value = state.name;
             document.getElementById('input-age').value = state.age;
             document.getElementById('input-greeting').value = state.greeting;
@@ -971,14 +779,6 @@
             document.getElementById('input-rundown-3-time').value = state.rundown3Time;
             document.getElementById('input-rundown-3-desc').value = state.rundown3Desc;
             document.getElementById('input-wa-target').value = state.waTarget;
-
-            if (state.photo && !state.photo.startsWith('data:')) {
-                document.getElementById('input-photo-url').value = state.photo;
-            }
-            if (state.partyPhoto && !state.partyPhoto.startsWith('data:')) {
-                document.getElementById('input-party-photo-url').value = state.partyPhoto;
-            }
-
             updateDerivedDisplays();
             renderGallery();
             renderWishes();
@@ -1002,7 +802,6 @@
             state.rundown3Time = document.getElementById('input-rundown-3-time').value;
             state.rundown3Desc = document.getElementById('input-rundown-3-desc').value;
             state.waTarget = document.getElementById('input-wa-target').value;
-
             updateDerivedDisplays();
             saveState();
         }
@@ -1014,7 +813,6 @@
             document.getElementById('display-age').textContent = state.age;
             document.getElementById('display-greeting').textContent = `"${state.greeting}"`;
             document.getElementById('footer-name').textContent = state.name;
-
             document.getElementById('cover-photo-img').src = state.photo;
             document.getElementById('profile-photo-img').src = state.photo;
             document.getElementById('party-photo-img').src = state.partyPhoto || DEFAULT_PARTY_PHOTO;
@@ -1023,23 +821,18 @@
             if (!isNaN(dt.getTime())) {
                 const hariList = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
                 const bulanList = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                const hari = hariList[dt.getDay()];
-                const tgl = dt.getDate();
-                const bulan = bulanList[dt.getMonth()];
-                const tahun = dt.getFullYear();
-                const jam = String(dt.getHours()).padStart(2, '0');
-                const menit = String(dt.getMinutes()).padStart(2, '0');
-
-                const formattedDateOnly = `${hari}, ${tgl} ${bulan} ${tahun}`;
-                document.getElementById('display-formatted-date').textContent = `${formattedDateOnly} • Pukul ${jam}.${menit} WIB`;
-                document.getElementById('venue-date-text').textContent = formattedDateOnly;
-                document.getElementById('footer-year').textContent = tahun;
+                const formatted = `${hariList[dt.getDay()]}, ${dt.getDate()} ${bulanList[dt.getMonth()]} ${dt.getFullYear()}`;
+                document.getElementById('display-formatted-date').textContent = `${formatted} • Pukul ${String(dt.getHours()).padStart(2,'0')}.${String(dt.getMinutes()).padStart(2,'0')} WIB`;
+                document.getElementById('venue-date-text').textContent = formatted;
+                document.getElementById('footer-year').textContent = dt.getFullYear();
             }
 
             document.getElementById('display-time-label').textContent = state.timeLabel;
             document.getElementById('display-location').textContent = state.location;
-            const encodedLocation = encodeURIComponent(state.location.trim() || 'Jakarta');
-            document.getElementById('google-maps-link').href = `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`;
+            
+            // Perbaikan Link Google Maps agar langsung mengarah ke alamat yang diketik
+            const mapsQuery = encodeURIComponent(state.location.trim() || 'Jakarta');
+            document.getElementById('google-maps-link').href = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
 
             document.getElementById('display-party-theme').textContent = state.partyTheme;
             document.getElementById('display-theme-desc').textContent = state.themeDesc;
@@ -1051,413 +844,193 @@
             document.getElementById('display-rundown-2-desc').textContent = state.rundown2Desc;
             document.getElementById('display-rundown-3-time').textContent = state.rundown3Time;
             document.getElementById('display-rundown-3-desc').textContent = state.rundown3Desc;
-
             updateCountdown();
         }
 
-        /* -----------------------------------------------------------
-           3. PENGATURAN TEMA, MODE TAMU & BAGIKAN LINK
-        ----------------------------------------------------------- */
-        function setTheme(themeName) {
-            state.theme = themeName;
-            document.documentElement.setAttribute('data-theme', themeName);
-            saveState();
-            showToast('Tema warna berhasil diubah!');
-        }
-
+        function setTheme(t) { state.theme = t; document.documentElement.setAttribute('data-theme', t); saveState(); showToast('Tema 3D diperbarui!'); }
         function toggleViewMode() {
             isGuestMode = !isGuestMode;
-            updateViewModeUI();
-            showToast(isGuestMode ? 'Tampilan beralih ke Mode Tamu (Bersih)' : 'Tampilan beralih ke Mode Edit');
-        }
-
-        function updateViewModeUI() {
-            const btnText = document.getElementById('mode-toggle-text');
-            const btnIcon = document.getElementById('mode-toggle-icon');
-            if (isGuestMode) {
-                document.body.classList.add('guest-mode');
-                btnText.textContent = 'Edit Undangan';
-                btnIcon.className = 'fa-solid fa-pen';
-            } else {
-                document.body.classList.remove('guest-mode');
-                btnText.textContent = 'Mode Tamu';
-                btnIcon.className = 'fa-solid fa-eye';
-            }
+            document.body.classList.toggle('guest-mode', isGuestMode);
+            document.getElementById('mode-toggle-text').textContent = isGuestMode ? 'Edit Undangan' : 'Mode Tamu';
+            document.getElementById('mode-toggle-icon').className = isGuestMode ? 'fa-solid fa-pen' : 'fa-solid fa-eye';
+            showToast(isGuestMode ? 'Beralih ke Mode Tamu' : 'Beralih ke Mode Edit');
         }
 
         function shareInvitation() {
-            const sharePayload = {
-                theme: state.theme,
-                name: state.name,
-                age: state.age,
-                greeting: state.greeting,
-                datetime: state.datetime,
-                timeLabel: state.timeLabel,
-                location: state.location,
-                partyPhoto: state.partyPhoto.startsWith('http') ? state.partyPhoto : DEFAULT_PARTY_PHOTO,
-                partyTheme: state.partyTheme,
-                themeDesc: state.themeDesc,
-                dresscode: state.dresscode,
-                rundown1Time: state.rundown1Time,
-                rundown1Desc: state.rundown1Desc,
-                rundown2Time: state.rundown2Time,
-                rundown2Desc: state.rundown2Desc,
-                rundown3Time: state.rundown3Time,
-                rundown3Desc: state.rundown3Desc,
-                waTarget: state.waTarget,
-                photo: state.photo.startsWith('http') ? state.photo : DEFAULT_GALLERY[0]
-            };
-
-            const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(sharePayload))));
-            const baseUrl = window.location.origin + window.location.pathname;
-            const shareUrl = `${baseUrl}?invite=${encoded}`;
-
-            const tempInput = document.createElement('textarea');
-            tempInput.value = shareUrl;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-
-            if (state.photo.startsWith('data:') || state.partyPhoto.startsWith('data:')) {
-                showToast('Link undangan disalin! Catatan: Untuk foto dari galeri HP, tempel URL foto publik agar ikut tampil di perangkat lain.');
-            } else {
-                showToast('Link undangan beserta semua perubahan berhasil disalin!');
-            }
+            const shareUrl = `${window.location.origin}${window.location.pathname}?invite=${btoa(unescape(encodeURIComponent(JSON.stringify(state))))}`;
+            const temp = document.createElement('textarea'); temp.value = shareUrl; document.body.appendChild(temp); temp.select(); document.execCommand('copy'); document.body.removeChild(temp);
+            showToast('Link undangan beserta kustomisasi nama & foto berhasil disalin!');
         }
 
-        function resetAllData() {
-            localStorage.removeItem(STORAGE_KEY);
-            window.location.href = window.location.pathname;
-        }
+        function resetAllData() { localStorage.removeItem(STORAGE_KEY); window.location.href = window.location.pathname; }
 
-        /* -----------------------------------------------------------
-           4. COUNTDOWN REAL-TIME AKURAT
-        ----------------------------------------------------------- */
+        /* 3. COUNTDOWN AKURAT (HARI, JAM, MENIT, DETIK) */
         function updateCountdown() {
             const targetDate = new Date(state.datetime).getTime();
-            const now = Date.now();
-            const diff = targetDate - now;
-
-            const daysEl = document.getElementById('cd-days');
-            const hoursEl = document.getElementById('cd-hours');
-            const minsEl = document.getElementById('cd-minutes');
-            const secsEl = document.getElementById('cd-seconds');
-            const noteEl = document.getElementById('cd-status-note');
-
-            if (isNaN(targetDate)) {
-                noteEl.textContent = 'Silakan pilih tanggal dan jam acara yang valid.';
-                return;
-            }
-
+            const diff = targetDate - Date.now();
+            const daysEl = document.getElementById('cd-days'), hoursEl = document.getElementById('cd-hours'), minsEl = document.getElementById('cd-minutes'), secsEl = document.getElementById('cd-seconds'), noteEl = document.getElementById('cd-status-note');
+            
+            if (isNaN(targetDate)) { noteEl.textContent = 'Atur tanggal & jam acara dengan benar.'; return; }
             if (diff <= 0) {
-                daysEl.textContent = '00';
-                hoursEl.textContent = '00';
-                minsEl.textContent = '00';
-                secsEl.textContent = '00';
+                daysEl.textContent = '00'; hoursEl.textContent = '00'; minsEl.textContent = '00'; secsEl.textContent = '00';
                 noteEl.textContent = '🎉 Acara sedang berlangsung atau telah dilaksanakan!';
                 return;
             }
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((diff / (1000 * 60)) % 60);
-            const seconds = Math.floor((diff / 1000) % 60);
-
-            daysEl.textContent = String(days).padStart(2, '0');
-            hoursEl.textContent = String(hours).padStart(2, '0');
-            minsEl.textContent = String(minutes).padStart(2, '0');
-            secsEl.textContent = String(seconds).padStart(2, '0');
-            noteEl.textContent = `Tersisa ${days} hari menuju momen spesial ${state.name}`;
+            daysEl.textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            hoursEl.textContent = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+            minsEl.textContent = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+            secsEl.textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+            noteEl.textContent = `Tersisa waktu menuju hari bahagia ${state.name}`;
         }
 
-        /* -----------------------------------------------------------
-           5. FOTO PROFIL, FOTO TEMA PESTA, GALERI & LIGHTBOX
-        ----------------------------------------------------------- */
-        function handlePhotoUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                state.photo = e.target.result;
-                updateDerivedDisplays();
-                saveState();
-                showToast('Foto profil berhasil diperbarui!');
-            };
-            reader.readAsDataURL(file);
+        /* 4. FOTO & GALERI */
+        function handlePhotoUpload(e) {
+            const file = e.target.files[0]; if (!file) return;
+            const r = new FileReader(); r.onload = (evt) => { state.photo = evt.target.result; updateDerivedDisplays(); saveState(); showToast('Foto profil diperbarui!'); }; r.readAsDataURL(file);
         }
-
-        function updatePhotoFromUrl(url) {
-            if (url && url.trim().startsWith('http')) {
-                state.photo = url.trim();
-                updateDerivedDisplays();
-                saveState();
-            }
+        function updatePhotoFromUrl(url) { if (url.trim().startsWith('http')) { state.photo = url.trim(); updateDerivedDisplays(); saveState(); } }
+        function handlePartyPhotoUpload(e) {
+            const file = e.target.files[0]; if (!file) return;
+            const r = new FileReader(); r.onload = (evt) => { state.partyPhoto = evt.target.result; updateDerivedDisplays(); saveState(); showToast('Foto pesta diperbarui!'); }; r.readAsDataURL(file);
         }
-
-        function handlePartyPhotoUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                state.partyPhoto = e.target.result;
-                updateDerivedDisplays();
-                saveState();
-                showToast('Foto tema pesta berhasil diambil dari galeri!');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function updatePartyPhotoFromUrl(url) {
-            if (url && url.trim().startsWith('http')) {
-                state.partyPhoto = url.trim();
-                updateDerivedDisplays();
-                saveState();
-            }
-        }
-
+        function updatePartyPhotoFromUrl(url) { if (url.trim().startsWith('http')) { state.partyPhoto = url.trim(); updateDerivedDisplays(); saveState(); } }
         function useThemePhoto(type) {
-            const presets = {
-                male: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80',
-                female: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80',
-                cake: 'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?auto=format&fit=crop&w=500&q=80'
-            };
-            state.photo = presets[type];
-            document.getElementById('input-photo-url').value = state.photo;
-            updateDerivedDisplays();
-            saveState();
+            const map = { male: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80', female: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80', cake: 'https://images.unsplash.com/photo-1558636508-e0db3814bd1d?auto=format&fit=crop&w=500&q=80' };
+            state.photo = map[type]; updateDerivedDisplays(); saveState();
         }
-
-        function handleGalleryUpload(event) {
-            const files = Array.from(event.target.files);
-            files.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    state.gallery.unshift(e.target.result);
-                    renderGallery();
-                    saveState();
-                };
-                reader.readAsDataURL(file);
+        function handleGalleryUpload(e) {
+            Array.from(e.target.files).forEach(f => {
+                const r = new FileReader(); r.onload = (evt) => { state.gallery.unshift(evt.target.result); renderGallery(); saveState(); }; r.readAsDataURL(f);
             });
-            showToast(`${files.length} foto ditambahkan ke galeri!`);
+            showToast('Foto galeri ditambahkan!');
         }
-
-        function removeGalleryPhoto(index) {
-            state.gallery.splice(index, 1);
-            renderGallery();
-            saveState();
-        }
-
+        function removeGalleryPhoto(idx) { state.gallery.splice(idx, 1); renderGallery(); saveState(); }
         function renderGallery() {
-            const grid = document.getElementById('gallery-grid');
-            grid.innerHTML = '';
+            const g = document.getElementById('gallery-grid'); g.innerHTML = '';
             state.gallery.forEach((src, idx) => {
-                const item = document.createElement('div');
-                item.className = 'relative group rounded-2xl overflow-hidden aspect-square border cursor-pointer';
-                item.style.borderColor = 'var(--border-color)';
-                item.innerHTML = `
-                    <img src="${src}" onclick="openLightbox('${src}')" onerror="this.src='https://placehold.co/400x400/1e293b/d4af37?text=Momen'" alt="Galeri ${idx + 1}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <button onclick="event.stopPropagation(); removeGalleryPhoto(${idx})" class="edit-only absolute top-2 right-2 w-7 h-7 rounded-full bg-red-600/90 text-white text-xs flex items-center justify-center shadow cursor-pointer">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                `;
-                grid.appendChild(item);
+                g.innerHTML += `<div class="relative group rounded-2xl overflow-hidden aspect-square border shadow-md cursor-pointer" style="border-color:var(--border-color)">
+                    <img src="${src}" onclick="openLightbox('${src}')" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <button onclick="event.stopPropagation(); removeGalleryPhoto(${idx})" class="edit-only absolute top-2 right-2 w-7 h-7 rounded-full bg-red-600 text-white text-xs flex items-center justify-center shadow cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                </div>`;
             });
         }
+        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox-modal').classList.remove('hidden'); document.getElementById('lightbox-modal').classList.add('flex'); }
+        function closeLightbox() { document.getElementById('lightbox-modal').classList.add('hidden'); document.getElementById('lightbox-modal').classList.remove('flex'); }
 
-        function openLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
-            const modal = document.getElementById('lightbox-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeLightbox() {
-            const modal = document.getElementById('lightbox-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        /* -----------------------------------------------------------
-           6. INTERAKSI BUKA UNDANGAN, TIUP LILIN, RSVP & UCAPAN
-        ----------------------------------------------------------- */
+        /* 5. INTERAKSI 3D, AMPLOP & BALON */
         function openInvitation() {
-            const cover = document.getElementById('cover-section');
-            const navbar = document.getElementById('top-navbar');
-            const main = document.getElementById('main-content');
-
-            cover.style.opacity = '0';
-            cover.style.transform = 'translateY(-30px)';
+            const cover = document.getElementById('envelope-wrapper');
+            cover.classList.add('opening');
             setTimeout(() => {
-                cover.classList.add('hidden');
-                navbar.classList.remove('hidden');
-                main.classList.remove('hidden');
-                requestAnimationFrame(() => {
-                    main.style.opacity = '1';
-                });
-            }, 600);
-
-            AudioEngine.start();
-            triggerConfetti();
+                document.getElementById('cover-section').classList.add('hidden');
+                document.getElementById('top-navbar').classList.remove('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                requestAnimationFrame(() => document.getElementById('main-content').style.opacity = '1');
+                AudioEngine.start();
+                triggerConfettiBurst();
+                spawnBalloons();
+            }, 700);
         }
 
         let candleLit = true;
         function blowCandle() {
-            const flame = document.getElementById('candle-flame-group');
-            const instruction = document.getElementById('candle-instruction');
             candleLit = !candleLit;
-
+            const flame = document.getElementById('candle-flame-group'), note = document.getElementById('candle-instruction');
             if (!candleLit) {
                 flame.classList.add('extinguished');
-                instruction.textContent = '🎉 Yeay! Semoga semua harapan & doa terkabul! (Klik lagi untuk menyalakan lilin)';
-                triggerConfetti();
+                note.textContent = '🎉 Yeay! Harapan Anda terkabul! (Ketuk lagi untuk menyalakan)';
+                triggerConfettiBurst();
             } else {
                 flame.classList.remove('extinguished');
-                instruction.textContent = '✨ Klik lilin di atas kue untuk membuat harapan & meniup lilin!';
+                note.textContent = '🎂 Ketuk lilin di atas kue untuk meniup & membuat harapan!';
             }
         }
 
-        function triggerConfetti() {
+        function triggerConfettiBurst() {
             if (typeof confetti === 'function') {
-                confetti({
-                    particleCount: 75,
-                    spread: 70,
-                    origin: { y: 0.65 },
-                    colors: ['#d4af37', '#f3e5ab', '#ffffff', '#64748b']
-                });
+                confetti({ particleCount: 90, spread: 80, origin: { y: 0.6 }, colors: ['#d4af37', '#ffffff', '#10b981', '#c084fc'] });
             }
+        }
+
+        function spawnBalloons() {
+            const colors = ['#d4af37', '#3b82f6', '#10b981', '#c084fc', '#f43f5e'];
+            for (let i = 0; i < 7; i++) {
+                const b = document.createElement('div');
+                b.className = 'flying-balloon';
+                b.style.left = `${Math.random() * 85 + 5}vw`;
+                b.style.animationDuration = `${Math.random() * 4 + 7}s`;
+                b.style.animationDelay = `${Math.random() * 1.5}s`;
+                b.innerHTML = `<svg width="36" height="48" viewBox="0 0 36 48"><ellipse cx="18" cy="20" rx="16" ry="19" fill="${colors[Math.floor(Math.random()*colors.length)]}"/><path d="M18 39 L18 46" stroke="#94a3b8" stroke-width="1.5"/></svg>`;
+                b.onclick = () => { b.remove(); triggerConfettiBurst(); };
+                document.body.appendChild(b);
+                setTimeout(() => b.remove(), 11000);
+            }
+            showToast('Balon terbang dilepaskan! Ketuk balon untuk meletuskannya.');
         }
 
         function handleRSVPSubmit(e) {
             e.preventDefault();
-            const guestName = document.getElementById('rsvp-guest-name').value.trim();
-            const status = document.getElementById('rsvp-status').value;
-            const pax = document.getElementById('rsvp-pax').value;
-
-            showToast(`Terima kasih ${guestName}! Konfirmasi (${status} - ${pax} orang) telah tercatat.`);
-            triggerConfetti();
+            showToast(`Terima kasih ${document.getElementById('rsvp-guest-name').value}! Konfirmasi tercatat.`);
+            triggerConfettiBurst();
         }
 
         function sendRSVPToWhatsApp() {
-            const guestName = document.getElementById('rsvp-guest-name').value.trim() || 'Tamu Undangan';
-            const status = document.getElementById('rsvp-status').value;
-            const pax = document.getElementById('rsvp-pax').value;
-
-            let rawPhone = (state.waTarget || '081234567890').replace(/\D/g, '');
-            if (rawPhone.startsWith('0')) {
-                rawPhone = '62' + rawPhone.slice(1);
-            }
-
-            const message = `Halo ${state.name}, saya *${guestName}* ingin mengonfirmasi kehadiran di acara ulang tahun Anda:\n\n• Status: *${status}*\n• Jumlah Tamu: *${pax} orang*\n\nTerima kasih!`;
-            const waUrl = `https://wa.me/${rawPhone}?text=${encodeURIComponent(message)}`;
-            window.open(waUrl, '_blank', 'noopener,noreferrer');
+            const name = document.getElementById('rsvp-guest-name').value.trim() || 'Tamu Undangan';
+            const status = document.getElementById('rsvp-status').value, pax = document.getElementById('rsvp-pax').value;
+            let phone = (state.waTarget || '081234567890').replace(/\D/g, '');
+            if (phone.startsWith('0')) phone = '62' + phone.slice(1);
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(`Halo ${state.name}, saya *${name}* mengonfirmasi kehadiran:\n• Status: *${status}*\n• Jumlah Tamu: *${pax} orang*`)}`, '_blank');
         }
 
         function addWish(e) {
             e.preventDefault();
-            const sender = document.getElementById('wish-sender').value.trim();
-            const msg = document.getElementById('wish-message').value.trim();
+            const sender = document.getElementById('wish-sender').value.trim(), msg = document.getElementById('wish-message').value.trim();
             if (!sender || !msg) return;
-
             state.wishes.unshift({ name: sender, msg, time: 'Baru saja' });
-            document.getElementById('wish-sender').value = '';
-            document.getElementById('wish-message').value = '';
-            renderWishes();
-            saveState();
-            showToast('Ucapan & doa Anda berhasil ditambahkan!');
+            document.getElementById('wish-sender').value = ''; document.getElementById('wish-message').value = '';
+            renderWishes(); saveState(); showToast('Doa & ucapan terkirim!');
         }
 
         function renderWishes() {
-            const container = document.getElementById('wishes-list');
-            container.innerHTML = '';
+            const c = document.getElementById('wishes-list'); c.innerHTML = '';
             state.wishes.forEach(w => {
-                const card = document.createElement('div');
-                card.className = 'theme-soft-bg rounded-2xl p-4';
-                card.innerHTML = `
-                    <div class="flex items-center justify-between mb-1">
-                        <span class="font-bold text-xs sm:text-sm theme-accent-text">${escapeHTML(w.name)}</span>
-                        <span class="text-[10px] theme-muted-text">${escapeHTML(w.time)}</span>
-                    </div>
-                    <p class="text-xs sm:text-sm leading-relaxed">${escapeHTML(w.msg)}</p>
-                `;
-                container.appendChild(card);
+                c.innerHTML += `<div class="theme-soft-bg rounded-2xl p-4 shadow-sm">
+                    <div class="flex items-center justify-between mb-1"><span class="font-bold text-xs sm:text-sm theme-accent-text">${w.name}</span><span class="text-[10px] theme-muted-text">${w.time}</span></div>
+                    <p class="text-xs sm:text-sm leading-relaxed">${w.msg}</p>
+                </div>`;
             });
         }
 
-        function escapeHTML(str) {
-            return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
-        }
-
         function showToast(text) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'theme-card px-4 py-3 rounded-2xl text-xs font-semibold text-center shadow-2xl border transition-all duration-300';
-            toast.textContent = text;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 300);
-            }, 3200);
+            const container = document.getElementById('toast-container'), toast = document.createElement('div');
+            toast.className = 'theme-card-3d px-4 py-3 rounded-2xl text-xs font-semibold text-center shadow-2xl border';
+            toast.textContent = text; container.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3200);
         }
 
-        /* -----------------------------------------------------------
-           7. ANIMASI PARTIKEL LATAR BELAKANG (CANVAS)
-        ----------------------------------------------------------- */
+        /* 6. PARTIKEL LATAR BELAKANG */
         function initParticles() {
-            const canvas = document.getElementById('bg-particles');
-            const ctx = canvas.getContext('2d');
+            const canvas = document.getElementById('bg-particles'), ctx = canvas.getContext('2d');
             let particles = [];
-
-            function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+            function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize); resize();
+            for (let i = 0; i < 45; i++) {
+                particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2.8 + 1, vy: -(Math.random() * 0.4 + 0.1), vx: (Math.random() - 0.5) * 0.3 });
             }
-            window.addEventListener('resize', resize);
-            resize();
-
-            for (let i = 0; i < 38; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    r: Math.random() * 2.6 + 1,
-                    vy: -(Math.random() * 0.4 + 0.15),
-                    vx: (Math.random() - 0.5) * 0.3
-                });
-            }
-
             function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim() || 'rgba(212, 175, 55, 0.4)';
-                ctx.fillStyle = color;
-
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim() || 'rgba(212, 175, 55, 0.5)';
                 particles.forEach(p => {
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    p.y += p.vy;
-                    p.x += p.vx;
-
-                    if (p.y < -10) {
-                        p.y = canvas.height + 10;
-                        p.x = Math.random() * canvas.width;
-                    }
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+                    p.y += p.vy; p.x += p.vx;
+                    if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
                 });
-
                 requestAnimationFrame(draw);
             }
             draw();
         }
 
-        /* -----------------------------------------------------------
-           INISIALISASI SAAT HALAMAN DIMUAT
-        ----------------------------------------------------------- */
-        window.addEventListener('DOMContentLoaded', () => {
-            loadState();
-            applyStateToUI();
-            initParticles();
-            setInterval(updateCountdown, 1000);
-        });
+        window.addEventListener('DOMContentLoaded', () => { loadState(); applyStateToUI(); initParticles(); setInterval(updateCountdown, 1000); });
     </script>
 </body>
 </html>
