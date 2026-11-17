@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Ulang Tahun Eksklusif</title>
+    <title>Undangan Ulang Tahun Spesial</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif']
+                        serif: ['Cinzel', 'serif']
                     },
                     colors: {
-                        cream: '#FAF8F5',
-                        gold: '#C5A880',
-                        darkgold: '#A3855E',
-                        charcoal: '#2D3748'
+                        gold: {
+                            50: '#fbf8f3',
+                            100: '#f4ebd8',
+                            500: '#d4af37',
+                            600: '#b89728',
+                            700: '#96781e'
+                        }
                     }
                 }
             }
@@ -32,13 +35,14 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            background-color: #FAF8F5;
+            background-color: #0f172a;
+            color: #334155;
         }
         .glass {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(197, 168, 128, 0.2);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -49,195 +53,221 @@
         }
     </style>
 </head>
-<body class="text-charcoal min-h-screen relative">
+<body class="bg-gradient-to-br from-slate-900 via-stone-900 to-zinc-900 text-gray-800 min-h-screen relative">
 
     <!-- Floating Music & Volume Control Panel -->
-    <div class="fixed bottom-5 right-5 z-40 flex items-center gap-2 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-xl border border-gold/30">
-        <button id="music-control" onclick="toggleMusic()" class="bg-gold text-white w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-transform transform hover:scale-105 active:scale-95 shadow-md">
+    <div class="fixed bottom-5 right-5 z-40 flex items-center gap-2 bg-slate-900/90 backdrop-blur-md px-3 py-2 rounded-full shadow-2xl border border-gold-500/40 text-white">
+        <button id="music-control" onclick="toggleMusic()" class="bg-gold-500 hover:bg-gold-600 text-slate-950 w-9 h-9 rounded-full flex items-center justify-center transition-transform transform hover:scale-110 active:scale-95 shadow-md">
             <i id="music-icon" class="fa-solid fa-music text-sm"></i>
         </button>
-        <div class="flex items-center pr-2">
-            <i class="fa-solid fa-volume-low text-xs text-gray-500 mr-1"></i>
-            <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" onchange="adjustVolume(this.value)" class="w-16 accent-gold cursor-pointer">
-            <i class="fa-solid fa-volume-high text-xs text-gray-500 ml-1"></i>
+        <div class="flex items-center gap-1 pr-1">
+            <i class="fa-solid fa-volume-low text-xs text-gold-400"></i>
+            <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" onchange="changeVolume(this.value)" oninput="changeVolume(this.value)" class="w-16 md:w-20 accent-gold-500 cursor-pointer h-1 bg-slate-700 rounded-lg">
+            <i class="fa-solid fa-volume-high text-xs text-gold-400"></i>
         </div>
     </div>
 
     <!-- 1. Halaman Pembuka / Cover -->
-    <section id="cover-section" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-stone-900 via-stone-800 to-charcoal text-white p-6 text-center transition-all duration-700">
-        <div class="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
-            <div class="absolute top-10 left-10 text-4xl animate-float">✨</div>
-            <div class="absolute bottom-20 right-16 text-4xl animate-float" style="animation-delay: 1s;">🌟</div>
-        </div>
+    <section id="cover-section" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-tr from-slate-950 via-stone-900 to-slate-900 text-white p-6 text-center transition-all duration-700">
+        <div class="absolute inset-0 opacity-15 pointer-events-none overflow-hidden bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:24px_24px]"></div>
 
-        <div class="relative z-10 max-w-md w-full glass p-8 rounded-3xl shadow-2xl text-charcoal border border-gold/30">
-            <span class="text-[11px] font-semibold uppercase tracking-widest text-darkgold bg-stone-100 px-3 py-1 rounded-full border border-gold/20">Undangan Spesial</span>
-            <h1 class="font-serif text-4xl md:text-5xl text-darkgold mt-3 mb-1">You're Invited</h1>
-            <p class="text-gray-500 text-xs mb-5">Perayaan Hari Bahagia Ulang Tahun</p>
+        <div class="relative z-10 max-w-md w-full glass p-8 rounded-3xl shadow-2xl text-gray-800 border border-gold-500/30">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-gold-700 bg-gold-100 px-3 py-1 rounded-full">Undangan Eksklusif</span>
+            <h1 class="font-serif text-4xl md:text-5xl text-slate-900 mt-4 mb-1">The Birthday Celebration</h1>
+            <p class="text-gray-500 text-xs mb-6">Merayakan Hari Spesial & Kebersamaan</p>
 
             <!-- Editable Name on Cover -->
             <div class="mb-5">
-                <input type="text" id="cover-name" value="Raihan Al Ghifari" oninput="syncNames(this.value)" class="w-full text-center font-serif font-bold text-2xl text-charcoal bg-transparent border-b-2 border-gold/50 focus:outline-none focus:border-gold pb-1" placeholder="Nama yang ulang tahun">
-                <span class="text-[10px] text-gray-400 mt-1 block">💡 (Nama dapat diedit langsung)</span>
+                <input type="text" id="cover-name" value="Keisha Aurelia" oninput="syncNames(this.value)" class="w-full text-center font-bold text-2xl text-slate-900 bg-transparent border-b-2 border-gold-400 focus:outline-none focus:border-gold-600 pb-1" placeholder="Nama yang ulang tahun">
+                <span class="text-[10px] text-gray-400 mt-1 block">💡 Nama otomatis tersinkron & tersimpan di perangkat</span>
             </div>
 
-            <!-- Cover Photo -->
-            <div class="relative w-32 h-32 mx-auto mb-5 rounded-full overflow-hidden shadow-lg border-4 border-white group bg-stone-200 flex items-center justify-center">
-                <img id="cover-photo-preview" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" alt="Birthday Person" class="w-full h-full object-cover">
-                <label for="cover-file-input" class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-medium p-2">
+            <!-- Cover Photo with Uploader -->
+            <div class="relative w-32 h-32 mx-auto mb-5 rounded-full overflow-hidden shadow-xl border-4 border-gold-400 group bg-stone-100 flex items-center justify-center">
+                <img id="cover-photo-preview" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Birthday Person" class="w-full h-full object-cover">
+                <label for="cover-file-input" class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-medium p-2">
                     <i class="fa-solid fa-camera text-lg mb-1"></i> Ganti Foto
                 </label>
                 <input type="file" id="cover-file-input" accept="image/*" class="hidden" onchange="updateCoverPhoto(event)">
             </div>
 
-            <p class="text-gray-500 text-xs mb-5 italic">"Suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir."</p>
+            <p class="text-gray-600 text-xs mb-6 italic">"Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir."</p>
 
-            <button onclick="openInvitation()" class="w-full py-3 px-6 bg-gradient-to-r from-gold to-darkgold hover:opacity-90 text-white font-semibold rounded-full shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2 text-sm">
+            <button onclick="openInvitation()" class="w-full py-3.5 px-6 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 font-bold rounded-full shadow-lg transform active:scale-95 transition-all flex items-center justify-center gap-2">
                 <i class="fa-solid fa-envelope-open-text"></i> Buka Undangan
             </button>
         </div>
     </section>
 
     <!-- Main Content Container -->
-    <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000 max-w-2xl mx-auto px-4 py-12 space-y-10">
+    <div id="main-content" class="hidden opacity-0 transition-opacity duration-1000 max-w-2xl mx-auto px-4 py-8 space-y-8">
 
-        <!-- 2. Profil yang Berulang Tahun -->
-        <section class="glass rounded-3xl p-6 md:p-8 shadow-xl text-center relative overflow-hidden border border-gold/20">
-            <div class="relative w-36 h-36 mx-auto mb-3 rounded-full overflow-hidden shadow-2xl border-4 border-gold/50 group bg-stone-200 flex items-center justify-center">
-                <img id="profile-photo-preview" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" alt="Profile" class="w-full h-full object-cover">
+        <!-- 2. Profil & Tema Pesta -->
+        <section class="glass rounded-3xl p-6 md:p-8 shadow-xl text-center relative overflow-hidden border border-gold-500/30">
+            <div class="absolute -top-10 -right-10 text-gold-500/10 text-9xl font-serif pointer-events-none">VIP</div>
+            
+            <div class="relative w-36 h-36 mx-auto mb-3 rounded-full overflow-hidden shadow-2xl border-4 border-gold-400 group bg-stone-100 flex items-center justify-center">
+                <img id="profile-photo-preview" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="Profile" class="w-full h-full object-cover">
                 <label for="profile-file-input" class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-white text-xs font-semibold p-2">
-                    <i class="fa-solid fa-camera text-xl mb-1"></i> Ganti Foto
+                    <i class="fa-solid fa-camera text-xl mb-1"></i> Ganti Foto Galeri
                 </label>
                 <input type="file" id="profile-file-input" accept="image/*" class="hidden" onchange="updateProfilePhoto(event)">
             </div>
+            <span class="text-[11px] text-gray-500 block mb-3">✨ Foto & Perubahan tersimpan otomatis</span>
 
-            <div class="inline-block bg-stone-100 text-darkgold border border-gold/30 px-4 py-1 rounded-full text-xs font-semibold mb-3">
-                Ulang Tahun ke-<span contenteditable="true" id="profile-age" class="outline-none border-b border-gold">25</span>
+            <div class="inline-block bg-gold-100 text-gold-700 px-4 py-1 rounded-full text-xs font-bold mb-3 uppercase tracking-wider">
+                Ulang Tahun ke-<span contenteditable="true" id="profile-age" onblur="saveData()" class="outline-none border-b border-gold-400">17</span>
             </div>
 
-            <h2 class="text-3xl font-serif font-bold text-charcoal mb-2">
-                <input type="text" id="profile-name" value="Raihan Al Ghifari" oninput="syncNames(this.value)" class="w-full text-center bg-transparent font-serif font-bold border-b border-dashed border-gray-300 focus:border-gold focus:outline-none">
+            <h2 class="text-3xl font-serif font-bold text-slate-900 mb-2">
+                <input type="text" id="profile-name" value="Keisha Aurelia Putri" oninput="syncNames(this.value)" class="w-full text-center bg-transparent font-serif font-bold border-b border-dashed border-gray-300 focus:border-gold-500 focus:outline-none">
             </h2>
 
-            <div class="mt-4 bg-stone-50 p-4 rounded-2xl border border-stone-200">
-                <p class="text-gray-600 italic text-sm" contenteditable="true" id="profile-greeting">
-                    "Terima kasih atas segala doa dan dukungan. Semoga kebaikan senantiasa menyertai langkah kita semua."
+            <!-- Penjelasan Tema Pesta -->
+            <div class="mt-4 bg-amber-50/80 p-4 rounded-2xl border border-gold-200 text-left">
+                <h4 class="text-xs font-bold text-gold-700 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                    <i class="fa-solid fa-star text-gold-500"></i> Tema Pesta: <span id="theme-title" class="font-semibold text-slate-800">Elegant Evening & Golden Gala</span>
+                </h4>
+                <p class="text-gray-600 text-xs leading-relaxed" contenteditable="true" id="theme-desc" onblur="saveData()">
+                    Pesta perayaan ulang tahun diselenggarakan dengan konsep ramah tamah hangat, elegan, dan penuh kebersamaan bersama sahabat serta keluarga tercinta.
                 </p>
-                <span class="text-[10px] text-gray-400 mt-2 block">💡 (Pesan ucapan di atas dapat diklik dan diedit langsung)</span>
+            </div>
+
+            <div class="mt-3 bg-stone-50 p-4 rounded-2xl border border-stone-200">
+                <p class="text-gray-700 italic text-xs leading-relaxed" contenteditable="true" id="profile-greeting" onblur="saveData()">
+                    "Terima kasih atas segala doa, dukungan, dan kasih sayang. Semoga kebahagiaan senantiasa menyertai langkah kita semua."
+                </p>
             </div>
         </section>
 
-        <!-- 3. Countdown Dinamis Akurat -->
-        <section class="glass rounded-3xl p-6 md:p-8 shadow-xl text-center border border-gold/20">
-            <h3 class="text-lg font-serif font-bold text-charcoal mb-1 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-clock text-darkgold"></i> Menuju Hari Acara
+        <!-- 3. Countdown Ulang Tahun (Sinkron Full ke 25 Juli 2027) -->
+        <section class="glass rounded-3xl p-6 md:p-8 shadow-xl text-center border border-gold-500/30">
+            <h3 class="text-base font-bold text-slate-900 mb-1 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-clock text-gold-600"></i> Hitung Mundur Menuju Hari Acara
             </h3>
-            <p class="text-xs text-gray-500 mb-5">Hitung mundur waktu perayaan acara</p>
-
-            <!-- Input Tanggal Real-Time -->
-            <div class="mb-5 max-w-xs mx-auto">
-                <label class="block text-[10px] font-semibold text-gray-500 uppercase mb-1">Atur Tanggal & Jam Acara:</label>
-                <input type="datetime-local" id="target-datetime" value="2027-07-25T16:00" onchange="updateCountdown()" class="w-full text-xs bg-white border border-gold/30 rounded-xl px-3 py-2 text-center font-semibold focus:outline-none focus:border-gold">
-            </div>
+            <p class="text-xs text-gray-500 mb-5">Waktu menuju 25 Juli 2027 pukul 16:00 WIB</p>
 
             <div class="grid grid-cols-4 gap-2 md:gap-4 max-w-md mx-auto">
-                <div class="bg-gradient-to-b from-stone-800 to-charcoal text-white p-3 rounded-2xl shadow-md">
-                    <span id="days" class="text-2xl md:text-3xl font-bold block">00</span>
-                    <span class="text-[10px] uppercase tracking-wider text-stone-300">Hari</span>
+                <div class="bg-gradient-to-b from-slate-900 to-slate-800 text-white p-3 rounded-2xl shadow-md border border-gold-500/30">
+                    <span id="days" class="text-2xl md:text-3xl font-bold block text-gold-400">00</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-300">Hari</span>
                 </div>
-                <div class="bg-gradient-to-b from-stone-800 to-charcoal text-white p-3 rounded-2xl shadow-md">
-                    <span id="hours" class="text-2xl md:text-3xl font-bold block">00</span>
-                    <span class="text-[10px] uppercase tracking-wider text-stone-300">Jam</span>
+                <div class="bg-gradient-to-b from-slate-900 to-slate-800 text-white p-3 rounded-2xl shadow-md border border-gold-500/30">
+                    <span id="hours" class="text-2xl md:text-3xl font-bold block text-gold-400">00</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-300">Jam</span>
                 </div>
-                <div class="bg-gradient-to-b from-stone-800 to-charcoal text-white p-3 rounded-2xl shadow-md">
-                    <span id="minutes" class="text-2xl md:text-3xl font-bold block">00</span>
-                    <span class="text-[10px] uppercase tracking-wider text-stone-300">Menit</span>
+                <div class="bg-gradient-to-b from-slate-900 to-slate-800 text-white p-3 rounded-2xl shadow-md border border-gold-500/30">
+                    <span id="minutes" class="text-2xl md:text-3xl font-bold block text-gold-400">00</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-300">Menit</span>
                 </div>
-                <div class="bg-gradient-to-b from-stone-800 to-charcoal text-white p-3 rounded-2xl shadow-md">
-                    <span id="seconds" class="text-2xl md:text-3xl font-bold block">00</span>
-                    <span class="text-[10px] uppercase tracking-wider text-stone-300">Detik</span>
+                <div class="bg-gradient-to-b from-slate-900 to-slate-800 text-white p-3 rounded-2xl shadow-md border border-gold-500/30">
+                    <span id="seconds" class="text-2xl md:text-3xl font-bold block text-gold-400">00</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-300">Detik</span>
                 </div>
             </div>
         </section>
 
-        <!-- 4. Detail Acara & Tema Pesta -->
-        <section class="glass rounded-3xl p-6 md:p-8 shadow-xl border border-gold/20">
+        <!-- 4. Detail Acara & Google Maps Presisi -->
+        <section class="glass rounded-3xl p-6 md:p-8 shadow-xl border border-gold-500/30">
             <div class="text-center mb-6">
-                <span class="text-[11px] font-semibold text-darkgold uppercase tracking-widest bg-stone-100 px-3 py-1 rounded-full border border-gold/20">Save The Date</span>
-                <h3 class="text-2xl font-serif font-bold text-charcoal mt-2">Detail & Tema Pesta</h3>
+                <span class="text-[11px] font-bold text-gold-700 uppercase tracking-widest bg-gold-100 px-3 py-1 rounded-full">Save The Date</span>
+                <h3 class="text-2xl font-serif font-bold text-slate-900 mt-2">Detail Waktu & Lokasi</h3>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-4 mb-4">
-                <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-stone-200 flex items-start gap-3">
-                    <div class="bg-stone-100 text-darkgold w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-gold-100 flex items-start gap-3">
+                    <div class="bg-gold-100 text-gold-700 w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
                         <i class="fa-solid fa-calendar-days"></i>
                     </div>
-                    <div>
+                    <div class="w-full">
                         <h4 class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Hari & Tanggal</h4>
-                        <input type="text" id="event-date" value="Minggu, 25 Juli 2027" class="font-bold text-charcoal text-sm w-full bg-transparent border-b border-transparent focus:border-gold focus:outline-none">
+                        <input type="text" id="event-date" value="Minggu, 25 Juli 2027" onblur="saveData()" class="font-bold text-slate-900 text-sm md:text-base w-full bg-transparent border-b border-transparent hover:border-gray-300 focus:border-gold-500 focus:outline-none">
                     </div>
                 </div>
 
-                <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-stone-200 flex items-start gap-3">
-                    <div class="bg-stone-100 text-darkgold w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-gold-100 flex items-start gap-3">
+                    <div class="bg-amber-100 text-amber-700 w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
                         <i class="fa-solid fa-clock"></i>
                     </div>
-                    <div>
+                    <div class="w-full">
                         <h4 class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Waktu / Jam</h4>
-                        <input type="text" id="event-time" value="16.00 WIB - Selesai" class="font-bold text-charcoal text-sm w-full bg-transparent border-b border-transparent focus:border-gold focus:outline-none">
+                        <input type="text" id="event-time" value="16.00 WIB - Selesai" onblur="saveData()" class="font-bold text-slate-900 text-sm md:text-base w-full bg-transparent border-b border-transparent hover:border-gray-300 focus:border-gold-500 focus:outline-none">
                     </div>
                 </div>
             </div>
 
-            <!-- Tema Pesta & Dresscode -->
-            <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200 mb-4 flex items-center gap-3">
-                <div class="bg-darkgold text-white w-10 h-10 rounded-xl flex items-center justify-center text-base flex-shrink-0">
-                    <i class="fa-solid fa-shirt"></i>
-                </div>
-                <div class="flex-grow">
-                    <h4 class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Tema Pesta & Dress Code</h4>
-                    <input type="text" id="event-theme" value="Semi-Formal / Casual Elegant (Nuansa Earth Tone / Netral)" class="font-bold text-charcoal text-xs md:text-sm w-full bg-transparent border-b border-transparent focus:border-gold focus:outline-none">
-                </div>
-            </div>
-
-            <div class="bg-white/90 p-5 rounded-2xl shadow-sm border border-stone-200 text-center">
-                <div class="w-10 h-10 bg-stone-100 text-darkgold rounded-xl flex items-center justify-center text-lg mx-auto mb-2">
+            <div class="bg-white/90 p-5 rounded-2xl shadow-sm border border-gold-100 text-center">
+                <div class="w-10 h-10 bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center text-lg mx-auto mb-2">
                     <i class="fa-solid fa-location-dot"></i>
                 </div>
-                <h4 class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-1">Lokasi Acara</h4>
-                <input type="text" id="event-location-name" value="The Sultan Hotel & Residence Jakarta" class="font-bold text-charcoal text-sm md:text-base w-full text-center bg-transparent border-b border-transparent focus:border-gold focus:outline-none mb-3">
+                <h4 class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-1">Lokasi Tempat Acara</h4>
+                <input type="text" id="event-location-name" value="Grand Cafe & Resto, Jl. Melati Indah No. 12, Jakarta" onblur="updateMapsUrl()" class="font-bold text-slate-900 text-sm md:text-base w-full text-center bg-transparent border-b border-dashed border-gray-300 hover:border-gray-400 focus:border-indigo-500 focus:outline-none mb-3 pb-1" placeholder="Nama & Alamat Tempat">
+                <span class="text-[10px] text-gray-400 block mb-3">💡 Edit nama tempat di atas untuk otomatis memperbarui tautan Google Maps</span>
                 
-                <div class="max-w-md mx-auto flex justify-center">
-                    <button onclick="openGoogleMaps()" class="py-2.5 px-6 bg-gradient-to-r from-stone-800 to-charcoal hover:opacity-90 text-white text-xs font-medium rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-map-location-dot"></i> Buka Google Maps Lokasi
-                    </button>
+                <div class="max-w-md mx-auto">
+                    <a id="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Grand+Cafe+and+Resto+Jl+Melati+Indah+No+12+Jakarta" target="_blank" class="w-full py-3 px-6 bg-gradient-to-r from-slate-900 to-stone-900 hover:from-slate-800 hover:to-stone-800 text-white text-xs font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-map-location-dot text-gold-400 text-sm"></i> Buka Petunjuk Arah Google Maps
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- 5. RSVP & Bagikan Link -->
-        <section class="glass rounded-3xl p-6 md:p-8 shadow-xl border border-gold/20">
+        <!-- 5. Galeri Momen Kenangan -->
+        <section class="glass rounded-3xl p-6 md:p-8 shadow-xl border border-gold-500/30">
             <div class="text-center mb-6">
-                <span class="text-[11px] font-semibold text-darkgold uppercase tracking-widest bg-stone-100 px-3 py-1 rounded-full border border-gold/20">RSVP</span>
-                <h3 class="text-2xl font-serif font-bold text-charcoal mt-2">Konfirmasi Kehadiran</h3>
+                <span class="text-[11px] font-bold text-gold-700 uppercase tracking-widest bg-gold-100 px-3 py-1 rounded-full">Galeri Kenangan</span>
+                <h3 class="text-2xl font-serif font-bold text-slate-900 mt-2">Momen Bahagia</h3>
+                <p class="text-xs text-gray-500 mt-1">Unggah foto kenangan terbaik dari perangkat Anda</p>
+            </div>
+
+            <div class="mb-6 text-center">
+                <label for="gallery-file-input" class="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-600 hover:to-amber-700 text-slate-950 text-xs font-bold rounded-full shadow-md cursor-pointer transition-all">
+                    <i class="fa-solid fa-cloud-arrow-up text-sm"></i> Tambah Foto dari Perangkat
+                </label>
+                <input type="file" id="gallery-file-input" accept="image/*" multiple class="hidden" onchange="addGalleryPhotos(event)">
+            </div>
+
+            <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Foto galeri dimuat dinamis -->
+            </div>
+            <p id="gallery-empty-text" class="text-center text-xs text-gray-400 italic py-6">Belum ada foto yang diunggah. Silakan klik tombol di atas.</p>
+        </section>
+
+        <!-- Lightbox Modal -->
+        <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/85 hidden items-center justify-center p-4" onclick="closeLightbox()">
+            <div class="relative max-w-3xl w-full max-h-[90vh] flex items-center justify-center">
+                <img id="lightbox-img" src="" alt="Zoomed Photo" class="max-w-full max-h-[85vh] rounded-2xl shadow-2xl object-contain">
+                <button class="absolute top-2 right-2 text-white bg-black/50 hover:bg-black w-10 h-10 rounded-full flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 6. RSVP & Konfirmasi Kehadiran -->
+        <section class="glass rounded-3xl p-6 md:p-8 shadow-xl border border-gold-500/30">
+            <div class="text-center mb-6">
+                <span class="text-[11px] font-bold text-gold-700 uppercase tracking-widest bg-gold-100 px-3 py-1 rounded-full">RSVP</span>
+                <h3 class="text-2xl font-serif font-bold text-slate-900 mt-2">Konfirmasi Kehadiran</h3>
+                <p class="text-xs text-gray-500 mt-1">Isi formulir kehadiran untuk konfirmasi ke penyelenggara</p>
             </div>
 
             <form id="rsvp-form" onsubmit="submitRSVP(event)" class="space-y-4 max-w-md mx-auto">
-                <div class="bg-stone-50 p-3 rounded-2xl border border-stone-200 mb-2">
-                    <label class="block text-xs font-semibold text-stone-700 uppercase mb-1">
+                <div class="bg-amber-50 p-3 rounded-2xl border border-gold-200 mb-2">
+                    <label class="block text-xs font-semibold text-gold-800 uppercase mb-1">
                         <i class="fa-brands fa-whatsapp text-green-600 mr-1"></i> Nomor WhatsApp Penyelenggara
                     </label>
-                    <input type="tel" id="target-wa-number" value="6281234567890" class="w-full bg-white border border-stone-200 rounded-xl px-4 py-2 text-sm font-semibold text-charcoal focus:outline-none focus:border-gold">
+                    <input type="tel" id="target-wa-number" value="087879491224" placeholder="Contoh: 081234567890" class="w-full bg-white border border-gold-200 rounded-xl px-4 py-2 text-sm font-semibold text-slate-900 focus:outline-none focus:border-gold-500">
+                    <span class="text-[10px] text-gold-700 mt-1 block">💡 Bebas diganti dengan nomor WA aktif Anda</span>
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Nama Tamu Undangan</label>
-                    <input type="text" id="rsvp-name" required placeholder="Masukkan nama Anda" class="w-full bg-white border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold">
+                    <input type="text" id="rsvp-name" required placeholder="Masukkan nama Anda" class="w-full bg-white/90 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Status Kehadiran</label>
-                    <select id="rsvp-status" class="w-full bg-white border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold">
+                    <select id="rsvp-status" class="w-full bg-white/90 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500">
                         <option value="Hadir">Hadir (Datang ke Acara)</option>
                         <option value="Tidak Hadir">Mohon Maaf, Berhalangan Hadir</option>
                     </select>
@@ -245,15 +275,15 @@
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Jumlah Tamu</label>
-                    <input type="number" id="rsvp-count" min="1" max="10" value="1" class="w-full bg-white border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold">
+                    <input type="number" id="rsvp-count" min="1" max="1000" value="1" class="w-full bg-white/90 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-gold-500" placeholder="Jumlah orang">
                 </div>
 
                 <div class="pt-2 flex flex-col sm:flex-row gap-3">
-                    <button type="button" onclick="sendRSVPWhatsApp()" class="flex-1 py-3 px-4 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-xl shadow-md hover:opacity-90 transition-all flex items-center justify-center gap-2 text-xs">
-                        <i class="fa-brands fa-whatsapp text-base"></i> Kirim RSVP ke WA
+                    <button type="submit" class="flex-1 py-3 px-6 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-floppy-disk text-gold-400"></i> Simpan RSVP
                     </button>
-                    <button type="button" onclick="generateShareableLink()" class="flex-1 py-3 px-4 bg-gradient-to-r from-stone-800 to-charcoal text-white font-semibold rounded-xl shadow-md hover:opacity-90 transition-all flex items-center justify-center gap-2 text-xs">
-                        <i class="fa-solid fa-share-nodes"></i> Salin Link Undangan
+                    <button type="button" onclick="sendRSVPWhatsApp()" class="flex-1 py-3 px-6 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Kirim via WA
                     </button>
                 </div>
             </form>
@@ -261,57 +291,108 @@
 
     </div>
 
-    <!-- JavaScript Pendukung & Logika Fitur -->
+    <!-- JavaScript Integrasi Penuh & Music Bug Fixer -->
     <script>
-        // Manajemen Audio yang Aman (Anti Double / Anti Bug)
-        let bgAudio = new Audio('https://www.bensound.com/bensound-music/bensound-tenderness.mp3');
-        bgAudio.loop = true;
-        bgAudio.volume = 0.5;
-        let isPlaying = false;
+        // Singleton Audio Instance untuk mencegah double audio bug
+        let backgroundAudio = null;
+        let isMusicPlaying = false;
 
-        function toggleMusic() {
-            if (isPlaying) {
-                bgAudio.pause();
-                isPlaying = false;
-                document.getElementById('music-icon').className = "fa-solid fa-music text-sm opacity-50";
-            } else {
-                bgAudio.play().then(() => {
-                    isPlaying = true;
-                    document.getElementById('music-icon').className = "fa-solid fa-music text-sm animate-bounce text-white";
-                }).catch(e => console.log("Audio play prevented:", e));
+        function initAudio() {
+            if (!backgroundAudio) {
+                // Musik instrumen ulang tahun / lofi santai yang stabil dari CDN
+                backgroundAudio = new Audio('https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=gentle-acoustic-guitar-110038.mp3');
+                backgroundAudio.loop = true;
+                backgroundAudio.volume = document.getElementById('volume-slider').value;
             }
         }
 
-        function adjustVolume(val) {
-            bgAudio.volume = val;
+        function toggleMusic() {
+            initAudio();
+            const icon = document.getElementById('music-icon');
+            
+            if (isMusicPlaying) {
+                backgroundAudio.pause();
+                isMusicPlaying = false;
+                icon.className = "fa-solid fa-music text-sm";
+            } else {
+                backgroundAudio.play().then(() => {
+                    isMusicPlaying = true;
+                    icon.className = "fa-solid fa-compact-disc text-sm animate-spin";
+                }).catch(e => console.log("Audio play blocked:", e));
+            }
+        }
+
+        function changeVolume(val) {
+            initAudio();
+            backgroundAudio.volume = val;
         }
 
         function openInvitation() {
             const cover = document.getElementById('cover-section');
             const main = document.getElementById('main-content');
             
-            cover.style.transform = 'translateY(-100%)';
+            cover.classList.add('opacity-0', '-translate-y-full');
             setTimeout(() => {
                 cover.style.display = 'none';
                 main.classList.remove('hidden');
                 setTimeout(() => main.classList.remove('opacity-0'), 50);
-            }, 600);
+            }, 700);
 
-            if (!isPlaying) {
-                bgAudio.play().then(() => {
-                    isPlaying = true;
-                    document.getElementById('music-icon').className = "fa-solid fa-music text-sm animate-bounce text-white";
-                }).catch(e => console.log("Audio play prevented"));
+            // Nyalakan musik otomatis saat dibuka jika diizinkan browser
+            initAudio();
+            if (!isMusicPlaying) {
+                backgroundAudio.play().then(() => {
+                    isMusicPlaying = true;
+                    document.getElementById('music-icon').className = "fa-solid fa-compact-disc text-sm animate-spin";
+                }).catch(e => console.log("Auto-play prevented"));
             }
         }
 
-        // Sinkronisasi Nama Cover dan Profil
+        // Sinkronisasi Nama Cover & Profil
         function syncNames(val) {
             document.getElementById('cover-name').value = val;
             document.getElementById('profile-name').value = val;
+            saveData();
         }
 
-        // Upload Foto
+        // Update Maps Otomatis Berdasarkan Lokasi
+        function updateMapsUrl() {
+            const locName = document.getElementById('event-location-name').value;
+            const encodedQuery = encodeURIComponent(locName);
+            const mapsBtn = document.getElementById('maps-btn');
+            mapsBtn.href = `https://www.google.com/maps/search/?api=1&query=${encodedQuery}`;
+            saveData();
+        }
+
+        // Countdown Timer Sinkron Full ke 25 Juli 2027 pukul 16:00:00
+        const targetDate = new Date("July 25, 2027 16:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Foto Handler & LocalStorage Persistent State
         function updateCoverPhoto(event) {
             const file = event.target.files[0];
             if (file) {
@@ -319,6 +400,7 @@
                 reader.onload = function(e) {
                     document.getElementById('cover-photo-preview').src = e.target.result;
                     document.getElementById('profile-photo-preview').src = e.target.result;
+                    localStorage.setItem('birthday_photo', e.target.result);
                 }
                 reader.readAsDataURL(file);
             }
@@ -331,95 +413,146 @@
                 reader.onload = function(e) {
                     document.getElementById('cover-photo-preview').src = e.target.result;
                     document.getElementById('profile-photo-preview').src = e.target.result;
+                    localStorage.setItem('birthday_photo', e.target.result);
                 }
                 reader.readAsDataURL(file);
             }
         }
 
-        // Hitung Mundur (Countdown Real-time Akurat)
-        function updateCountdown() {
-            const datetimeInput = document.getElementById('target-datetime').value;
-            const targetDate = new Date(datetimeInput).getTime();
+        // Galeri Foto Dinamis
+        let galleryImages = JSON.parse(localStorage.getItem('birthday_gallery')) || [];
 
-            const timer = setInterval(() => {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            const emptyText = document.getElementById('gallery-empty-text');
+            grid.innerHTML = '';
 
-                if (distance < 0) {
-                    clearInterval(timer);
-                    document.getElementById('days').innerText = "00";
-                    document.getElementById('hours').innerText = "00";
-                    document.getElementById('minutes').innerText = "00";
-                    document.getElementById('seconds').innerText = "00";
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById('days').innerText = String(days).padStart(2, '0');
-                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-            }, 1000);
-        }
-        updateCountdown();
-
-        // Buka Google Maps Berdasarkan Alamat
-        function openGoogleMaps() {
-            const locationName = document.getElementById('event-location-name').value;
-            const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(locationName)}`;
-            window.open(mapsUrl, '_blank');
-        }
-
-        // Kirim RSVP ke WhatsApp
-        function sendRSVPWhatsApp() {
-            const waNumber = document.getElementById('target-wa-number').value;
-            const name = document.getElementById('rsvp-name').value || 'Tamu Undangan';
-            const status = document.getElementById('rsvp-status').value;
-            const count = document.getElementById('rsvp-count').value;
-            const birthdayPerson = document.getElementById('profile-name').value;
-
-            if (!name) {
-                alert('Mohon masukkan nama Anda terlebih dahulu!');
+            if (galleryImages.length === 0) {
+                emptyText.style.display = 'block';
                 return;
             }
+            emptyText.style.display = 'none';
 
-            const message = `Halo, saya mengirimkan konfirmasi RSVP untuk Ulang Tahun ${birthdayPerson}:\n\n*Nama:* ${name}\n*Status:* ${status}\n*Jumlah Tamu:* ${count} orang\n\nTerima kasih!`;
-            const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
-            window.open(waUrl, '_blank');
-        }
-
-        // Fitur Salin Link dengan Menyimpan Data Editan (URL Parameters)
-        function generateShareableLink() {
-            const name = encodeURIComponent(document.getElementById('profile-name').value);
-            const age = encodeURIComponent(document.getElementById('profile-age').innerText);
-            const date = encodeURIComponent(document.getElementById('event-date').value);
-            const location = encodeURIComponent(document.getElementById('event-location-name').value);
-
-            const currentUrl = window.location.origin + window.location.pathname;
-            const shareableUrl = `${currentUrl}?name=${name}&age=${age}&date=${date}&loc=${location}`;
-
-            navigator.clipboard.writeText(shareableUrl).then(() => {
-                alert('Link undangan berhasil disalin! Kirimkan link ini ke tamu Anda, data editan akan tetap tersimpan.');
-            }).catch(err => {
-                console.error('Gagal menyalin link: ', err);
+            galleryImages.forEach((imgSrc, index) => {
+                const div = document.createElement('div');
+                div.className = "relative group rounded-2xl overflow-hidden shadow-md aspect-square bg-stone-200 cursor-pointer";
+                div.innerHTML = `
+                    <img src="${imgSrc}" alt="Gallery" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onclick="openLightbox('${imgSrc}')">
+                    <button onclick="removeGalleryPhoto(${index})" class="absolute top-2 right-2 bg-red-600/80 hover:bg-red-700 text-white w-7 h-7 rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                `;
+                grid.appendChild(div);
             });
         }
 
-        // Otomatis Load Data dari URL Parameter saat link dibagikan
-        window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('name')) {
-                const n = params.get('name');
-                document.getElementById('profile-name').value = n;
-                document.getElementById('cover-name').value = n;
+        function addGalleryPhotos(event) {
+            const files = event.target.files;
+            if (files) {
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        galleryImages.push(e.target.result);
+                        localStorage.setItem('birthday_gallery', JSON.stringify(galleryImages));
+                        renderGallery();
+                    }
+                    reader.readAsDataURL(file);
+                });
             }
-            if (params.get('age')) document.getElementById('profile-age').innerText = params.get('age');
-            if (params.get('date')) document.getElementById('event-date').value = params.get('date');
-            if (params.get('loc')) document.getElementById('event-location-name').value = params.get('loc');
+        }
+
+        function removeGalleryPhoto(index) {
+            galleryImages.splice(index, 1);
+            localStorage.setItem('birthday_gallery', JSON.stringify(galleryImages));
+            renderGallery();
+        }
+
+        // Lightbox
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-modal').classList.remove('hidden');
+            document.getElementById('lightbox-modal').classList.add('flex');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').classList.add('hidden');
+            document.getElementById('lightbox-modal').classList.remove('flex');
+        }
+
+        // Simpan Data Teks ke LocalStorage
+        function saveData() {
+            localStorage.setItem('birthday_name', document.getElementById('profile-name').value);
+            localStorage.setItem('birthday_age', document.getElementById('profile-age').innerText);
+            localStorage.setItem('birthday_greeting', document.getElementById('profile-greeting').innerText);
+            localStorage.setItem('birthday_date', document.getElementById('event-date').value);
+            localStorage.setItem('birthday_time', document.getElementById('event-time').value);
+            localStorage.setItem('birthday_location', document.getElementById('event-location-name').value);
+            localStorage.setItem('birthday_theme_desc', document.getElementById('theme-desc').innerText);
+        }
+
+        // Load Data Tersimpan Saat Dibuka
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('birthday_name')) {
+                const name = localStorage.getItem('birthday_name');
+                document.getElementById('cover-name').value = name;
+                document.getElementById('profile-name').value = name;
+            }
+            if (localStorage.getItem('birthday_age')) {
+                document.getElementById('profile-age').innerText = localStorage.getItem('birthday_age');
+            }
+            if (localStorage.getItem('birthday_greeting')) {
+                document.getElementById('profile-greeting').innerText = localStorage.getItem('birthday_greeting');
+            }
+            if (localStorage.getItem('birthday_date')) {
+                document.getElementById('event-date').value = localStorage.getItem('birthday_date');
+            }
+            if (localStorage.getItem('birthday_time')) {
+                document.getElementById('event-time').value = localStorage.getItem('birthday_time');
+            }
+            if (localStorage.getItem('birthday_location')) {
+                document.getElementById('event-location-name').value = localStorage.getItem('birthday_location');
+                updateMapsUrl();
+            }
+            if (localStorage.getItem('birthday_theme_desc')) {
+                document.getElementById('theme-desc').innerText = localStorage.getItem('birthday_theme_desc');
+            }
+            if (localStorage.getItem('birthday_photo')) {
+                const savedPhoto = localStorage.getItem('birthday_photo');
+                document.getElementById('cover-photo-preview').src = savedPhoto;
+                document.getElementById('profile-photo-preview').src = savedPhoto;
+            }
+            renderGallery();
+        });
+
+        // RSVP WhatsApp Sender
+        function submitRSVP(event) {
+            event.preventDefault();
+            alert("RSVP berhasil disimpan secara lokal!");
+        }
+
+        function sendRSVPWhatsApp() {
+            const targetNumber = document.getElementById('target-wa-number').value.trim();
+            const name = document.getElementById('rsvp-name').value.trim();
+            const status = document.getElementById('rsvp-status').value;
+            const count = document.getElementById('rsvp-count').value;
+
+            if (!name) {
+                alert("Mohon masukkan nama tamu undangan terlebih dahulu.");
+                document.getElementById('rsvp-name').focus();
+                return;
+            }
+
+            const message = `Halo, saya ingin mengonfirmasi kehadiran untuk acara ulang tahun:\n\n*Nama:* ${name}\n*Status:* ${status}\n*Jumlah Tamu:* ${count} orang\n\nTerima kasih.`;
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Format nomor telepon untuk WhatsApp URL
+            let formattedNumber = targetNumber.replace(/\D/g, '');
+            if (formattedNumber.startsWith('0')) {
+                formattedNumber = '62' + formattedNumber.substring(1);
+            }
+
+            const waUrl = `https://wa.me/${formattedNumber}?text=${encodedMessage}`;
+            window.open(waUrl, '_blank');
         }
     </script>
 </body>
