@@ -263,7 +263,7 @@
         <!-- Info Edit -->
         <div class="edit-only border rounded-2xl p-3.5 flex items-center justify-between gap-3 text-xs" style="border-color: var(--border-neon); background: rgba(245,158,11,0.08);">
             <span class="text-slate-200">
-                <strong style="color: var(--accent-gold);">Mode Edit:</strong> Ubah nama, foto, tanggal, lokasi, dan tema pesta. Foto otomatis dikompresi agar tetap terbawa saat klik <strong>Bagikan</strong>.
+                <strong style="color: var(--accent-gold);">Mode Edit:</strong> Ubah nama, foto, tanggal, lokasi, tema pesta, dan info hadiah. Foto otomatis dikompresi agar tetap terbawa saat klik <strong>Bagikan</strong>.
             </span>
             <button onclick="resetAllData()" class="text-[11px] underline text-slate-400 hover:text-rose-400 whitespace-nowrap cursor-pointer">Reset</button>
         </div>
@@ -514,7 +514,93 @@
             <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4"></div>
         </section>
 
-        <!-- 7. RSVP -->
+        <!-- 7. INFO HADIAH & TRANSFER KADO -->
+        <section class="card-3d-wrapper card-hologram-3d rounded-3xl p-6 sm:p-10">
+            <div class="text-center mb-6">
+                <span class="inline-block text-[11px] font-bold uppercase tracking-[0.22em] px-4 py-1 rounded-full border mb-3" style="border-color: var(--border-neon); background: rgba(245,158,11,0.1); color: var(--accent-gold);">
+                    Hadiah & Kado
+                </span>
+                <h3 class="font-serif text-xl sm:text-3xl font-extrabold text-white">Info Hadiah & Transfer</h3>
+                <p class="text-xs text-slate-400 mt-1">Kehadiran Anda merupakan hadiah terbaik; bila ingin mengirim kado atau transfer, detailnya tersedia di bawah.</p>
+            </div>
+
+            <div class="edit-only border rounded-2xl p-4 mb-6 space-y-3" style="border-color: var(--border-neon); background: rgba(245,158,11,0.05);">
+                <div class="text-xs font-extrabold uppercase tracking-wider" style="color: var(--accent-gold);">Pengaturan Rekening, E-Wallet & Alamat Kado</div>
+                <div class="grid sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-[11px] text-slate-300 mb-1">Bank / Metode 1</label>
+                        <input type="text" id="input-gift-bank1" value="BCA" oninput="syncState()" class="w-full input-3d-master rounded-xl px-3 py-2 text-xs font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-slate-300 mb-1">Nomor Rekening 1</label>
+                        <input type="text" id="input-gift-acc1" value="1234567890" oninput="syncState()" class="w-full input-3d-master rounded-xl px-3 py-2 text-xs font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-slate-300 mb-1">Atas Nama 1</label>
+                        <input type="text" id="input-gift-holder1" value="Rafka Pratama" oninput="syncState()" class="w-full input-3d-master rounded-xl px-3 py-2 text-xs font-bold">
+                    </div>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-[11px] text-slate-300 mb-1">E-Wallet / Bank 2</label>
+                        <input type="text" id="input-gift-bank2" value="GoPay / DANA" oninput="syncState()" class="w-full input-3d-master rounded-xl px-3 py-2 text-xs font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-slate-300 mb-1">Nomor E-Wallet / Rek 2</label>
+                        <input type="text" id="input-gift-acc2" value="081234567890" oninput="syncState()" class="w-full input-3d-master rounded-xl px-3 py-2 text-xs font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-slate-300 mb-1">Atas Nama 2</label>
+                        <input type="text" id="input-gift-holder2" value="Rafka Pratama" oninput="syncState()" class="w-full input-3d-master rounded-xl px-3 py-2 text-xs font-bold">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[11px] text-slate-300 mb-1">Alamat Kirim Kado Fisik</label>
+                    <input type="text" id="input-gift-address" value="Jl. Senopati No. 45, Jakarta Selatan (a.n. Rafka Pratama)" oninput="syncState()" class="w-full input-3d-master rounded-xl px-3 py-2 text-xs font-semibold">
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4 mb-5">
+                <div class="border rounded-2xl p-4 sm:p-5 flex flex-col justify-between gap-3" style="border-color: var(--border-neon); background: rgba(245,158,11,0.05);">
+                    <div>
+                        <span id="display-gift-bank1" class="text-[11px] uppercase tracking-wider font-extrabold block mb-1" style="color: var(--accent-gold);">BCA</span>
+                        <div id="display-gift-acc1" class="font-mono text-lg sm:text-xl font-extrabold text-white tracking-wider">1234567890</div>
+                        <div class="text-xs text-slate-300 mt-1">a.n. <span id="display-gift-holder1" class="font-semibold text-white">Rafka Pratama</span></div>
+                    </div>
+                    <button type="button" onclick="copyGiftText(state.giftAcc1, 'Nomor rekening 1 disalin.')" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold border flex items-center justify-center gap-2 cursor-pointer" style="border-color: var(--border-neon); background: rgba(245,158,11,0.12); color: var(--accent-gold);">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Salin Nomor</span>
+                    </button>
+                </div>
+
+                <div class="border rounded-2xl p-4 sm:p-5 flex flex-col justify-between gap-3" style="border-color: var(--border-neon); background: rgba(245,158,11,0.05);">
+                    <div>
+                        <span id="display-gift-bank2" class="text-[11px] uppercase tracking-wider font-extrabold block mb-1" style="color: var(--accent-gold);">GoPay / DANA</span>
+                        <div id="display-gift-acc2" class="font-mono text-lg sm:text-xl font-extrabold text-white tracking-wider">081234567890</div>
+                        <div class="text-xs text-slate-300 mt-1">a.n. <span id="display-gift-holder2" class="font-semibold text-white">Rafka Pratama</span></div>
+                    </div>
+                    <button type="button" onclick="copyGiftText(state.giftAcc2, 'Nomor e-wallet/rekening 2 disalin.')" class="w-full py-2.5 px-4 rounded-xl text-xs font-bold border flex items-center justify-center gap-2 cursor-pointer" style="border-color: var(--border-neon); background: rgba(245,158,11,0.12); color: var(--accent-gold);">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Salin Nomor</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="border rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3" style="border-color: var(--border-neon); background: rgba(245,158,11,0.05);">
+                <div class="text-xs">
+                    <span class="uppercase tracking-wider font-extrabold block mb-1" style="color: var(--accent-gold);">
+                        <i class="fa-solid fa-box-open mr-1"></i> Alamat Pengiriman Kado
+                    </span>
+                    <p id="display-gift-address" class="text-slate-200 font-medium"></p>
+                </div>
+                <button type="button" onclick="copyGiftText(state.giftAddress, 'Alamat kirim kado disalin.')" class="py-2.5 px-4 rounded-xl text-xs font-bold border flex items-center justify-center gap-2 flex-shrink-0 cursor-pointer" style="border-color: var(--border-neon); background: rgba(245,158,11,0.12); color: var(--accent-gold);">
+                    <i class="fa-regular fa-copy"></i>
+                    <span>Salin Alamat</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 8. RSVP -->
         <section class="card-3d-wrapper card-hologram-3d rounded-3xl p-6 sm:p-10">
             <div class="text-center mb-6">
                 <span class="inline-block text-[11px] font-bold uppercase tracking-[0.22em] px-4 py-1 rounded-full border mb-3" style="border-color: var(--border-neon); background: rgba(245,158,11,0.1); color: var(--accent-gold);">
@@ -573,7 +659,7 @@
             </form>
         </section>
 
-        <!-- 8. UCAPAN & DOA -->
+        <!-- 9. UCAPAN & DOA -->
         <section class="card-3d-wrapper card-hologram-3d rounded-3xl p-6 sm:p-10">
             <div class="text-center mb-6">
                 <span class="inline-block text-[11px] font-bold uppercase tracking-[0.22em] px-4 py-1 rounded-full border mb-3" style="border-color: var(--border-neon); background: rgba(245,158,11,0.1); color: var(--accent-gold);">
@@ -755,7 +841,7 @@
         }
 
         /* STATE & SHARING */
-        const STORAGE_KEY = 'birthday_invitation_3d_full_v3';
+        const STORAGE_KEY = 'birthday_invitation_3d_full_v4';
         const DEFAULT_GALLERY = [
             'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=600&q=80',
             'https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=600&q=80',
@@ -781,6 +867,13 @@
             rundown2Desc: 'Sambutan, Tiup Lilin & Potong Kue',
             rundown3Time: '18.30 - Selesai',
             rundown3Desc: 'Makan Malam & Sesi Foto Bersama',
+            giftBank1: 'BCA',
+            giftAcc1: '1234567890',
+            giftHolder1: 'Rafka Pratama',
+            giftBank2: 'GoPay / DANA',
+            giftAcc2: '081234567890',
+            giftHolder2: 'Rafka Pratama',
+            giftAddress: 'Jl. Senopati No. 45, Jakarta Selatan (a.n. Rafka Pratama)',
             waTarget: '081234567890',
             waNote: 'Mohon info parkir atau dress code jika diperlukan.',
             photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80',
@@ -863,6 +956,13 @@
             document.getElementById('input-rundown-2-desc').value = state.rundown2Desc;
             document.getElementById('input-rundown-3-time').value = state.rundown3Time;
             document.getElementById('input-rundown-3-desc').value = state.rundown3Desc;
+            document.getElementById('input-gift-bank1').value = state.giftBank1;
+            document.getElementById('input-gift-acc1').value = state.giftAcc1;
+            document.getElementById('input-gift-holder1').value = state.giftHolder1;
+            document.getElementById('input-gift-bank2').value = state.giftBank2;
+            document.getElementById('input-gift-acc2').value = state.giftAcc2;
+            document.getElementById('input-gift-holder2').value = state.giftHolder2;
+            document.getElementById('input-gift-address').value = state.giftAddress;
             document.getElementById('input-wa-target').value = state.waTarget;
             document.getElementById('input-wa-note').value = state.waNote || '';
             updateDerivedDisplays();
@@ -893,6 +993,13 @@
             state.rundown2Desc = document.getElementById('input-rundown-2-desc').value;
             state.rundown3Time = document.getElementById('input-rundown-3-time').value;
             state.rundown3Desc = document.getElementById('input-rundown-3-desc').value;
+            state.giftBank1 = document.getElementById('input-gift-bank1').value;
+            state.giftAcc1 = document.getElementById('input-gift-acc1').value;
+            state.giftHolder1 = document.getElementById('input-gift-holder1').value;
+            state.giftBank2 = document.getElementById('input-gift-bank2').value;
+            state.giftAcc2 = document.getElementById('input-gift-acc2').value;
+            state.giftHolder2 = document.getElementById('input-gift-holder2').value;
+            state.giftAddress = document.getElementById('input-gift-address').value;
             state.waTarget = document.getElementById('input-wa-target').value;
             state.waNote = document.getElementById('input-wa-note').value;
             updateDerivedDisplays();
@@ -933,7 +1040,30 @@
             document.getElementById('display-rundown-2-desc').textContent = state.rundown2Desc;
             document.getElementById('display-rundown-3-time').textContent = state.rundown3Time;
             document.getElementById('display-rundown-3-desc').textContent = state.rundown3Desc;
+
+            document.getElementById('display-gift-bank1').textContent = state.giftBank1;
+            document.getElementById('display-gift-acc1').textContent = state.giftAcc1;
+            document.getElementById('display-gift-holder1').textContent = state.giftHolder1;
+            document.getElementById('display-gift-bank2').textContent = state.giftBank2;
+            document.getElementById('display-gift-acc2').textContent = state.giftAcc2;
+            document.getElementById('display-gift-holder2').textContent = state.giftHolder2;
+            document.getElementById('display-gift-address').textContent = state.giftAddress;
             updateCountdown();
+        }
+
+        function copyGiftText(value, message) {
+            const text = (value || '').trim();
+            if (!text) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).catch(() => {});
+            }
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+            showToast(message);
         }
 
         function setTheme(t) {
