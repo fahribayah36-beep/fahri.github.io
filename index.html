@@ -524,11 +524,19 @@
             </div>
 
             <form onsubmit="handleRSVPSubmit(event)" class="max-w-md mx-auto space-y-4">
-                <div class="edit-only border p-3.5 rounded-2xl" style="border-color: var(--border-neon); background: rgba(245,158,11,0.05);">
-                    <label for="input-wa-target" class="block text-xs font-bold mb-1" style="color: var(--accent-gold);">
-                        Nomor WhatsApp Tujuan:
-                    </label>
-                    <input type="tel" id="input-wa-target" value="081234567890" oninput="syncState()" class="w-full input-3d-master rounded-xl px-3.5 py-2 text-sm font-bold">
+                <div class="edit-only border p-3.5 rounded-2xl space-y-2.5" style="border-color: var(--border-neon); background: rgba(245,158,11,0.05);">
+                    <div>
+                        <label for="input-wa-target" class="block text-xs font-bold mb-1" style="color: var(--accent-gold);">
+                            Nomor WhatsApp Tujuan:
+                        </label>
+                        <input type="tel" id="input-wa-target" value="081234567890" oninput="syncState()" class="w-full input-3d-master rounded-xl px-3.5 py-2 text-sm font-bold">
+                    </div>
+                    <div>
+                        <label for="input-wa-note" class="block text-xs font-bold mb-1" style="color: var(--accent-gold);">
+                            Catatan Tambahan di Pesan WA (Opsional):
+                        </label>
+                        <input type="text" id="input-wa-note" value="Mohon info parkir atau dress code jika diperlukan." oninput="syncState()" class="w-full input-3d-master rounded-xl px-3.5 py-2 text-xs">
+                    </div>
                 </div>
 
                 <div>
@@ -747,7 +755,7 @@
         }
 
         /* STATE & SHARING */
-        const STORAGE_KEY = 'birthday_invitation_3d_full_v2';
+        const STORAGE_KEY = 'birthday_invitation_3d_full_v3';
         const DEFAULT_GALLERY = [
             'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=600&q=80',
             'https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=600&q=80',
@@ -774,6 +782,7 @@
             rundown3Time: '18.30 - Selesai',
             rundown3Desc: 'Makan Malam & Sesi Foto Bersama',
             waTarget: '081234567890',
+            waNote: 'Mohon info parkir atau dress code jika diperlukan.',
             photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80',
             gallery: [...DEFAULT_GALLERY],
             wishes: [
@@ -831,6 +840,12 @@
             }
         }
 
+        function formatIndonesianDate(dt) {
+            const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            return `${hari[dt.getDay()]}, ${dt.getDate()} ${bulan[dt.getMonth()]} ${dt.getFullYear()}`;
+        }
+
         function applyStateToUI() {
             document.documentElement.setAttribute('data-theme', state.theme);
             document.getElementById('input-name').value = state.name;
@@ -849,6 +864,7 @@
             document.getElementById('input-rundown-3-time').value = state.rundown3Time;
             document.getElementById('input-rundown-3-desc').value = state.rundown3Desc;
             document.getElementById('input-wa-target').value = state.waTarget;
+            document.getElementById('input-wa-note').value = state.waNote || '';
             updateDerivedDisplays();
             renderGallery();
             renderWishes();
@@ -878,6 +894,7 @@
             state.rundown3Time = document.getElementById('input-rundown-3-time').value;
             state.rundown3Desc = document.getElementById('input-rundown-3-desc').value;
             state.waTarget = document.getElementById('input-wa-target').value;
+            state.waNote = document.getElementById('input-wa-note').value;
             updateDerivedDisplays();
             saveState();
         }
@@ -895,10 +912,9 @@
 
             const dt = new Date(state.datetime);
             if (!isNaN(dt.getTime())) {
-                const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                const formatted = `${hari[dt.getDay()]}, ${dt.getDate()} ${bulan[dt.getMonth()]} ${dt.getFullYear()}`;
-                document.getElementById('display-formatted-date').textContent = `${formatted} • Pukul ${String(dt.getHours()).padStart(2, '0')}.${String(dt.getMinutes()).padStart(2, '0')} WIB`;
+                const formatted = formatIndonesianDate(dt);
+                const jamMenit = `${String(dt.getHours()).padStart(2, '0')}.${String(dt.getMinutes()).padStart(2, '0')} WIB`;
+                document.getElementById('display-formatted-date').textContent = `${formatted} • Pukul ${jamMenit}`;
                 document.getElementById('venue-date-text').textContent = formatted;
                 document.getElementById('footer-year').textContent = dt.getFullYear();
             }
@@ -1113,6 +1129,22 @@
             }
         }
 
+        function buildWhatsAppRSVPMessage(name, status, pax) {
+            const dt = new Date(state.datetime);
+            const tanggalText = !isNaN(dt.getTime())
+                ? `${formatIndonesianDate(dt)} (${state.timeLabel})`
+                : state.timeLabel;
+            const noteLine = (state.waNote || '').trim() ? `\n• Catatan: ${state.waNote.trim()}` : '';
+            return [
+                `Halo *${state.name}*, saya ingin mengonfirmasi kehadiran acara ulang tahun:`,
+                `• Nama Tamu: *${name}*`,
+                `• Status: *${status}*`,
+                `• Jumlah Tamu: *${pax} orang*`,
+                `• Tanggal & Waktu: ${tanggalText}`,
+                `• Lokasi: ${state.location}${noteLine}`
+            ].join('\n');
+        }
+
         function handleRSVPSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('rsvp-guest-name').value.trim();
@@ -1131,7 +1163,7 @@
             const pax = document.getElementById('rsvp-pax').value;
             let phone = (state.waTarget || '081234567890').replace(/\D/g, '');
             if (phone.startsWith('0')) phone = '62' + phone.slice(1);
-            const text = `Halo ${state.name}, saya *${name}* mengonfirmasi kehadiran:\n• Status: *${status}*\n• Jumlah Tamu: *${pax} orang*`;
+            const text = buildWhatsAppRSVPMessage(name, status, pax);
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
